@@ -1,0 +1,12 @@
+gradlew
+
+*.iml
+*.xml
+out/
+build/
+.idea/
+
+gradle/
+
+# Project exclude paths
+/.gradle/
