@@ -15,6 +15,20 @@ I'm designing this app to be as customizable as possible.
 
 Also, after finished, some of the separate packages should work as libraries, offering all their functions to be used anywhere.
 
+# Project structure
+
+The project is being built over sub gradle projects. They are:
+
+- Core;
+- UI;
+- Desktop;
+- Mobile;
+- (Web?)
+
+All of these sub-projects are treated as "modules", and may have dependency between themselves. 
+
+Also, all these modules aims to be an individual gradle project, having its own build and dependencies, making possible manage individual and platform-specific code in a clean way.
+
 # Features
 
 I'm working on a timer which offers the main features that I need for myself. However, it is known that this might be useful for
