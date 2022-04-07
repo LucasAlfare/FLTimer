@@ -19,11 +19,12 @@ Also, after finished, some of the separate packages should work as libraries, of
 
 The project is being built over sub gradle projects. They are:
 
-- Core;
-- UI;
-- Desktop;
-- Mobile;
-- (Web?)
+- Core: holds "common" code used by any other module;
+- UI: holds code related to the application UI. The UI here aims to be consistent between all platforms and, for this, makes use of the power of the Jetpack Compose;
+- Desktop: module to hold code only useful to desktop version build;
+- Mobile: module to hold code only useful to mobile (Android) version build;
+- (TODO: Web);
+- (TODO: iOS).
 
 All of these sub-projects are treated as "modules", and may have dependency between themselves. 
 
@@ -43,7 +44,7 @@ There are other features in mind being planned to be implemented after the basic
 
 - Specific training tools (blindfolded, speffz helpers, a nice keyboard for
 sequence typing, and so on);
-- Networking: 1 or more cubers will be able to connect each other in the timer and share their solutions eand statistics in real time;
+- Networking: 1 or more cubers will be able to connect each other in the timer and share their solutions and statistics in real time;
 - Virtual 3D puzzles to play/time.
 
 All of these features I plan to implement by myself as best as I can, using only my own knowledge. Reinventing the
