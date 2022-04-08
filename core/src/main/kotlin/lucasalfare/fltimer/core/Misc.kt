@@ -1,5 +1,16 @@
 package lucasalfare.fltimer.core
 
+
+class L {
+  var logAllowed = true
+
+  fun d(data: Any) {
+    if (logAllowed) {
+      print(data)
+    }
+  }
+}
+
 /**
  * Returns appropriated current time.
  */

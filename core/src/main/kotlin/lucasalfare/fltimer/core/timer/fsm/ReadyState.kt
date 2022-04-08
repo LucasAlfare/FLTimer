@@ -1,9 +1,17 @@
 package lucasalfare.fltimer.core.timer.fsm
 
 import lucasalfare.fltimer.core.AppEvent
+import lucasalfare.fltimer.core.L
 import lucasalfare.fltimer.core.Listenable
 
 class ReadyState : TimerState {
+
+  val logger = L()
+
+  init {
+    logger.logAllowed = false
+  }
+
   override fun handleInput(inputType: AppEvent, data: Any?): TimerState? {
     if (inputType == InputRelease) {
       if (data != null) {
@@ -15,7 +23,7 @@ class ReadyState : TimerState {
   }
 
   override fun update(eventNotifier: Listenable, data: Any?) {
-    println("current READY (again?)")
+    logger.d("current READY (again?)")
     eventNotifier.notifyListeners(AppEvent.TimerReady)
   }
 

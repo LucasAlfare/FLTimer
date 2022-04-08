@@ -5,12 +5,19 @@ import lucasalfare.fltimer.core.Listenable
 import lucasalfare.fltimer.core.data.Penalty
 import lucasalfare.fltimer.core.timer.asyncRoutine
 import kotlinx.coroutines.Job
+import lucasalfare.fltimer.core.L
 
 class InspectState : TimerState {
 
   private var repeater: Job? = null
   private var countdown = 15
   private var currentPenalty = Penalty.Ok
+
+  val logger = L()
+
+  init {
+    logger.logAllowed = false
+  }
 
   override fun handleInput(inputType: AppEvent, data: Any?): TimerState? {
     if (inputType == InputRelease) {
@@ -21,7 +28,7 @@ class InspectState : TimerState {
   }
 
   override fun update(eventNotifier: Listenable, data: Any?) {
-    println("current INSPECTING...")
+    logger.d("current INSPECTING...")
     repeater = asyncRoutine(delayTime = 1000) {
 
       currentPenalty = when {

@@ -5,12 +5,19 @@ import lucasalfare.fltimer.core.Listenable
 import lucasalfare.fltimer.core.getCurrentTime
 import lucasalfare.fltimer.core.timer.asyncRoutine
 import kotlinx.coroutines.Job
+import lucasalfare.fltimer.core.L
 
 class SolveState : TimerState {
 
   private var repeater: Job? = null
   private var start = 0L
   private var elapsed = 0L
+
+  val logger = L()
+
+  init {
+    logger.logAllowed = false
+  }
 
   override fun handleInput(inputType: AppEvent, data: Any?): TimerState? {
     if (inputType == InputPress) {
@@ -21,7 +28,7 @@ class SolveState : TimerState {
   }
 
   override fun update(eventNotifier: Listenable, data: Any?) {
-    println("current SOLVING...")
+    logger.d("current SOLVING...")
     eventNotifier.notifyListeners(AppEvent.TimerStarted)
     start = data as Long
     repeater = asyncRoutine {
