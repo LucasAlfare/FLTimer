@@ -14,5 +14,6 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
+    implementation(compose.desktop.currentOs)
     implementation(project(":core"))
 }
