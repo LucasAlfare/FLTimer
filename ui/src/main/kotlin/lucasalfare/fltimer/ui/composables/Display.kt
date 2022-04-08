@@ -1,4 +1,4 @@
-package lucasalfare.fltimer.ui
+package lucasalfare.fltimer.ui.composables
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -7,6 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.toTimestamp
+import lucasalfare.fltimer.ui.uiComponentsManager
 
 @Composable
 fun Display(modifier: Modifier = Modifier) {
