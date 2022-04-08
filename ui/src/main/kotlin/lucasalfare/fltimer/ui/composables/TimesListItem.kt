@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.data.Solve
 import lucasalfare.fltimer.core.toTimestamp
+import lucasalfare.fltimer.ui.WastebasketCharacter
 import lucasalfare.fltimer.ui.uiComponentsManager
 
 @Composable
@@ -18,7 +19,7 @@ fun TimesListItem(modifier: Modifier = Modifier, index: Int, solve: Solve) {
     Row {
       Button(onClick = {
         uiComponentsManager.notifyListeners(AppEvent.SolvesItemRemove, solve.id)
-      }) { Text("del") }
+      }) { Text("del $WastebasketCharacter") }
     }
   }
 }
