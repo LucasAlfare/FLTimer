@@ -39,7 +39,7 @@ fun SessionController(modifier: Modifier = Modifier) {
       )
     }) { Text(PreviousCharacter) }
 
-    Text("current: $currentSessionName")
+    Text(currentSessionName)
 
     TextButton(onClick = {
       uiComponentsManager.notifyListeners(
