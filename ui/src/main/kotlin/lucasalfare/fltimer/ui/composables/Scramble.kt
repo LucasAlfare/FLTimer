@@ -3,6 +3,7 @@ package lucasalfare.fltimer.ui.composables
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.ui.uiComponentsManager
 

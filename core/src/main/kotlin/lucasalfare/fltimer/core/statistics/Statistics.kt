@@ -149,20 +149,10 @@ fun Solves.worstAverageOf(avgSize: Int): StatisticResult? {
   return null
 }
 
-fun Solves.standardDeviation(): Long {
-  val solves = this.values
-  if (solves.size == 0) return 0L
-  var mean = 0.0
-  var variance = 0.0
-  solves.forEach { mean += it.time }
-  mean /= size
-  solves.forEach { variance += (it.time - mean).pow(2.0) }
-  variance /= size
-  return sqrt(variance).toLong()
-}
-
 /**
  * Returns a map of all statistics.
+ *
+ * TODO: fix null stats
  */
 fun Solves.getAllStatistics() = mapOf(
   Pair(Statistic.Best, this.best()),
@@ -178,6 +168,5 @@ fun Solves.getAllStatistics() = mapOf(
   Pair(Statistic.BestAverageOf, this.bestAverageOf(50)),
   Pair(Statistic.WorstAverageOf, this.worstAverageOf(50)),
   Pair(Statistic.BestAverageOf, this.bestAverageOf(100)),
-  Pair(Statistic.WorstAverageOf, this.worstAverageOf(100)),
-  Pair(Statistic.StandardDeviation, this.standardDeviation()),
+  Pair(Statistic.WorstAverageOf, this.worstAverageOf(100))
 )

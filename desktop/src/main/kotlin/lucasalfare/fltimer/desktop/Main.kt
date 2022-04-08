@@ -8,10 +8,7 @@ import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Window
-import androidx.compose.ui.window.WindowPosition
-import androidx.compose.ui.window.WindowState
-import androidx.compose.ui.window.application
+import androidx.compose.ui.window.*
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.configuration.ConfigurationManager
 import lucasalfare.fltimer.core.data.SolvesManager
@@ -26,9 +23,8 @@ import lucasalfare.fltimer.ui.uiComponentsManager
 fun main() = application {
   Window(
     state = WindowState(
-      width = (720 / 2.5).dp,
-      height = (1560 / 2.5).dp,
-      position = WindowPosition(Alignment.Center)
+      position = WindowPosition(Alignment.Center),
+      placement = WindowPlacement.Maximized
     ),
     onKeyEvent = {
       if (it.key == Key.Spacebar) {
