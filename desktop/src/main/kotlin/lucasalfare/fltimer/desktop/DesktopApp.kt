@@ -1,4 +1,4 @@
-package lucasalfare.fltimer.ui
+package lucasalfare.fltimer.desktop
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
@@ -8,7 +8,7 @@ import lucasalfare.fltimer.ui.composables.SessionController
 import lucasalfare.fltimer.ui.composables.TimesList
 
 @Composable
-fun App() {
+fun DesktopApp() {
   Column {
     SessionController()
     Scramble()
