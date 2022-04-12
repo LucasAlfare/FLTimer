@@ -24,7 +24,7 @@ fun main() = application {
   Window(
     state = WindowState(
       position = WindowPosition(Alignment.Center),
-      placement = WindowPlacement.Maximized
+      //placement = WindowPlacement.Maximized
     ),
     onKeyEvent = {
       if (it.key == Key.Spacebar) {
