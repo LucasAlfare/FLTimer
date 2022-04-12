@@ -17,6 +17,8 @@ import lucasalfare.fltimer.ui.uiComponentsManager
 @Composable
 fun StatisticsList(modifier: Modifier = Modifier) {
   var solves by remember { mutableStateOf(Solves()) }
+  var showDetails by remember { mutableStateOf(false) }
+  var targetDetailsSolves by remember { mutableStateOf(Solves()) }
 
   DisposableEffect(true) {
     val callback = uiComponentsManager.addCallback { appEvent, data ->
@@ -34,12 +36,17 @@ fun StatisticsList(modifier: Modifier = Modifier) {
     solves.getStats().forEach {
       item {
         Button(modifier = Modifier.fillMaxWidth(), onClick = {
-          println(it.related)
+          showDetails = !showDetails
+          targetDetailsSolves = it.related
         }) {
           Text("${it.name}: ${it.result.toTimestamp()}")
         }
         Divider()
       }
     }
+  }
+
+  if (showDetails) {
+    SolvesDetails(targetDetailsSolves)
   }
 }
