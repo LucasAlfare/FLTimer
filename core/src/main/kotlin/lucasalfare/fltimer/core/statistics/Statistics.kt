@@ -104,7 +104,7 @@ fun Solves.rollingAverage(avgSize: Int): StatisticResult? {
     val range = this.values.toTypedArray().slice((size - avgSize) until (size))
     val data = Solves()
     range.forEach { data += it }
-    return calculateAverage(averageName = "average of $avgSize", data = data)
+    return calculateAverage(averageName = "current average of $avgSize", data = data)
   }
 
   return null
@@ -147,6 +147,31 @@ fun Solves.worstAverageOf(avgSize: Int): StatisticResult? {
   }
 
   return null
+}
+
+fun Solves.getStats(): List<StatisticResult> {
+  val allResults = mutableListOf(
+    this.best(),
+    this.worst(),
+    this.mean(),
+    this.globalAverage(),
+    this.rollingAverage(5),
+    this.rollingAverage(12),
+    this.rollingAverage(50),
+    this.rollingAverage(100),
+    this.rollingAverage(1000),
+    this.bestAverageOf(5),
+    this.worstAverageOf(5),
+    this.bestAverageOf(12),
+    this.worstAverageOf(12),
+    this.bestAverageOf(50),
+    this.worstAverageOf(50),
+    this.bestAverageOf(100),
+    this.worstAverageOf(100),
+    this.bestAverageOf(1000),
+    this.worstAverageOf(1000)
+  )
+  return allResults.filterNotNull()
 }
 
 /**

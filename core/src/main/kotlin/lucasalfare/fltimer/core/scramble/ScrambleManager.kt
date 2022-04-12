@@ -5,9 +5,9 @@ package lucasalfare.fltimer.core.scramble
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.EventListener
 import lucasalfare.fltimer.core.Listenable
-import kotlin.random.Random
+import lucasalfare.fltimer.core.scramble.scramblers.getFreeRubiksCubeScramble
 
-class ScrambleManager: Listenable(), EventListener {
+class ScrambleManager : Listenable(), EventListener {
 
   private var lastScramble = ""
   private var currentScramble = ""
@@ -36,6 +36,6 @@ class ScrambleManager: Listenable(), EventListener {
 
   private fun genScramble() {
     lastScramble = currentScramble
-    currentScramble = "Scramble random kkkk ${Random.nextInt()}"
+    currentScramble = getFreeRubiksCubeScramble()
   }
 }

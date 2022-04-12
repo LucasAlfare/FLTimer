@@ -14,5 +14,10 @@ enum class Config {
   /**
    * Determines if the timer will use inspection state or not.
    */
-  UseInspection
+  UseInspection,
+
+  /**
+   * Determines if scrambles should be shown in the details screen of the UI.
+   */
+  ShowScramblesInDetailsUI
 }

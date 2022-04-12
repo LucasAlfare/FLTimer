@@ -119,7 +119,9 @@ enum class AppEvent {
    * This is fired always a configuration change, making possible listeners
    * handle its custom changes related to a single or multiple values.
    */
-  ConfigsUpdate
+  ConfigsUpdate,
+
+  EmptyEvent
 }
 
 /**
