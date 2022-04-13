@@ -5,7 +5,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.ui.Modifier
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.data.Session
 import lucasalfare.fltimer.ui.NextCharacter
@@ -13,7 +12,7 @@ import lucasalfare.fltimer.ui.PreviousCharacter
 import lucasalfare.fltimer.ui.uiComponentsManager
 
 @Composable
-fun SessionController(modifier: Modifier = Modifier) {
+fun SessionController() {
   var sessions by remember { mutableStateOf(mutableMapOf<String, Session>()) }
   var currentSessionName by remember { mutableStateOf("") }
 

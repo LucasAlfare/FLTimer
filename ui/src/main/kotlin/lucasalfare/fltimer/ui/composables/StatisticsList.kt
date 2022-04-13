@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import lucasalfare.fltimer.core.AppEvent
+import lucasalfare.fltimer.core.configuration.Config
 import lucasalfare.fltimer.core.data.Solves
 import lucasalfare.fltimer.core.statistics.getAllStatistics
 import lucasalfare.fltimer.core.statistics.getStats
@@ -19,12 +20,18 @@ fun StatisticsList(modifier: Modifier = Modifier) {
   var solves by remember { mutableStateOf(Solves()) }
   var showDetails by remember { mutableStateOf(false) }
   var targetDetailsSolves by remember { mutableStateOf(Solves()) }
+  var includeScramblesInDetails by remember { mutableStateOf(false) }
 
   DisposableEffect(true) {
     val callback = uiComponentsManager.addCallback { appEvent, data ->
       when (appEvent) {
         AppEvent.SolvesUpdate -> {
           solves = (data as Solves).clone()
+        }
+
+        AppEvent.ConfigsUpdate -> {
+          val configurations = data as MutableMap<*, *>
+          includeScramblesInDetails = configurations[Config.ShowScramblesInDetailsUI] as Boolean
         }
       }
     }
@@ -47,6 +54,6 @@ fun StatisticsList(modifier: Modifier = Modifier) {
   }
 
   if (showDetails) {
-    SolvesDetails(targetDetailsSolves)
+    SolvesDetails(targetDetailsSolves, includeScramblesInDetails)
   }
 }

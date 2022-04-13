@@ -21,7 +21,7 @@ import lucasalfare.fltimer.ui.WastebasketCharacter
 import lucasalfare.fltimer.ui.uiComponentsManager
 
 @Composable
-fun TimesListItem(modifier: Modifier = Modifier, index: Int, solve: Solve) {
+fun TimesListItem(index: Int, solve: Solve) {
   var showMenu by remember { mutableStateOf(false) }
   // dialog
   var isOpen by remember { mutableStateOf(false) }
@@ -43,7 +43,7 @@ fun TimesListItem(modifier: Modifier = Modifier, index: Int, solve: Solve) {
       onDismissRequest = { showMenu = false }
     ) {
       Column {
-        Column(modifier.fillMaxWidth()) {
+        Column(Modifier.fillMaxWidth()) {
           Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             val scramble by rememberSaveable { mutableStateOf(solve.scramble.ifEmpty { "- -" }) }
             Text(buildAnnotatedString {

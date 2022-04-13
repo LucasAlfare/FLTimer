@@ -17,39 +17,18 @@ import lucasalfare.fltimer.ui.getClipboardResume
 import lucasalfare.fltimer.ui.uiComponentsManager
 
 @Composable
-fun SolvesDetails(solves: Solves) {
+fun SolvesDetails(solves: Solves, showScrambles: Boolean) {
   var showMenu by remember { mutableStateOf(true) }
-  var checked by remember { mutableStateOf(false) }
+  var checked by remember { mutableStateOf(showScrambles) }
   var content by remember {
     mutableStateOf(
       TextFieldValue(
         getClipboardResume(
           solves = solves,
-          includeScrambles = checked
+          includeScrambles = showScrambles
         )
       )
     )
-  }
-
-  DisposableEffect(true) {
-    // TODO: this composable must to run the initialization of the checked field even event don't enter...
-    val callback = uiComponentsManager.addCallback { appEvent, data ->
-      when (appEvent) {
-        AppEvent.ConfigsUpdate -> {
-          val configurations = data as MutableMap<*, *>
-          checked = configurations[Config.ShowScramblesInDetailsUI] as Boolean
-
-          content = TextFieldValue(
-            getClipboardResume(
-              solves = solves,
-              includeScrambles = checked
-            )
-          )
-        }
-      }
-    }
-
-    onDispose { uiComponentsManager.removeCallback(callback) }
   }
 
   DropdownMenu(
@@ -57,6 +36,7 @@ fun SolvesDetails(solves: Solves) {
     onDismissRequest = { showMenu = false }
   ) {
     val scope = rememberCoroutineScope()
+
     // start coroutine
     scope.launch {
       val text = content.text

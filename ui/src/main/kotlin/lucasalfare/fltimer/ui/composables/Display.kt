@@ -4,14 +4,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.toTimestamp
 import lucasalfare.fltimer.ui.uiComponentsManager
 
 @Composable
-fun Display(modifier: Modifier = Modifier) {
+fun Display() {
   var text by remember { mutableStateOf("ready") }
 
   DisposableEffect(true) {
