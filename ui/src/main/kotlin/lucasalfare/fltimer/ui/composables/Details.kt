@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.configuration.Config
 import lucasalfare.fltimer.core.data.Solves
-import lucasalfare.fltimer.ui.getClipboardResume
+import lucasalfare.fltimer.ui.getSessionResume
 import lucasalfare.fltimer.ui.uiComponentsManager
 
 @Composable
@@ -23,12 +23,29 @@ fun SolvesDetails(solves: Solves, showScrambles: Boolean) {
   var content by remember {
     mutableStateOf(
       TextFieldValue(
-        getClipboardResume(
+        getSessionResume(
           solves = solves,
-          includeScrambles = showScrambles
+          includeScrambles = checked
         )
       )
     )
+  }
+
+  DisposableEffect(true) {
+    val callback = uiComponentsManager.addCallback { appEvent, _ ->
+      when (appEvent) {
+        AppEvent.ConfigsUpdate -> {
+          content = TextFieldValue(
+            getSessionResume(
+              solves = solves,
+              includeScrambles = checked
+            )
+          )
+        }
+      }
+    }
+
+    onDispose { uiComponentsManager.removeCallback(callback) }
   }
 
   DropdownMenu(
