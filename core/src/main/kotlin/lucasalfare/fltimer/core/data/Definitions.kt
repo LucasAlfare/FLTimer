@@ -1,5 +1,6 @@
 package lucasalfare.fltimer.core.data
 
+import lucasalfare.fltimer.core.toTimestamp
 import java.util.*
 import kotlin.collections.LinkedHashMap
 
@@ -33,6 +34,12 @@ data class Solve(
   var comment: String = "",
   val id: UUID = UUID.randomUUID()
 ) {
+  fun getDisplayableRepresentation() = when (penalty) {
+    Penalty.PlusTwo -> "+${(time + 2000).toTimestamp()}"
+    Penalty.Dnf -> "DNF"
+    else -> time.toTimestamp()
+  }
+
   fun copyOther(other: Solve) {
     this.time = other.time
     this.scramble = other.scramble

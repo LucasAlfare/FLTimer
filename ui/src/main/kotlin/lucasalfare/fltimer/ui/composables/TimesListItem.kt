@@ -15,7 +15,6 @@ import androidx.compose.ui.text.withStyle
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.data.Penalty
 import lucasalfare.fltimer.core.data.Solve
-import lucasalfare.fltimer.core.toTimestamp
 import lucasalfare.fltimer.ui.WarningCharacter
 import lucasalfare.fltimer.ui.WastebasketCharacter
 import lucasalfare.fltimer.ui.uiComponentsManager
@@ -23,6 +22,7 @@ import lucasalfare.fltimer.ui.uiComponentsManager
 @Composable
 fun TimesListItem(index: Int, solve: Solve) {
   var showMenu by remember { mutableStateOf(false) }
+
   // dialog
   var isOpen by remember { mutableStateOf(false) }
 
@@ -31,11 +31,8 @@ fun TimesListItem(index: Int, solve: Solve) {
   }) {
     Text(modifier = Modifier.align(Alignment.CenterStart), text = "${index + 1})")
     Text(
-      modifier = Modifier.align(Alignment.Center), text = when (solve.penalty) {
-        Penalty.PlusTwo -> "+${(solve.time + 2000).toTimestamp()}"
-        Penalty.Dnf -> "DNF"
-        else -> solve.time.toTimestamp()
-      }
+      modifier = Modifier.align(Alignment.Center),
+      text = solve.getDisplayableRepresentation()
     )
 
     DropdownMenu(
@@ -130,14 +127,5 @@ fun TimesListItem(index: Int, solve: Solve) {
         }
       )
     }
-
-//    TextButton(
-//      modifier = Modifier.align(Alignment.CenterEnd),
-//      onClick = {
-//        uiComponentsManager.notifyListeners(AppEvent.SolvesItemRemove, solve.id)
-//      }
-//    ) {
-//      Text(WastebasketCharacter)
-//    }
   }
 }

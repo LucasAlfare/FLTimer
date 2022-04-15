@@ -1,11 +1,14 @@
 package lucasalfare.fltimer.ui.composables
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import kotlinx.coroutines.launch
 import lucasalfare.fltimer.core.AppEvent
@@ -48,17 +51,20 @@ fun TimesList(modifier: Modifier = Modifier) {
     onDispose { uiComponentsManager.removeCallback(callback) }
   }
 
-  Text("Number of solves: ${solves.size}")
-  TextButton(onClick = {
-    showDetails = !showDetails
-  }) {
-    Text("Copy $ClipboardCharacter")
-  }
-  LazyColumn(state = lazyListState) {
-    solves.values.forEachIndexed { index, solve ->
-      item {
-        TimesListItem(index = index, solve = solve)
-        Divider()
+  Column(
+    modifier = Modifier.fillMaxWidth(),
+    horizontalAlignment = Alignment.CenterHorizontally
+  ) {
+    Text("Number of solves: ${solves.size}")
+    TextButton(onClick = { showDetails = !showDetails }) {
+      Text("Copy $ClipboardCharacter")
+    }
+    LazyColumn(state = lazyListState) {
+      solves.values.forEachIndexed { index, solve ->
+        item {
+          TimesListItem(index = index, solve = solve)
+          Divider()
+        }
       }
     }
   }

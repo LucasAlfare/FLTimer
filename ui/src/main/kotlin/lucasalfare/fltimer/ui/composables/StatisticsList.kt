@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.configuration.Config
 import lucasalfare.fltimer.core.data.Solves
-import lucasalfare.fltimer.core.statistics.getAllStatistics
 import lucasalfare.fltimer.core.statistics.getStats
 import lucasalfare.fltimer.core.toTimestamp
 import lucasalfare.fltimer.ui.uiComponentsManager
