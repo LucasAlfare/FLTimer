@@ -2,6 +2,7 @@ package lucasalfare.fltimer.ui.composables
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.ui.uiComponentsManager
@@ -25,6 +26,7 @@ fun Scramble() {
 
   Text(
     text = text,
-    textAlign = TextAlign.Center
+    textAlign = TextAlign.Center,
+    fontFamily = FontFamily.Monospace
   )
 }
