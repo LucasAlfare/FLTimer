@@ -10,8 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.dp
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.data.Penalty
 import lucasalfare.fltimer.core.data.Solve
@@ -26,13 +28,19 @@ fun TimesListItem(index: Int, solve: Solve) {
   // dialog
   var isOpen by remember { mutableStateOf(false) }
 
-  Box(Modifier.fillMaxWidth().clickable {
-    showMenu = !showMenu
-  }) {
+  Box(
+    modifier = Modifier
+      .padding(8.dp)
+      .fillMaxWidth().clickable {
+        showMenu = !showMenu
+      }
+  ) {
     Text(modifier = Modifier.align(Alignment.CenterStart), text = "${index + 1})")
     Text(
       modifier = Modifier.align(Alignment.Center),
-      text = solve.getDisplayableRepresentation()
+      text = solve.getDisplayableRepresentation(),
+      fontWeight = FontWeight.Bold,
+      fontFamily = FontFamily.Monospace
     )
 
     DropdownMenu(

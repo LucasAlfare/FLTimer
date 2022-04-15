@@ -11,19 +11,6 @@ package lucasalfare.fltimer.core.statistics
 import lucasalfare.fltimer.core.data.Penalty
 import lucasalfare.fltimer.core.data.Solves
 import java.util.*
-import kotlin.math.pow
-import kotlin.math.sqrt
-
-enum class Statistic {
-  Best,
-  Worst,
-  Mean,
-  GlobalAverage,
-  RollingAverage,
-  BestAverageOf,
-  WorstAverageOf,
-  StandardDeviation
-}
 
 fun Solves.best(): StatisticResult? {
   if (size > 0) {
@@ -95,7 +82,7 @@ fun Solves.mean(): StatisticResult? {
 }
 
 fun Solves.globalAverage() = calculateAverage(
-  averageName = "global average",
+  averageName = "global avg",
   data = this
 )
 
@@ -104,7 +91,7 @@ fun Solves.rollingAverage(avgSize: Int): StatisticResult? {
     val range = this.values.toTypedArray().slice((size - avgSize) until (size))
     val data = Solves()
     range.forEach { data += it }
-    return calculateAverage(averageName = "current average of $avgSize", data = data)
+    return calculateAverage(averageName = "current ao$avgSize", data = data)
   }
 
   return null
@@ -112,7 +99,7 @@ fun Solves.rollingAverage(avgSize: Int): StatisticResult? {
 
 fun Solves.bestAverageOf(avgSize: Int): StatisticResult? {
   if (size >= avgSize) {
-    val averages = collectAverages(averageName = "best avg of $avgSize", data = this, size = avgSize)
+    val averages = collectAverages(averageName = "best ao$avgSize", data = this, size = avgSize)
 
     var min = Long.MAX_VALUE
     var search: StatisticResult? = null
@@ -131,7 +118,7 @@ fun Solves.bestAverageOf(avgSize: Int): StatisticResult? {
 
 fun Solves.worstAverageOf(avgSize: Int): StatisticResult? {
   if (size >= avgSize) {
-    val id = "worst avg of $avgSize"
+    val id = "worst ao$avgSize"
     val averages = collectAverages(averageName = id, data = this, size = avgSize)
 
     var max = Long.MIN_VALUE
@@ -149,49 +136,27 @@ fun Solves.worstAverageOf(avgSize: Int): StatisticResult? {
   return null
 }
 
-fun Solves.getStats(): List<StatisticResult> {
-  val allResults = mutableListOf(
-    this.best(),
-    this.worst(),
-    this.mean(),
-    this.globalAverage(),
-    this.rollingAverage(5),
-    this.rollingAverage(12),
-    this.rollingAverage(50),
-    this.rollingAverage(100),
-    this.rollingAverage(1000),
-    this.bestAverageOf(5),
-    this.worstAverageOf(5),
-    this.bestAverageOf(12),
-    this.worstAverageOf(12),
-    this.bestAverageOf(50),
-    this.worstAverageOf(50),
-    this.bestAverageOf(100),
-    this.worstAverageOf(100),
-    this.bestAverageOf(1000),
-    this.worstAverageOf(1000)
-  )
-  return allResults.filterNotNull()
-}
-
-/**
- * Returns a map of all statistics.
- *
- * TODO: fix null stats
- */
-fun Solves.getAllStatistics() = mapOf(
-  Pair(Statistic.Best, this.best()),
-  Pair(Statistic.Worst, this.worst()),
-  Pair(Statistic.Mean, this.mean()),
-  Pair(Statistic.GlobalAverage, this.globalAverage()),
-  Pair(Statistic.RollingAverage, this.rollingAverage(5)),
-  Pair(Statistic.RollingAverage, this.rollingAverage(12)),
-  Pair(Statistic.BestAverageOf, this.bestAverageOf(5)),
-  Pair(Statistic.WorstAverageOf, this.worstAverageOf(5)),
-  Pair(Statistic.BestAverageOf, this.bestAverageOf(12)),
-  Pair(Statistic.WorstAverageOf, this.worstAverageOf(12)),
-  Pair(Statistic.BestAverageOf, this.bestAverageOf(50)),
-  Pair(Statistic.WorstAverageOf, this.worstAverageOf(50)),
-  Pair(Statistic.BestAverageOf, this.bestAverageOf(100)),
-  Pair(Statistic.WorstAverageOf, this.worstAverageOf(100))
-)
+fun Solves.getStats() = mutableListOf(
+  this.best(),
+  this.worst(),
+  this.rollingAverage(5),
+  this.rollingAverage(12),
+  this.rollingAverage(50),
+  this.rollingAverage(100),
+  this.rollingAverage(500),
+  this.rollingAverage(1000),
+  this.bestAverageOf(5),
+  this.worstAverageOf(5),
+  this.bestAverageOf(12),
+  this.worstAverageOf(12),
+  this.bestAverageOf(50),
+  this.worstAverageOf(50),
+  this.bestAverageOf(100),
+  this.worstAverageOf(100),
+  this.bestAverageOf(500),
+  this.worstAverageOf(500),
+  this.bestAverageOf(1000),
+  this.worstAverageOf(1000),
+  this.mean(),
+  this.globalAverage(),
+).filterNotNull()

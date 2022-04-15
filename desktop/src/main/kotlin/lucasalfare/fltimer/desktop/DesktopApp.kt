@@ -16,7 +16,8 @@ fun DesktopApp() {
       Modifier
         .align(Alignment.TopCenter)
         .width(300.dp)
-        .background(Color.Green)
+        .padding(12.dp)
+      //.background(Color.Green)
     ) {
       Scramble()
     }
@@ -24,7 +25,8 @@ fun DesktopApp() {
     Box(
       Modifier
         .align(Alignment.Center)
-        .background(Color.Yellow)
+        .padding(12.dp)
+      //.background(Color.Yellow)
     ) {
       Display()
     }
@@ -34,7 +36,8 @@ fun DesktopApp() {
         .fillMaxHeight()
         .align(Alignment.TopStart)
         .width(200.dp)
-        .background(Color.Cyan)
+        .padding(12.dp)
+      //.background(Color.Cyan)
     ) {
       Column {
         SessionController()
@@ -47,7 +50,8 @@ fun DesktopApp() {
         .align(Alignment.TopEnd)
         .width(200.dp)
         .fillMaxHeight()
-        .background(Color.Red)
+        .padding(12.dp)
+      //.background(Color.Red)
     ) {
       StatisticsList()
     }

@@ -5,7 +5,7 @@ import lucasalfare.fltimer.core.EventListener
 import lucasalfare.fltimer.core.Listenable
 import lucasalfare.fltimer.core.data.Session
 import lucasalfare.fltimer.core.data.Solve
-import lucasalfare.fltimer.core.data.Solves
+import kotlin.random.Random
 
 
 private const val StandardSessionName = "Standard"
@@ -19,15 +19,18 @@ class SessionManager : Listenable(), EventListener {
     sessions[StandardSessionName] = Session(StandardSessionName)
     currentSession = sessions[StandardSessionName]!!
 
+    tmpCreateSession("bilu teteia", 500)
+    tmpCreateSession("repetiliano", 27)
+  }
+
+  private fun tmpCreateSession(name: String, nSolves: Int) {
     val testSession = Session(
-      name = "bilu teteia",
-      solves = Solves(
-        Solve(time = 12345),
-        Solve(time = 54321),
-        Solve(time = 23456),
-        Solve(time = 65432)
-      )
+      name = name
     )
+
+    repeat(nSolves) {
+      testSession.solves += Solve(time = 500 + Random.nextLong(120000))
+    }
 
     sessions[testSession.name] = testSession
   }

@@ -2,11 +2,17 @@ package lucasalfare.fltimer.ui.composables
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Button
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.configuration.Config
 import lucasalfare.fltimer.core.data.Solves
@@ -18,7 +24,7 @@ import lucasalfare.fltimer.ui.uiComponentsManager
 fun StatisticsList(modifier: Modifier = Modifier) {
   var solves by remember { mutableStateOf(Solves()) }
   var showDetails by remember { mutableStateOf(false) }
-  var targetDetailsSolves by remember { mutableStateOf(Solves()) }
+  var relatedSolves by remember { mutableStateOf(Solves()) }
   var includeScramblesInDetails by remember { mutableStateOf(false) }
 
   DisposableEffect(true) {
@@ -41,11 +47,24 @@ fun StatisticsList(modifier: Modifier = Modifier) {
   LazyColumn {
     solves.getStats().forEach {
       item {
-        Button(modifier = Modifier.fillMaxWidth(), onClick = {
+        TextButton(modifier = Modifier.fillMaxWidth(), onClick = {
           showDetails = !showDetails
-          targetDetailsSolves = it.related
+          relatedSolves = it.related
         }) {
-          Text("${it.name}: ${it.result.toTimestamp()}")
+          Text(
+            text = buildAnnotatedString {
+              append("${it.name}:\n")
+              withStyle(
+                SpanStyle(
+                  fontFamily = FontFamily.Monospace,
+                  fontWeight = FontWeight.Bold
+                )
+              ) {
+                append(it.result.toTimestamp())
+              }
+            },
+            textAlign = TextAlign.Center
+          )
         }
         Divider()
       }
@@ -54,7 +73,7 @@ fun StatisticsList(modifier: Modifier = Modifier) {
 
   if (showDetails) {
     SolvesDetails(
-      solves = targetDetailsSolves,
+      solves = relatedSolves,
       showScrambles = includeScramblesInDetails,
       dismissCallback = { showDetails = false }
     )
