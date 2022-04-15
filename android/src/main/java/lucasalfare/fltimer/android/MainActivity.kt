@@ -1,14 +1,15 @@
 package lucasalfare.fltimer.android
 
 import android.os.Bundle
-import android.widget.TextView
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material.Text
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val tv = TextView(applicationContext)
-        tv.text = "biluuuuuuuuuu"
-        setContentView(tv)
+        setContent {
+            Text(text = "asdofiuasodfu!!!!")
+        }
     }
 }
