@@ -64,6 +64,10 @@ fun TimesList(modifier: Modifier = Modifier) {
   }
 
   if (showDetails) {
-    SolvesDetails(solves, includeScramblesInDetails)
+    SolvesDetails(
+      solves = solves,
+      showScrambles = includeScramblesInDetails,
+      dismissCallback = { showDetails = false }
+    )
   }
 }

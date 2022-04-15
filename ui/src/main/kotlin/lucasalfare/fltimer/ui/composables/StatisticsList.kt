@@ -54,6 +54,10 @@ fun StatisticsList(modifier: Modifier = Modifier) {
   }
 
   if (showDetails) {
-    SolvesDetails(targetDetailsSolves, includeScramblesInDetails)
+    SolvesDetails(
+      solves = targetDetailsSolves,
+      showScrambles = includeScramblesInDetails,
+      dismissCallback = { showDetails = false }
+    )
   }
 }

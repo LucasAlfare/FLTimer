@@ -17,7 +17,7 @@ import lucasalfare.fltimer.ui.getSessionResume
 import lucasalfare.fltimer.ui.uiComponentsManager
 
 @Composable
-fun SolvesDetails(solves: Solves, showScrambles: Boolean) {
+fun SolvesDetails(solves: Solves, showScrambles: Boolean, dismissCallback: () -> Unit = {}) {
   var showMenu by remember { mutableStateOf(true) }
   var checked by remember { mutableStateOf(showScrambles) }
   var content by remember {
@@ -50,16 +50,20 @@ fun SolvesDetails(solves: Solves, showScrambles: Boolean) {
 
   DropdownMenu(
     expanded = showMenu,
-    onDismissRequest = { showMenu = false }
+    onDismissRequest = {
+      showMenu = false
+      dismissCallback()
+    }
   ) {
     val scope = rememberCoroutineScope()
+    DisposableEffect(true) {
+      // start coroutine
+      val job = scope.launch {
+        val text = content.text
+        content = content.copy(selection = TextRange(0, text.length))
+      }
 
-    // start coroutine
-    scope.launch {
-      val text = content.text
-      content = content.copy(
-        selection = TextRange(0, text.length)
-      )
+      onDispose { job.cancel() }
     }
 
     Row(verticalAlignment = Alignment.CenterVertically) {
