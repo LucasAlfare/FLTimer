@@ -4,7 +4,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.toTimestamp
 import lucasalfare.fltimer.ui.uiComponentsManager
@@ -27,6 +29,8 @@ fun Display() {
 
   Text(
     text = text,
+    fontSize = 50.sp,
+    fontFamily = FontFamily.Monospace,
     fontWeight = FontWeight.Bold
   )
 }
