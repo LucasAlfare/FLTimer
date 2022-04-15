@@ -5,12 +5,18 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.data.Session
 import lucasalfare.fltimer.ui.NextCharacter
 import lucasalfare.fltimer.ui.PreviousCharacter
 import lucasalfare.fltimer.ui.uiComponentsManager
 
+@Suppress(
+  "UNCHECKED_CAST",
+  "NON_EXHAUSTIVE_WHEN_STATEMENT"
+)
 @Composable
 fun SessionController() {
   var sessions by remember { mutableStateOf(mutableMapOf<String, Session>()) }
@@ -30,13 +36,15 @@ fun SessionController() {
     onDispose { uiComponentsManager.removeCallback(callback) }
   }
 
-  Row {
+  Row(verticalAlignment = Alignment.CenterVertically) {
     TextButton(onClick = {
       uiComponentsManager.notifyListeners(
         AppEvent.SessionSwitch,
         getSession(currentSessionName, sessions, false)
       )
-    }) { Text(PreviousCharacter) }
+    }) {
+      Text(PreviousCharacter)
+    }
 
     Text(currentSessionName)
 
@@ -45,7 +53,9 @@ fun SessionController() {
         AppEvent.SessionSwitch,
         getSession(currentSessionName, sessions, true)
       )
-    }) { Text(NextCharacter) }
+    }) {
+      Text(NextCharacter)
+    }
   }
 }
 
