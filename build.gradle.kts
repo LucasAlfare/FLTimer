@@ -1,20 +1,15 @@
 plugins {
     kotlin("jvm") version "1.6.10"
+
+    id("com.android.application") version "7.1.2" apply false
+    id("com.android.library") version "7.1.2" apply false
+    id("org.jetbrains.kotlin.android") version "1.5.30" apply false
 }
 
 group = "lucasalfare.fltimer"
 version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
-}
-
-allprojects {
-    /*
-    * Correct format: 'MAJOR.MINOR.BUILD', where:
-    * MAJOR is a non-negative integer with a maximum value of 255;
-    * MINOR is a non-negative integer with a maximum value of 255;
-    * BUILD is a non-negative integer with a maximum value of 65535;
-      * You can specify the correct version using DSL properties: nativeDistributions.windows.msiPackageVersion, nativeDistributions.windows.packageVersion, nativeDistributions.packageVersion
-     */
-}
+//repositories {
+//    mavenCentral()
+//    google()
+//}
