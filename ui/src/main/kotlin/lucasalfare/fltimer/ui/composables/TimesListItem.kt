@@ -1,39 +1,32 @@
 package lucasalfare.fltimer.ui.composables
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import lucasalfare.fltimer.core.AppEvent
-import lucasalfare.fltimer.core.data.Penalty
 import lucasalfare.fltimer.core.data.Solve
-import lucasalfare.fltimer.ui.WarningCharacter
-import lucasalfare.fltimer.ui.WastebasketCharacter
-import lucasalfare.fltimer.ui.uiComponentsManager
 
 @Composable
 fun TimesListItem(index: Int, solve: Solve) {
-  var showMenu by remember { mutableStateOf(false) }
-
-  // dialog
-  var isOpen by remember { mutableStateOf(false) }
+  var localFullScreenState by remember { mutableStateOf(FullScreenState.Inactive) }
 
   Box(
     modifier = Modifier
-      .padding(8.dp)
-      .fillMaxWidth().clickable {
-        showMenu = !showMenu
+      .fillMaxWidth()
+      .clickable {
+        localFullScreenState = FullScreenState.Active
       }
+      .padding(8.dp)
   ) {
     Text(modifier = Modifier.align(Alignment.CenterStart), text = "${index + 1})")
     Text(
@@ -42,98 +35,41 @@ fun TimesListItem(index: Int, solve: Solve) {
       fontWeight = FontWeight.Bold,
       fontFamily = FontFamily.Monospace
     )
+  }
 
-    DropdownMenu(
-      expanded = showMenu,
-      onDismissRequest = { showMenu = false }
-    ) {
-      Column {
-        Column(Modifier.fillMaxWidth()) {
-          Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            val scramble by rememberSaveable { mutableStateOf(solve.scramble.ifEmpty { "- -" }) }
-            Text(buildAnnotatedString {
-              withStyle(
-                SpanStyle(
-                  fontWeight = FontWeight.Bold
-                )
-              ) {
-                append("Scramble:")
-              }
-            })
+  if (localFullScreenState == FullScreenState.Active) {
+    val tmpState = LocalMutableFullScreenState.current
 
-            TextField(
-              value = scramble,
-              onValueChange = { /*pass*/ }
-            )
-          }
+    LocalFullScreenComposableReference.current.composableReference = {
+      FullScreen(
+        innerBoxFillsMaxSize = false
+      ) {
+        Column(
+          modifier = Modifier
+            .align(Alignment.Center)
+            .background(Color.White)
+            .padding(18.dp)
+        ) {
+          Text(
+            text = solve.getDisplayableRepresentation(),
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(8.dp)
+          )
 
-          Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            var comment by rememberSaveable { mutableStateOf(solve.comment.ifEmpty { "- -" }) }
+          TextField(value = solve.scramble, onValueChange = {})
 
-            Text(buildAnnotatedString {
-              withStyle(
-                SpanStyle(
-                  fontWeight = FontWeight.Bold
-                )
-              ) {
-                append("Comment:")
-              }
-            })
-
-            TextField(
-              value = comment,
-              onValueChange = {
-                comment = it
-                //automatically updates data
-                solve.comment = comment
-              }
-            )
-          }
-
-          Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-            TextButton(onClick = {
-              solve.penalty = Penalty.Ok
-              showMenu = false
-            }) { Text("OK") }
-
-            TextButton(onClick = {
-              solve.penalty = Penalty.PlusTwo
-              showMenu = false
-            }) { Text("+2") }
-
-            TextButton(onClick = {
-              solve.penalty = Penalty.Dnf
-              showMenu = false
-            }) { Text("DNF") }
-          }
-        }
-
-        Row {
           Button(
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(
-              backgroundColor = Color(0xffef5350),
-              contentColor = Color.White
-            ),
             onClick = {
-              isOpen = true
-              showMenu = false
+              tmpState.state.value = FullScreenState.Inactive
             }
-          ) { Text("delete $WastebasketCharacter") }
+          ) {
+            Text("Dismiss")
+          }
         }
       }
     }
 
-    if (isOpen) {
-      Dialog(
-        modifier = Modifier,
-        title = "Warning $WarningCharacter",
-        bodyText = "Delete this time?",
-        dismiss = { isOpen = false },
-        confirmationCallback = {
-          uiComponentsManager.notifyListeners(AppEvent.SolvesItemRemove, solve.id)
-        }
-      )
-    }
+    tmpState.state.value = localFullScreenState
+    localFullScreenState = FullScreenState.Inactive
   }
 }

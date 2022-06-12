@@ -17,6 +17,7 @@ import lucasalfare.fltimer.core.getCurrentTime
 import lucasalfare.fltimer.core.scramble.ScrambleManager
 import lucasalfare.fltimer.core.setupManagers
 import lucasalfare.fltimer.core.timer.TimerManager
+import lucasalfare.fltimer.ui.composables.FullScreenHandleableApplication
 import lucasalfare.fltimer.ui.uiComponentsManager
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -55,6 +56,8 @@ fun main() = application {
     }
 
     // ...then show UI
-    DesktopApp()
+    FullScreenHandleableApplication {
+      DesktopApp()
+    }
   }
 }

@@ -1,5 +1,6 @@
 package lucasalfare.fltimer.ui
 
+import androidx.compose.ui.unit.IntSize
 import lucasalfare.fltimer.core.*
 import lucasalfare.fltimer.core.data.Penalty
 import lucasalfare.fltimer.core.data.Solves

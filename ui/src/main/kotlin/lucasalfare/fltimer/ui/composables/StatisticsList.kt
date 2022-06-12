@@ -25,7 +25,6 @@ fun StatisticsList(modifier: Modifier = Modifier) {
   var solves by remember { mutableStateOf(Solves()) }
   var showDetails by remember { mutableStateOf(false) }
   var relatedSolves by remember { mutableStateOf(Solves()) }
-  var includeScramblesInDetails by remember { mutableStateOf(false) }
 
   DisposableEffect(true) {
     val callback = uiComponentsManager.addCallback { appEvent, data ->
@@ -36,7 +35,6 @@ fun StatisticsList(modifier: Modifier = Modifier) {
 
         AppEvent.ConfigsUpdate -> {
           val configurations = data as MutableMap<*, *>
-          includeScramblesInDetails = configurations[Config.ShowScramblesInDetailsUI] as Boolean
         }
       }
     }
@@ -69,13 +67,5 @@ fun StatisticsList(modifier: Modifier = Modifier) {
         Divider()
       }
     }
-  }
-
-  if (showDetails) {
-    SolvesDetails(
-      solves = relatedSolves,
-      showScrambles = includeScramblesInDetails,
-      dismissCallback = { showDetails = false }
-    )
   }
 }

@@ -20,7 +20,6 @@ import lucasalfare.fltimer.ui.uiComponentsManager
 @Composable
 fun TimesList(modifier: Modifier = Modifier) {
   var solves by remember { mutableStateOf(Solves()) }
-  var includeScramblesInDetails by remember { mutableStateOf(false) }
 
   // list scrolling management
   val lazyListState = rememberLazyListState()
@@ -43,7 +42,6 @@ fun TimesList(modifier: Modifier = Modifier) {
 
         AppEvent.ConfigsUpdate -> {
           val configurations = data as MutableMap<*, *>
-          includeScramblesInDetails = configurations[Config.ShowScramblesInDetailsUI] as Boolean
         }
       }
     }
@@ -67,13 +65,5 @@ fun TimesList(modifier: Modifier = Modifier) {
         }
       }
     }
-  }
-
-  if (showDetails) {
-    SolvesDetails(
-      solves = solves,
-      showScrambles = includeScramblesInDetails,
-      dismissCallback = { showDetails = false }
-    )
   }
 }
