@@ -26,6 +26,10 @@ fun SessionController() {
   var sessions by remember { mutableStateOf(mutableMapOf<String, Session>()) }
   var currentSessionName by remember { mutableStateOf("") }
 
+  LaunchedEffect(true) {
+    uiComponentsManager.notifyListeners(AppEvent.SessionsRequestUpdate)
+  }
+
   DisposableEffect(true) {
     val callback = uiComponentsManager.addCallback { appEvent, data ->
       when (appEvent) {

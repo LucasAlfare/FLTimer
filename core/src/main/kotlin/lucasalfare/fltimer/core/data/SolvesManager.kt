@@ -22,6 +22,10 @@ class SolvesManager : Listenable(), EventListener {
 
   override fun onEvent(event: AppEvent, data: Any?) {
     when (event) {
+      SolvesUpdateRequest -> {
+        notifyListeners(SolvesUpdate, currentSolves)
+      }
+
       SessionsUpdate -> {
         val props = data as Array<*>
         val currentSessionName = props[0] as String

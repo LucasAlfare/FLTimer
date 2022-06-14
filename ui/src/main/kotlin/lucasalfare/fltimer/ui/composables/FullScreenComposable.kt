@@ -6,10 +6,13 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 
 /**
  * Enum class representing the only two different states that a full screen composable can have.
@@ -144,6 +147,7 @@ fun FullScreen(
           interactionSource = interactionSource,
           indication = null
         ) { /* pass */ }
+        .clip(RoundedCornerShape(5.dp))
         .background(innerBoxBackground)
     ) {
       fullScreenContent()

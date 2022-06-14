@@ -121,7 +121,22 @@ enum class AppEvent {
    */
   ConfigsUpdate,
 
-  EmptyEvent
+  EmptyEvent,
+
+  /**
+   * TODO
+   */
+  SolvesUpdateRequest,
+
+  /**
+   * TODO
+   */
+  RequestScrambleGenerated,
+
+  /**
+   * TODO
+   */
+  SessionsRequestUpdate
 }
 
 /**

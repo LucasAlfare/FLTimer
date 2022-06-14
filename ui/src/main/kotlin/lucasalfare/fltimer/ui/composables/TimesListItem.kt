@@ -11,22 +11,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import lucasalfare.fltimer.core.AppEvent
+import lucasalfare.fltimer.core.data.Penalty
 import lucasalfare.fltimer.core.data.Solve
+import lucasalfare.fltimer.ui.WastebasketCharacter
+import lucasalfare.fltimer.ui.uiComponentsManager
 
 @Composable
 fun TimesListItem(index: Int, solve: Solve) {
-  var localFullScreenState by remember { mutableStateOf(FullScreenState.Inactive) }
-
   Box(
     modifier = Modifier
       .fillMaxWidth()
       .clickable {
-        localFullScreenState = FullScreenState.Active
+
       }
-      .padding(8.dp)
+      .padding(
+        start = 12.dp,
+        end = 12.dp,
+        top = 24.dp,
+        bottom = 24.dp
+      )
   ) {
     Text(modifier = Modifier.align(Alignment.CenterStart), text = "${index + 1})")
     Text(
@@ -35,41 +43,5 @@ fun TimesListItem(index: Int, solve: Solve) {
       fontWeight = FontWeight.Bold,
       fontFamily = FontFamily.Monospace
     )
-  }
-
-  if (localFullScreenState == FullScreenState.Active) {
-    val tmpState = LocalMutableFullScreenState.current
-
-    LocalFullScreenComposableReference.current.composableReference = {
-      FullScreen(
-        innerBoxFillsMaxSize = false
-      ) {
-        Column(
-          modifier = Modifier
-            .align(Alignment.Center)
-            .background(Color.White)
-            .padding(18.dp)
-        ) {
-          Text(
-            text = solve.getDisplayableRepresentation(),
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(8.dp)
-          )
-
-          TextField(value = solve.scramble, onValueChange = {})
-
-          Button(
-            onClick = {
-              tmpState.state.value = FullScreenState.Inactive
-            }
-          ) {
-            Text("Dismiss")
-          }
-        }
-      }
-    }
-
-    tmpState.state.value = localFullScreenState
-    localFullScreenState = FullScreenState.Inactive
   }
 }

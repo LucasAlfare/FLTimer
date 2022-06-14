@@ -19,7 +19,7 @@ class SessionManager : Listenable(), EventListener {
     sessions[StandardSessionName] = Session(StandardSessionName)
     currentSession = sessions[StandardSessionName]!!
 
-    tmpCreateSession("bilu teteia", 500)
+    tmpCreateSession("bilu teteia", 100)
     tmpCreateSession("repetiliano", 27)
   }
 
@@ -29,7 +29,7 @@ class SessionManager : Listenable(), EventListener {
     )
 
     repeat(nSolves) {
-      testSession.solves += Solve(time = 500 + Random.nextLong(120000))
+      testSession.solves += Solve(time = 100 + Random.nextLong(60_000))
     }
 
     sessions[testSession.name] = testSession
@@ -41,6 +41,10 @@ class SessionManager : Listenable(), EventListener {
 
   override fun onEvent(event: AppEvent, data: Any?) {
     when (event) {
+      AppEvent.SessionsRequestUpdate -> {
+        notifyListeners(AppEvent.SessionsUpdate, arrayOf(currentSession.name, sessions))
+      }
+
       AppEvent.SessionSwitch -> {
         val targetSessionName = data as String
         if (targetSessionName != currentSession.name) {

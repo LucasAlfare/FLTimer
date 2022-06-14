@@ -22,9 +22,17 @@ class ScrambleManager : Listenable(), EventListener {
 
   override fun onEvent(event: AppEvent, data: Any?) {
     when (event) {
+      AppEvent.RequestScrambleGenerated -> {
+        notifyListeners(
+          AppEvent.ScrambleGenerated,
+          arrayOf(lastScramble, currentScramble)
+        )
+      }
+
       AppEvent.TimerFinished -> {
         genScramble()
       }
+
       AppEvent.TimerReady -> { //only propagates the scrambles when timer says READY
         notifyListeners(
           AppEvent.ScrambleGenerated,
