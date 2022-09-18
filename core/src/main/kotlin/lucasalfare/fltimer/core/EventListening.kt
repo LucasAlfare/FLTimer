@@ -140,9 +140,16 @@ enum class AppEvent {
 }
 
 /**
- * Interface used to make classes able to receive events from [Listenable] entities.
+ * This class is used to make children to be able to receive events from other [EventManageable]
+ * instances. Also, this class is used to make any children be able to propagate events to other
+ * interested [EventManageable] instances.
  */
-interface EventListener {
+abstract class EventManageable {
+
+  /**
+   * Holds all current objects that are listening to this instance.
+   */
+  private var listeners = mutableListOf<EventManageable>()
 
   /**
    * Function that offers a custom initialization block.
@@ -150,30 +157,19 @@ interface EventListener {
    * Normally this is the first function to be called, after
    * constructor and/or native init blocks.
    */
-  fun init()
+  abstract fun init()
 
   /**
    * Used to handle any kind of incoming event/data from outside
    * the instance.
    */
-  fun onEvent(event: AppEvent, data: Any?)
-}
-
-/**
- * Class used to make any children be able to propagate events to other interested Listenables.
- */
-open class Listenable {
-
-  /**
-   * Holds all current objects that are listening to this instance.
-   */
-  private var listeners = mutableListOf<EventListener>()
+  abstract fun onEvent(event: AppEvent, data: Any?)
 
   /**
    * Takes any object that can listen/handle events and adds it in this instance.
    * It will only add if is not added yet.
    */
-  fun addListener(l: EventListener) {
+  fun addListener(l: EventManageable) {
     if (!listeners.contains(l)) listeners.add(l)
   }
 
@@ -195,11 +191,11 @@ open class Listenable {
  * Also, automatically calls initializations of all listeners, but only
  * when adding is finished.
  */
-fun setupManagers(vararg managers: EventListener) {
+fun setupManagers(vararg managers: EventManageable) {
   managers.forEach { m1 ->
     managers.forEach { m2 ->
       if (m2 != m1) {
-        (m2 as Listenable).addListener(m1)
+        m2.addListener(m1)
       }
     }
   }

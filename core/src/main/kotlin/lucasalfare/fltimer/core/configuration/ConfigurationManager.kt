@@ -2,9 +2,10 @@ package lucasalfare.fltimer.core.configuration
 
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.EventListener
+import lucasalfare.fltimer.core.EventManageable
 import lucasalfare.fltimer.core.Listenable
 
-class ConfigurationManager : Listenable(), EventListener {
+class ConfigurationManager : EventManageable() {
 
   private val configurations = mutableMapOf<Config, Any>(
     Pair(Config.UseInspection, false),

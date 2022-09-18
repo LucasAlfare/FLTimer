@@ -2,8 +2,6 @@ package lucasalfare.fltimer.core.timer
 
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.AppEvent.*
-import lucasalfare.fltimer.core.EventListener
-import lucasalfare.fltimer.core.Listenable
 import lucasalfare.fltimer.core.configuration.Config
 import lucasalfare.fltimer.core.timer.fsm.ReadyState
 import lucasalfare.fltimer.core.timer.fsm.TimerState
@@ -11,8 +9,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import lucasalfare.fltimer.core.EventManageable
 
-class TimerManager : Listenable(), EventListener {
+class TimerManager : EventManageable() {
 
   private var currentState: TimerState = ReadyState()
   private var useInspection: Boolean = false
@@ -27,7 +26,7 @@ class TimerManager : Listenable(), EventListener {
         val nextState: TimerState? = currentState.handleInput(event, useInspection)
         if (nextState != null) {
           currentState = nextState
-          currentState.update(eventNotifier = this, data = data as Long)
+          currentState.update(eventManageable = this, data = data as Long)
         }
 
         // re-sends the toggle event, normally target is UI

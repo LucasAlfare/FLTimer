@@ -4,10 +4,11 @@ package lucasalfare.fltimer.core.scramble
 
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.EventListener
+import lucasalfare.fltimer.core.EventManageable
 import lucasalfare.fltimer.core.Listenable
 import lucasalfare.fltimer.core.scramble.scramblers.getFreeRubiksCubeScramble
 
-class ScrambleManager : Listenable(), EventListener {
+class ScrambleManager : EventManageable() {
 
   private var lastScramble = ""
   private var currentScramble = ""

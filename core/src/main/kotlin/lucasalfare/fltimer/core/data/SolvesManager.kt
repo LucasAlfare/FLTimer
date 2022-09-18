@@ -6,9 +6,10 @@ import lucasalfare.fltimer.core.EventListener
 import lucasalfare.fltimer.core.Listenable
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.AppEvent.*
+import lucasalfare.fltimer.core.EventManageable
 import java.util.*
 
-class SolvesManager : Listenable(), EventListener {
+class SolvesManager : EventManageable() {
 
   private lateinit var currentSolves: Solves
 

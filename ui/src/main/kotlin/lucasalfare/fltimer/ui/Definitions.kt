@@ -33,7 +33,7 @@ val uiComponentsManager = ComponentsManager()
  * in order to make then emit application events and receive then as
  * well.
  */
-class ComponentsManager : Listenable(), EventListener {
+class ComponentsManager : EventManageable() {
 
   private val callbacks = mutableListOf<(AppEvent, Any?) -> Unit>()
 

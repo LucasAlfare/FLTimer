@@ -1,6 +1,7 @@
 package lucasalfare.fltimer.core.timer.fsm
 
 import lucasalfare.fltimer.core.AppEvent
+import lucasalfare.fltimer.core.EventManageable
 import lucasalfare.fltimer.core.Listenable
 
 /**
@@ -34,7 +35,7 @@ interface TimerState {
   /**
    * Updates anything related to the state. Can be called outside the state.
    */
-  fun update(eventNotifier: Listenable, data: Any? = null)
+  fun update(eventManageable: EventManageable, data: Any? = null)
 
   /**
    * Cancels any kind of action that can be running in this state, such as
