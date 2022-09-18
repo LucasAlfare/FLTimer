@@ -1,9 +1,7 @@
 package lucasalfare.fltimer.core.data.session
 
 import lucasalfare.fltimer.core.AppEvent
-import lucasalfare.fltimer.core.EventListener
 import lucasalfare.fltimer.core.EventManageable
-import lucasalfare.fltimer.core.Listenable
 import lucasalfare.fltimer.core.data.Session
 import lucasalfare.fltimer.core.data.Solve
 import kotlin.random.Random

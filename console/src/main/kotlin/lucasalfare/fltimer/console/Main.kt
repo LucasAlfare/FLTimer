@@ -1,12 +1,10 @@
 package lucasalfare.fltimer.console
 
 import lucasalfare.fltimer.core.*
-import lucasalfare.fltimer.core.EventListener
 import lucasalfare.fltimer.core.timer.TimerManager
 import java.util.*
 
-
-class ConsoleManager : Listenable(), EventListener {
+class ConsoleManager : EventManageable() {
 
   private val scanner = Scanner(System.`in`)
   private var state = false

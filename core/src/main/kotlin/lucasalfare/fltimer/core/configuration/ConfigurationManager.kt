@@ -1,9 +1,7 @@
 package lucasalfare.fltimer.core.configuration
 
 import lucasalfare.fltimer.core.AppEvent
-import lucasalfare.fltimer.core.EventListener
 import lucasalfare.fltimer.core.EventManageable
-import lucasalfare.fltimer.core.Listenable
 
 class ConfigurationManager : EventManageable() {
 

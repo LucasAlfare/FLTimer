@@ -2,8 +2,6 @@
 
 package lucasalfare.fltimer.core.data
 
-import lucasalfare.fltimer.core.EventListener
-import lucasalfare.fltimer.core.Listenable
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.AppEvent.*
 import lucasalfare.fltimer.core.EventManageable

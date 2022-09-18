@@ -22,7 +22,6 @@ import lucasalfare.fltimer.core.getCurrentTime
 import lucasalfare.fltimer.core.setupManagers
 import lucasalfare.fltimer.core.timer.TimerManager
 import lucasalfare.fltimer.ui.composables.Display
-import lucasalfare.fltimer.ui.composables.FullScreenHandleableApplication
 import lucasalfare.fltimer.ui.uiComponentsManager
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -59,12 +58,12 @@ fun main() = application {
     }
 
     // ...then show UI
-    App()
+    TestApp()
   }
 }
 
 @Composable
-private fun App() {
+private fun TestApp() {
   Box(modifier = Modifier.fillMaxSize()) {
     Box(modifier = Modifier.align(Alignment.Center)) {
       Display()

@@ -2,7 +2,6 @@ package lucasalfare.fltimer.core.timer.fsm
 
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.EventManageable
-import lucasalfare.fltimer.core.Listenable
 
 /**
  * Shortcuts for the main events needed inside the state

@@ -1,8 +1,8 @@
 package lucasalfare.fltimer.core.timer.fsm
 
 import lucasalfare.fltimer.core.AppEvent
+import lucasalfare.fltimer.core.EventManageable
 import lucasalfare.fltimer.core.L
-import lucasalfare.fltimer.core.Listenable
 
 class FinishState(private val start: Long) : TimerState {
 
@@ -19,7 +19,7 @@ class FinishState(private val start: Long) : TimerState {
     return null
   }
 
-  override fun update(eventNotifier: Listenable, data: Any?) {
+  override fun update(eventNotifier: EventManageable, data: Any?) {
     logger.d("current FINISHING the round...")
     //diff between values sent by UI is authoritative
     val realElapsed = (data as Long) - start

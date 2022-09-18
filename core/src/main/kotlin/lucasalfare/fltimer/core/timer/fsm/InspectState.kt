@@ -1,10 +1,10 @@
 package lucasalfare.fltimer.core.timer.fsm
 
 import lucasalfare.fltimer.core.AppEvent
-import lucasalfare.fltimer.core.Listenable
 import lucasalfare.fltimer.core.data.Penalty
 import lucasalfare.fltimer.core.timer.asyncRoutine
 import kotlinx.coroutines.Job
+import lucasalfare.fltimer.core.EventManageable
 import lucasalfare.fltimer.core.L
 
 class InspectState : TimerState {
@@ -27,7 +27,7 @@ class InspectState : TimerState {
     return null
   }
 
-  override fun update(eventNotifier: Listenable, data: Any?) {
+  override fun update(eventNotifier: EventManageable, data: Any?) {
     logger.d("current INSPECTING...")
     repeater = asyncRoutine(delayTime = 1000) {
 

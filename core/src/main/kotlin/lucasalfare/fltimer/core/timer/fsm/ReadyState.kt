@@ -1,8 +1,8 @@
 package lucasalfare.fltimer.core.timer.fsm
 
 import lucasalfare.fltimer.core.AppEvent
+import lucasalfare.fltimer.core.EventManageable
 import lucasalfare.fltimer.core.L
-import lucasalfare.fltimer.core.Listenable
 
 class ReadyState : TimerState {
 
@@ -22,7 +22,7 @@ class ReadyState : TimerState {
     return null
   }
 
-  override fun update(eventNotifier: Listenable, data: Any?) {
+  override fun update(eventNotifier: EventManageable, data: Any?) {
     logger.d("current READY (again?)")
     eventNotifier.notifyListeners(AppEvent.TimerReady)
   }
