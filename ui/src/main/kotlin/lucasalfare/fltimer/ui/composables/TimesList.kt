@@ -1,5 +1,6 @@
 package lucasalfare.fltimer.ui.composables
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,6 +11,9 @@ import androidx.compose.material.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.configuration.Config
@@ -43,6 +47,7 @@ fun TimesList(modifier: Modifier = Modifier) {
         AppEvent.ConfigsUpdate -> {
           val configurations = data as MutableMap<*, *>
         }
+        else -> {}
       }
     }
 
@@ -50,7 +55,9 @@ fun TimesList(modifier: Modifier = Modifier) {
   }
 
   Column(
-    modifier = Modifier.fillMaxWidth(),
+    modifier = Modifier
+      .fillMaxWidth()
+      .shadow(elevation = 5.dp),
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
     Text("Number of solves: ${solves.size}")

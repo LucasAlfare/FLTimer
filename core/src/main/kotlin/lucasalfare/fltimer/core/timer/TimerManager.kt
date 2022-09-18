@@ -1,5 +1,3 @@
-@file:Suppress("NON_EXHAUSTIVE_WHEN", "SENSELESS_COMPARISON")
-
 package lucasalfare.fltimer.core.timer
 
 import lucasalfare.fltimer.core.AppEvent
@@ -49,6 +47,7 @@ class TimerManager : Listenable(), EventListener {
         val configurations = data as MutableMap<*, *>
         useInspection = configurations[Config.UseInspection] as Boolean
       }
+      else -> {}
     }
   }
 }

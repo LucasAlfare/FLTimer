@@ -1,23 +1,27 @@
 @file:Suppress("OPT_IN_IS_NOT_ENABLED")
+
 package lucasalfare.fltimer.desktop
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.*
+import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowPosition
+import androidx.compose.ui.window.WindowState
+import androidx.compose.ui.window.application
 import lucasalfare.fltimer.core.AppEvent
-import lucasalfare.fltimer.core.configuration.ConfigurationManager
-import lucasalfare.fltimer.core.data.SolvesManager
-import lucasalfare.fltimer.core.data.session.SessionManager
 import lucasalfare.fltimer.core.getCurrentTime
-import lucasalfare.fltimer.core.scramble.ScrambleManager
 import lucasalfare.fltimer.core.setupManagers
 import lucasalfare.fltimer.core.timer.TimerManager
+import lucasalfare.fltimer.ui.composables.Display
 import lucasalfare.fltimer.ui.composables.FullScreenHandleableApplication
 import lucasalfare.fltimer.ui.uiComponentsManager
 
@@ -50,17 +54,20 @@ fun main() = application {
     LaunchedEffect(true) {
       setupManagers(
         uiComponentsManager,
-        ScrambleManager(),
-        SolvesManager(),
-        SessionManager(),
         TimerManager(),
-        ConfigurationManager()
       )
     }
 
     // ...then show UI
-    FullScreenHandleableApplication {
-      DesktopApp()
+    App()
+  }
+}
+
+@Composable
+private fun App() {
+  Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.align(Alignment.Center)) {
+      Display()
     }
   }
 }

@@ -12,4 +12,5 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
+    implementation("com.github.nkzawa:socket.io-client:2.1.0")
 }
