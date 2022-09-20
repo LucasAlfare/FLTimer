@@ -19,10 +19,12 @@ import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.getCurrentTime
+import lucasalfare.fltimer.core.networking.NetworkManager
 import lucasalfare.fltimer.core.setupManagers
 import lucasalfare.fltimer.core.timer.TimerManager
 import lucasalfare.fltimer.ui.composables.Display
 import lucasalfare.fltimer.ui.uiComponentsManager
+import java.util.*
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
@@ -54,6 +56,7 @@ fun main() = application {
       setupManagers(
         uiComponentsManager,
         TimerManager(),
+        NetworkManager()
       )
     }
 
