@@ -22,8 +22,8 @@ class NetworkManager : EventManageable() {
 
   override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
     when (event) {
-      TimerToggleDown, TimerToggleUp -> {
-        println("event=$event, data=$data, origin=$origin")
+      TimerToggleUp -> {
+        socket.emit("EVENT_USER_TOGGLE", data as Long)
       }
       else -> {}
     }
