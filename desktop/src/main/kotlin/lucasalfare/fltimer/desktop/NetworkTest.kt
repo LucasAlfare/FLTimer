@@ -24,7 +24,6 @@ import lucasalfare.fltimer.core.setupManagers
 import lucasalfare.fltimer.core.timer.TimerManager
 import lucasalfare.fltimer.ui.composables.Display
 import lucasalfare.fltimer.ui.uiComponentsManager
-import java.util.*
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
