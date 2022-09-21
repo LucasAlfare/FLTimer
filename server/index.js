@@ -1,28 +1,31 @@
-import { Server } from 'socket.io';
-import Express from 'express';
-import cors from 'cors';
+import NetworkingManager from "./NetworkingManager.js";
+import UserManager from "./UserManager.js";
 
-const PORT = process.env.PORT || 3000;
-const app = Express();
-app.use(cors());
-const srv = app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
-const io = new Server(srv, {
-  cors: {
-    origin: '*'
-  }
-});
+const nm = new NetworkingManager();
+const um = new UserManager();
 
-const users = [];
+nm.addListener(um);
+um.addListener(nm);
 
-io.on("connection", socket => {
-  console.log("connection created to the user with id of " + socket.id);
-  const user = { id: socket.id, times: [] }
-  users.push(user);
+nm.init();
 
-  socket.broadcast.emit("UserEntered", user.id);
+// "main" application loop to handle process
+// TODO: automatically kick out most "inactive" users
+setInterval(() => {
+    if (um.users.length > 0) {
+        let nFinished = 0;
+        um.users.forEach(user => {
+            // sum of number with boolean... weird
+            nFinished += user.finished;
+        });
 
-  socket.on("TimerFinished", d => {
-    user.times.push(d);
-    socket.broadcast.emit("UserTimerFinished", user);
-  });
-});
+        if (nFinished === um.users.length) {
+            um.users.forEach(user => {
+                user.started = false;
+                user.finished = false;
+            });
+            console.log('spawning a new scramble...');
+            // TODO...
+        }
+    }
+}, 1000 / 60);

@@ -19,10 +19,10 @@ class SolvesManager : EventManageable() {
 
   }
 
-  override fun onEvent(event: AppEvent, data: Any?) {
+  override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
     when (event) {
       SolvesUpdateRequest -> {
-        notifyListeners(SolvesUpdate, currentSolves)
+        notifyListeners(event = SolvesUpdate, data = currentSolves, origin = this)
       }
 
       SessionsUpdate -> {
@@ -30,7 +30,7 @@ class SolvesManager : EventManageable() {
         val currentSessionName = props[0] as String
         val currentSession = (props[1] as MutableMap<*, *>)[currentSessionName]!! as Session
         currentSolves = currentSession.solves
-        notifyListeners(SolvesUpdate, currentSolves)
+        notifyListeners(event = SolvesUpdate, data = currentSolves, origin = this)
       }
 
       ScrambleGenerated -> {
@@ -54,22 +54,23 @@ class SolvesManager : EventManageable() {
 
         currentSolves += solve
 
-        notifyListeners(SolvesUpdate, currentSolves)
+        notifyListeners(event = SolvesUpdate, data = currentSolves, origin = this)
       }
 
       SolvesItemUpdate -> {
-        notifyListeners(SolvesUpdate, currentSolves)
+        notifyListeners(event = SolvesUpdate, data = currentSolves, origin = this)
       }
 
       SolvesItemRemove -> {
         currentSolves -= data as UUID
-        notifyListeners(SolvesUpdate, currentSolves)
+        notifyListeners(event = SolvesUpdate, data = currentSolves, origin = this)
       }
 
       SolvesClear -> {
         currentSolves.clear()
-        notifyListeners(SolvesUpdate, currentSolves)
+        notifyListeners(event = SolvesUpdate, data = currentSolves, origin = this)
       }
+      else -> {}
     }
   }
 }

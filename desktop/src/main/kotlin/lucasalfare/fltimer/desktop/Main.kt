@@ -1,4 +1,5 @@
 @file:Suppress("OPT_IN_IS_NOT_ENABLED")
+
 package lucasalfare.fltimer.desktop
 
 import androidx.compose.runtime.LaunchedEffect
@@ -32,15 +33,23 @@ fun main() = application {
       if (it.key == Key.Spacebar) {
         when (it.type) {
           KeyEventType.KeyDown -> {
-            uiComponentsManager.notifyListeners(AppEvent.TimerToggleDown, getCurrentTime())
+            uiComponentsManager.notifyListeners(
+              event = AppEvent.TimerToggleDown,
+              data = getCurrentTime(),
+              origin = this
+            )
           }
 
           KeyEventType.KeyUp -> {
-            uiComponentsManager.notifyListeners(AppEvent.TimerToggleUp, getCurrentTime())
+            uiComponentsManager.notifyListeners(
+              event = AppEvent.TimerToggleUp,
+              data = getCurrentTime(),
+              origin = this
+            )
           }
         }
       } else if (it.key == Key.Escape) {
-        uiComponentsManager.notifyListeners(AppEvent.TimerCancel)
+        uiComponentsManager.notifyListeners(event = AppEvent.TimerCancel, origin = this)
       }
       false
     },

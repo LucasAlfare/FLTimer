@@ -23,11 +23,11 @@ class FinishState(private val start: Long) : TimerState {
     logger.d("current FINISHING the round...")
     //diff between values sent by UI is authoritative
     val realElapsed = (data as Long) - start
-    eventNotifier.notifyListeners(AppEvent.TimerUpdate, realElapsed)
-    eventNotifier.notifyListeners(AppEvent.TimerFinished, realElapsed)
+    eventNotifier.notifyListeners(event = AppEvent.TimerUpdate, data = realElapsed, origin = this)
+    eventNotifier.notifyListeners(event = AppEvent.TimerFinished, data = realElapsed, origin = this)
   }
 
-  override fun suspend() {
+  override fun suspendState() {
 
   }
 }

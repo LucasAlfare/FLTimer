@@ -149,7 +149,7 @@ abstract class EventManageable {
   /**
    * Holds all current objects that are listening to this instance.
    */
-  private var listeners = mutableListOf<EventManageable>()
+  var listeners = mutableListOf<EventManageable>()
 
   /**
    * Function that offers a custom initialization block.
@@ -163,7 +163,7 @@ abstract class EventManageable {
    * Used to handle any kind of incoming event/data from outside
    * the instance.
    */
-  abstract fun onEvent(event: AppEvent, data: Any?)
+  abstract fun onEvent(event: AppEvent, data: Any?, origin: Any?)
 
   /**
    * Takes any object that can listen/handle events and adds it in this instance.
@@ -176,9 +176,9 @@ abstract class EventManageable {
   /**
    * Function that pass its params to all previously added listeners of this instance.
    */
-  fun notifyListeners(event: AppEvent, data: Any? = null) {
+  fun notifyListeners(event: AppEvent, data: Any? = null, origin: Any? = null) {
     listeners.forEach {
-      it.onEvent(event, data)
+      it.onEvent(event, data, origin)
     }
   }
 }

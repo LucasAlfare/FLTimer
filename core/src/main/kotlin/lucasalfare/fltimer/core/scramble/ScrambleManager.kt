@@ -14,17 +14,19 @@ class ScrambleManager : EventManageable() {
   override fun init() {
     genScramble()
     notifyListeners(
-      AppEvent.ScrambleGenerated,
-      arrayOf(lastScramble, currentScramble)
+      event = AppEvent.ScrambleGenerated,
+      data = arrayOf(lastScramble, currentScramble),
+      origin = this
     )
   }
 
-  override fun onEvent(event: AppEvent, data: Any?) {
+  override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
     when (event) {
       AppEvent.RequestScrambleGenerated -> {
         notifyListeners(
-          AppEvent.ScrambleGenerated,
-          arrayOf(lastScramble, currentScramble)
+          event = AppEvent.ScrambleGenerated,
+          data = arrayOf(lastScramble, currentScramble),
+          origin = this
         )
       }
 
@@ -34,10 +36,12 @@ class ScrambleManager : EventManageable() {
 
       AppEvent.TimerReady -> { //only propagates the scrambles when timer says READY
         notifyListeners(
-          AppEvent.ScrambleGenerated,
-          arrayOf(lastScramble, currentScramble)
+          event = AppEvent.ScrambleGenerated,
+          data = arrayOf(lastScramble, currentScramble),
+          origin = this
         )
       }
+      else -> {}
     }
   }
 

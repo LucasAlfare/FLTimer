@@ -24,10 +24,10 @@ class ReadyState : TimerState {
 
   override fun update(eventNotifier: EventManageable, data: Any?) {
     logger.d("current READY (again?)")
-    eventNotifier.notifyListeners(AppEvent.TimerReady)
+    eventNotifier.notifyListeners(event = AppEvent.TimerReady, origin = this)
   }
 
-  override fun suspend() {
+  override fun suspendState() {
 
   }
 }

@@ -42,5 +42,5 @@ interface TimerState {
    *
    * Can be called outside the state.
    */
-  fun suspend()
+  fun suspendState()
 }

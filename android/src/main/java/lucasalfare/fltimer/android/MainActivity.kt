@@ -28,11 +28,16 @@ class MainActivity : AppCompatActivity() {
           .fillMaxSize()
           .pointerInput(true) {
             detectTapGestures(onPress = {
-              uiComponentsManager.notifyListeners(AppEvent.TimerToggleDown, getCurrentTime())
+              uiComponentsManager.notifyListeners(
+                event = AppEvent.TimerToggleDown,
+                data = getCurrentTime(),
+                origin = this
+              )
               if (tryAwaitRelease()) {
                 uiComponentsManager.notifyListeners(
-                  AppEvent.TimerToggleUp,
-                  getCurrentTime()
+                  event = AppEvent.TimerToggleUp,
+                  data = getCurrentTime(),
+                  origin = this
                 )
               }
             })

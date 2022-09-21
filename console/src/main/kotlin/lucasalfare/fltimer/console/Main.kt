@@ -27,7 +27,7 @@ class ConsoleManager : EventManageable() {
     }.start()
   }
 
-  override fun onEvent(event: AppEvent, data: Any?) {
+  override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
     if (event == AppEvent.TimerUpdate) {
       clear()
       println((data as Long).toTimestamp())

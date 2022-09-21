@@ -17,10 +17,10 @@ class TimerManager : EventManageable() {
   private var useInspection: Boolean = false
 
   override fun init() {
-
+    println("TimerManager: $listeners")
   }
 
-  override fun onEvent(event: AppEvent, data: Any?) {
+  override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
     when (event) {
       TimerToggleDown, TimerToggleUp -> {
         val nextState: TimerState? = currentState.handleInput(event, useInspection)
@@ -29,16 +29,22 @@ class TimerManager : EventManageable() {
           currentState.update(eventManageable = this, data = data as Long)
         }
 
-        // re-sends the toggle event, normally target is UI
-        notifyListeners(event)
+        // re-sends the event, normally target is UI
+        //TODO: create dedicated event to this to avoid other
+        //  interested in [TimerToggleDown, TimerToggleUp, TimerCancel]
+        //  receive null data
+        //notifyListeners(event = event, origin = this)
       }
 
       TimerCancel -> {
         if (currentState != null) {
-          currentState.suspend()
+          currentState.suspendState()
           currentState = ReadyState()
           // re-sends the event, normally target is UI
-          notifyListeners(event)
+          //TODO: create dedicated event to this to avoid other
+          //  interested in [TimerToggleDown, TimerToggleUp, TimerCancel]
+          //  receive null data
+          //notifyListeners(event = event, origin = this)
         }
       }
 

@@ -35,22 +35,35 @@ class SessionManager : EventManageable() {
   }
 
   override fun init() {
-    notifyListeners(AppEvent.SessionsUpdate, arrayOf(currentSession.name, sessions))
+    notifyListeners(
+      event = AppEvent.SessionsUpdate,
+      data = arrayOf(currentSession.name, sessions),
+      origin = this
+    )
   }
 
-  override fun onEvent(event: AppEvent, data: Any?) {
+  override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
     when (event) {
       AppEvent.SessionsRequestUpdate -> {
-        notifyListeners(AppEvent.SessionsUpdate, arrayOf(currentSession.name, sessions))
+        notifyListeners(
+          event = AppEvent.SessionsUpdate,
+          data = arrayOf(currentSession.name, sessions),
+          origin = this
+        )
       }
 
       AppEvent.SessionSwitch -> {
         val targetSessionName = data as String
         if (targetSessionName != currentSession.name) {
           currentSession = sessions[targetSessionName]!!
-          notifyListeners(AppEvent.SessionsUpdate, arrayOf(currentSession.name, sessions))
+          notifyListeners(
+            event = AppEvent.SessionsUpdate,
+            data = arrayOf(currentSession.name, sessions),
+            origin = this
+          )
         }
       }
+      else -> {}
     }
   }
 }

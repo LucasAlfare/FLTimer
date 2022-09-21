@@ -21,7 +21,7 @@ class InspectState : TimerState {
 
   override fun handleInput(inputType: AppEvent, data: Any?): TimerState? {
     if (inputType == InputRelease) {
-      suspend()
+      suspendState()
       return SolveState()
     }
     return null
@@ -38,14 +38,16 @@ class InspectState : TimerState {
       }
 
       eventNotifier.notifyListeners(
-        AppEvent.TimerInspectionUpdate, arrayOf(countdown, currentPenalty)
+        event = AppEvent.TimerInspectionUpdate,
+        data = arrayOf(countdown, currentPenalty),
+        origin = this
       )
 
       countdown--
     }
   }
 
-  override fun suspend() {
+  override fun suspendState() {
     repeater!!.cancel()
   }
 }

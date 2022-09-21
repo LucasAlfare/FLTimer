@@ -11,13 +11,12 @@ class ConfigurationManager : EventManageable() {
   )
 
   override fun init() {
-    notifyListeners(AppEvent.ConfigsUpdate, configurations)
+    notifyListeners(event = AppEvent.ConfigsUpdate, data = configurations, origin = this)
   }
 
-  override fun onEvent(event: AppEvent, data: Any?) {
+  override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
     if (event == AppEvent.ConfigSet) {
       println("getting a set request...")
-
       val props = data as Array<*>
       val config = props[0] as Config
       val newValue = props[1] as Any
@@ -25,7 +24,7 @@ class ConfigurationManager : EventManageable() {
 
       println(configurations)
 
-      notifyListeners(AppEvent.ConfigsUpdate, configurations)
+      notifyListeners(event = AppEvent.ConfigsUpdate, data = configurations, origin = this)
     }
   }
 }
