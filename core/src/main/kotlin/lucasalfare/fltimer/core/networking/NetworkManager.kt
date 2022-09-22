@@ -15,9 +15,8 @@ class NetworkManager : EventManageable() {
 
   override fun init() {
     socket.on(Socket.EVENT_CONNECT) { println("Connected to the server.") }
-    socket.connect()
 
-    println("NetworkingManager: $listeners")
+    socket.connect()
   }
 
   override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {

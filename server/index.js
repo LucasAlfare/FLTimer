@@ -1,26 +1,27 @@
 import NetworkingManager from "./NetworkingManager.js";
 import UserManager from "./UserManager.js";
+import G from './G.js';
 
-const nm = new NetworkingManager();
-const um = new UserManager();
+const networkMng = new NetworkingManager();
+const userMng = new UserManager();
 
-nm.addListener(um);
-um.addListener(nm);
+networkMng.addListener(userMng);
+userMng.addListener(networkMng);
 
-nm.init();
+networkMng.init();
 
 // "main" application loop to handle process
 // TODO: automatically kick out most "inactive" users
 setInterval(() => {
-    if (um.users.length > 0) {
+    if (userMng.users.length > 0) {
         let nFinished = 0;
-        um.users.forEach(user => {
+        userMng.users.forEach(user => {
             // sum of number with boolean... weird
             nFinished += user.finished;
         });
 
-        if (nFinished === um.users.length) {
-            um.users.forEach(user => {
+        if (nFinished === userMng.users.length) {
+            userMng.users.forEach(user => {
                 user.started = false;
                 user.finished = false;
             });

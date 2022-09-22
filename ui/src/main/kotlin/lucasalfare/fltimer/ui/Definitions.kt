@@ -37,9 +37,7 @@ class ComponentsManager : EventManageable() {
 
   private val callbacks = mutableListOf<(AppEvent, Any?) -> Unit>()
 
-  override fun init() {
-    println("uiComponentsManager: $listeners")
-  }
+  override fun init() {}
 
   override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
     callbacks.forEach { callback ->

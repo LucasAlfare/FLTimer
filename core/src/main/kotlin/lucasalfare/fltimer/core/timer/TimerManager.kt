@@ -16,9 +16,7 @@ class TimerManager : EventManageable() {
   private var currentState: TimerState = ReadyState()
   private var useInspection: Boolean = false
 
-  override fun init() {
-    println("TimerManager: $listeners")
-  }
+  override fun init() {}
 
   override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
     when (event) {
