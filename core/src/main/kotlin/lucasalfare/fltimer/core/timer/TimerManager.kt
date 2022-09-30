@@ -19,6 +19,10 @@ class TimerManager : EventManageable() {
   private var useInspection: Boolean = false
   private var networkingModeOn: Boolean = false
 
+  /**
+   * This field is set to [true] by default once any client
+   * is able to start when just connected to the server/room.
+   */
   private var networkingCanStart = true
 
   override fun init() {}
@@ -32,20 +36,25 @@ class TimerManager : EventManageable() {
       TimerToggleDown, TimerToggleUp -> {
         val nextState: TimerState? = currentState.handleInput(event, useInspection)
         if (nextState != null) {
-          if (networkingModeOn) {
-            if (nextState is SolveState && !networkingCanStart) {
-              currentState = ReadyState()
-            } else {
+
+          when (networkingModeOn) {
+            true -> {
+              if (nextState is SolveState && !networkingCanStart) {
+                currentState = ReadyState()
+              } else {
+                currentState = nextState
+                currentState.update(eventManageable = this, data = data as Long)
+              }
+
+              if (nextState is FinishState) {
+                networkingCanStart = false
+              }
+            }
+
+            else -> {
               currentState = nextState
               currentState.update(eventManageable = this, data = data as Long)
             }
-
-            if (nextState is FinishState) {
-              networkingCanStart = false
-            }
-          } else {
-            currentState = nextState
-            currentState.update(eventManageable = this, data = data as Long)
           }
         }
 
