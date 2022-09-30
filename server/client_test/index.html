@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <button id="bt">click!</button>
+</head>
+
+<body>
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"
+        integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k"
+        crossorigin="anonymous"></script>
+
+    <script>
+        const socket = io("http://localhost:3000");
+        let mySocketId = ''
+        const bt = document.getElementById('bt');
+        let allFinished = false;
+
+        bt.addEventListener('click', evt => {
+            socket.emit('click', Date.now());
+        });
+
+        socket.on('connect', (data) => {
+            mySocketId = socket.id;
+            console.log("connected. My id " + mySocketId);
+        });
+
+        socket.on('all_finished', data => {
+            console.log(data);
+            allFinished = data;
+        });
+    </script>
+</body>
+
+</html>

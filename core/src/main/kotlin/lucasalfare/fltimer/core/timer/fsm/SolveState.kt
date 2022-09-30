@@ -13,12 +13,6 @@ class SolveState : TimerState {
   private var start = 0L
   private var elapsed = 0L
 
-  val logger = L()
-
-  init {
-    logger.logAllowed = false
-  }
-
   override fun handleInput(inputType: AppEvent, data: Any?): TimerState? {
     if (inputType == InputPress) {
       suspendState()
@@ -27,13 +21,20 @@ class SolveState : TimerState {
     return null
   }
 
-  override fun update(eventNotifier: EventManageable, data: Any?) {
-    logger.d("current SOLVING...")
-    eventNotifier.notifyListeners(event = AppEvent.TimerStarted, origin = this)
+  override fun update(eventManageable: EventManageable, data: Any?) {
+    eventManageable.notifyListeners(
+      event = AppEvent.TimerStarted,
+      origin = this
+    )
+
     start = data as Long
     repeater = asyncRoutine {
       elapsed = getCurrentTime() - start
-      eventNotifier.notifyListeners(event = AppEvent.TimerUpdate, data = elapsed, origin = this)
+      eventManageable.notifyListeners(
+        event = AppEvent.TimerUpdate,
+        data = elapsed,
+        origin = this
+      )
     }
   }
 

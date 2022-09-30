@@ -136,7 +136,17 @@ enum class AppEvent {
   /**
    * TODO
    */
-  SessionsRequestUpdate
+  SessionsRequestUpdate,
+
+  /**
+   * TODO
+   */
+  NetworkingUsersUpdate,
+
+  /**
+   * TODO
+   */
+  NetworkingAllUsersFinished
 }
 
 /**

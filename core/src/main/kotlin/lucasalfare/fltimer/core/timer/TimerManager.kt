@@ -15,16 +15,33 @@ class TimerManager : EventManageable() {
 
   private var currentState: TimerState = ReadyState()
   private var useInspection: Boolean = false
+  private var networkingModeOn: Boolean = false
 
-  override fun init() {}
+  private var networkingCanStart = false
+
+  override fun init() {
+    println("networkingModeOn=$networkingModeOn, networkingCanStart=$networkingCanStart")
+  }
 
   override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
     when (event) {
+      NetworkingAllUsersFinished -> {
+        networkingCanStart = data as Boolean
+      }
+
       TimerToggleDown, TimerToggleUp -> {
         val nextState: TimerState? = currentState.handleInput(event, useInspection)
         if (nextState != null) {
-          currentState = nextState
-          currentState.update(eventManageable = this, data = data as Long)
+          if (networkingModeOn) {
+            println("networkingCanStart=$networkingCanStart")
+            if (nextState is ReadyState && networkingCanStart) {
+              currentState = nextState
+              currentState.update(eventManageable = this, data = data as Long)
+            }
+          } else {
+            currentState = nextState
+            currentState.update(eventManageable = this, data = data as Long)
+          }
         }
 
         // re-sends the event, normally target is UI
@@ -49,6 +66,7 @@ class TimerManager : EventManageable() {
       ConfigsUpdate -> {
         val configurations = data as MutableMap<*, *>
         useInspection = configurations[Config.UseInspection] as Boolean
+        networkingModeOn = configurations[Config.NetworkingModeOn] as Boolean
       }
       else -> {}
     }

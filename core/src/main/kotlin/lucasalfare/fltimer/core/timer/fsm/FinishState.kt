@@ -2,15 +2,8 @@ package lucasalfare.fltimer.core.timer.fsm
 
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.EventManageable
-import lucasalfare.fltimer.core.L
 
 class FinishState(private val start: Long) : TimerState {
-
-  val logger = L()
-
-  init {
-    logger.logAllowed = false
-  }
 
   override fun handleInput(inputType: AppEvent, data: Any?): TimerState? {
     if (inputType == InputRelease) {
@@ -19,12 +12,20 @@ class FinishState(private val start: Long) : TimerState {
     return null
   }
 
-  override fun update(eventNotifier: EventManageable, data: Any?) {
-    logger.d("current FINISHING the round...")
+  override fun update(eventManageable: EventManageable, data: Any?) {
     //diff between values sent by UI is authoritative
     val realElapsed = (data as Long) - start
-    eventNotifier.notifyListeners(event = AppEvent.TimerUpdate, data = realElapsed, origin = this)
-    eventNotifier.notifyListeners(event = AppEvent.TimerFinished, data = realElapsed, origin = this)
+    eventManageable.notifyListeners(
+      event = AppEvent.TimerUpdate,
+      data = realElapsed,
+      origin = this
+    )
+
+    eventManageable.notifyListeners(
+      event = AppEvent.TimerFinished,
+      data = realElapsed,
+      origin = this
+    )
   }
 
   override fun suspendState() {

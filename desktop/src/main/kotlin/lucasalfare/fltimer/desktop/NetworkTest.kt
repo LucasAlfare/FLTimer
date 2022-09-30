@@ -24,6 +24,7 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import lucasalfare.fltimer.core.AppEvent
+import lucasalfare.fltimer.core.configuration.ConfigurationManager
 import lucasalfare.fltimer.core.getCurrentTime
 import lucasalfare.fltimer.core.networking.NetworkManager
 import lucasalfare.fltimer.core.setupManagers
@@ -69,6 +70,7 @@ fun main() = application {
     LaunchedEffect(true) {
       setupManagers(
         uiComponentsManager,
+        ConfigurationManager(),
         TimerManager(),
         NetworkManager()
       )

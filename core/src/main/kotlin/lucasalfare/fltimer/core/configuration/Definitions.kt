@@ -19,5 +19,10 @@ enum class Config {
   /**
    * Determines if scrambles should be shown in the details screen of the UI.
    */
-  ShowScramblesInDetailsUI
+  ShowScramblesInDetailsUI,
+
+  /**
+   * TODO
+   */
+  NetworkingModeOn
 }
