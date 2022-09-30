@@ -53,7 +53,8 @@ enum class AppEvent {
   TimerFinished,
 
   /**
-   * TODO
+   * When fired, this event indicates the timer should be cancel any
+   * running state and restores to the idle [ReadyState].
    */
   TimerCancel,
 
@@ -80,7 +81,8 @@ enum class AppEvent {
   SolvesItemRemove,
 
   /**
-   * TODO
+   * When fired, this event indicates request to clear all solves data from the current
+   * session.
    */
   SolvesClear,
 
@@ -129,7 +131,8 @@ enum class AppEvent {
   SolvesUpdateRequest,
 
   /**
-   * TODO
+   * Comes with a [String] value containing the current active scramble generated
+   * by the application.
    */
   RequestScrambleGenerated,
 
@@ -139,12 +142,17 @@ enum class AppEvent {
   SessionsRequestUpdate,
 
   /**
-   * TODO
+   * This event indicates that networking module also received a primary
+   * "NetworkingUsersUpdate" event from the server. This comes with a list of
+   * users matching the type [User].
    */
   NetworkingUsersUpdate,
 
   /**
-   * TODO
+   * This event indicates that networking module also received a primary
+   * "NetworkingAllUsersFinished" event from the server. This should indicates that
+   * all users inside the server finished their rounds and THIS client is able to
+   * play again.
    */
   NetworkingAllUsersFinished
 }
