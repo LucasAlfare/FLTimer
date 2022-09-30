@@ -20,7 +20,7 @@ fun parseServerUsers(input: JSONArray): MutableList<User> {
     val parsedSolves = Solves()
     var j = 0
     while (j < solves.length()) {
-      parsedSolves += Solve(time = (solves[i] as Int).toLong())
+      parsedSolves += Solve(time = (solves[j] as Int).toLong())
       j++
     }
     users += User(id = id, solves = parsedSolves)

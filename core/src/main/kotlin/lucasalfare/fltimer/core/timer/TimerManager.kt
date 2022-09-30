@@ -10,6 +10,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import lucasalfare.fltimer.core.EventManageable
+import lucasalfare.fltimer.core.timer.fsm.FinishState
+import lucasalfare.fltimer.core.timer.fsm.SolveState
 
 class TimerManager : EventManageable() {
 
@@ -17,11 +19,9 @@ class TimerManager : EventManageable() {
   private var useInspection: Boolean = false
   private var networkingModeOn: Boolean = false
 
-  private var networkingCanStart = false
+  private var networkingCanStart = true
 
-  override fun init() {
-    println("networkingModeOn=$networkingModeOn, networkingCanStart=$networkingCanStart")
-  }
+  override fun init() {}
 
   override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
     when (event) {
@@ -33,10 +33,15 @@ class TimerManager : EventManageable() {
         val nextState: TimerState? = currentState.handleInput(event, useInspection)
         if (nextState != null) {
           if (networkingModeOn) {
-            println("networkingCanStart=$networkingCanStart")
-            if (nextState is ReadyState && networkingCanStart) {
+            if (nextState is SolveState && !networkingCanStart) {
+              currentState = ReadyState()
+            } else {
               currentState = nextState
               currentState.update(eventManageable = this, data = data as Long)
+            }
+
+            if (nextState is FinishState) {
+              networkingCanStart = false
             }
           } else {
             currentState = nextState

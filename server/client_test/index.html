@@ -22,7 +22,7 @@
         let allFinished = false;
 
         bt.addEventListener('click', evt => {
-            socket.emit('click', Date.now());
+            socket.emit('TimerToggle', Date.now());
         });
 
         socket.on('connect', (data) => {
@@ -30,7 +30,7 @@
             console.log("connected. My id " + mySocketId);
         });
 
-        socket.on('all_finished', data => {
+        socket.on('NetworkingAllUsersFinished', data => {
             console.log(data);
             allFinished = data;
         });

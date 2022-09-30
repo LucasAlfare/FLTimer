@@ -30,6 +30,7 @@ class NetworkManager : EventManageable() {
 
     socket.on("NetworkingAllUsersFinished") {
       val data = it[0] as Boolean
+      println(data)
       notifyListeners(NetworkingAllUsersFinished, data)
     }
 

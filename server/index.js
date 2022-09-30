@@ -50,8 +50,6 @@ const io = new Server(srv, { cors: { origin: '*' } });
 app.use(cors());
 
 
-// const testUser = new User('this_is_my_random_id');
-// testUser.solves = [1000, 2500, 3000];
 let users = [];
 
 io.on('connection', (socket) => {
@@ -59,11 +57,11 @@ io.on('connection', (socket) => {
     console.log(`User of ID ${user.id} connected.`);
     users.push(user);
     io.emit('NetworkingUsersUpdate', users);
-    socket.on('TimerToggle', data => {
-        user.toggle(data);
-    });
+
+    socket.on('TimerToggle', data => { user.toggle(data) });
 
     socket.on('disconnect', () => {
+        console.log(`User of ID ${user.id} was disconnected.`);
         users = users.filter(u => u.id !== user.id);
         io.emit('NetworkingUsersUpdate', users);
     });
@@ -75,7 +73,7 @@ setInterval(() => {
     if (users.length > 0) {
         const finishedUsers = users.filter(u => u.started && u.finished);
         if (finishedUsers.length === users.length) {
-            console.log(`ALL FINISHED!`);
+            console.log(`ALL USERS HAS FINISHED!`);
 
             // only resets users state after detecting finishing from all of them
             finishedUsers.forEach(u => { u.started = false });
