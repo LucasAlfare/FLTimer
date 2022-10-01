@@ -9,18 +9,18 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import lucasalfare.fltimer.core.AppEvent
-import lucasalfare.fltimer.ui.uiComponentsManager
+import lucasalfare.fltimer.ui.uiManager
 
 @Composable
 fun Scramble() {
   var text by remember { mutableStateOf("loading....") }
 
   LaunchedEffect(true) {
-    uiComponentsManager.notifyListeners(AppEvent.RequestScrambleGenerated)
+    uiManager.notifyListeners(AppEvent.RequestScrambleGenerated)
   }
 
   DisposableEffect(true) {
-    val callback = uiComponentsManager.addCallback { appEvent, data ->
+    val callback = uiManager.addCallback { appEvent, data ->
       when(appEvent) {
         AppEvent.ScrambleGenerated -> {
           val args = data as Array<*>
@@ -29,7 +29,7 @@ fun Scramble() {
       }
     }
 
-    onDispose { uiComponentsManager.removeCallback(callback) }
+    onDispose { uiManager.removeCallback(callback) }
   }
 
   Box(

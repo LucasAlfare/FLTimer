@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.ui.composables.Display
 import lucasalfare.fltimer.ui.composables.Scramble
-import lucasalfare.fltimer.ui.uiComponentsManager
+import lucasalfare.fltimer.ui.uiManager
 
 @Composable
 fun AndroidApp() {
@@ -24,7 +24,7 @@ fun AndroidApp() {
   var shouldHide by remember { mutableStateOf(false) }
 
   DisposableEffect(true) {
-    val callback = uiComponentsManager.addCallback { appEvent, _ ->
+    val callback = uiManager.addCallback { appEvent, _ ->
       when (appEvent) {
         AppEvent.TimerStarted -> {
           shouldHide = true
@@ -36,7 +36,7 @@ fun AndroidApp() {
       }
     }
 
-    onDispose { uiComponentsManager.removeCallback(callback) }
+    onDispose { uiManager.removeCallback(callback) }
   }
 
   Box(

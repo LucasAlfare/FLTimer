@@ -9,14 +9,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.toTimestamp
-import lucasalfare.fltimer.ui.uiComponentsManager
+import lucasalfare.fltimer.ui.uiManager
 
 @Composable
 fun Display() {
   var text by remember { mutableStateOf("ready") }
 
   DisposableEffect(true) {
-    val callback = uiComponentsManager.addCallback { appEvent, data ->
+    val callback = uiManager.addCallback { appEvent, data ->
       when (appEvent) {
         AppEvent.TimerUpdate -> {
           text = (data as Long).toTimestamp()
@@ -24,7 +24,7 @@ fun Display() {
       }
     }
 
-    onDispose { uiComponentsManager.removeCallback(callback) }
+    onDispose { uiManager.removeCallback(callback) }
   }
 
   Text(

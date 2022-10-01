@@ -1,20 +1,14 @@
 package lucasalfare.fltimer.ui.composables
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.data.Session
-import lucasalfare.fltimer.ui.GearCharacter
 import lucasalfare.fltimer.ui.NextCharacter
 import lucasalfare.fltimer.ui.PreviousCharacter
-import lucasalfare.fltimer.ui.uiComponentsManager
+import lucasalfare.fltimer.ui.uiManager
 
 @OptIn(ExperimentalMaterialApi::class)
 @Suppress(
@@ -27,11 +21,11 @@ fun SessionController() {
   var currentSessionName by remember { mutableStateOf("") }
 
   LaunchedEffect(true) {
-    uiComponentsManager.notifyListeners(AppEvent.SessionsRequestUpdate)
+    uiManager.notifyListeners(AppEvent.SessionsRequestUpdate)
   }
 
   DisposableEffect(true) {
-    val callback = uiComponentsManager.addCallback { appEvent, data ->
+    val callback = uiManager.addCallback { appEvent, data ->
       when (appEvent) {
         AppEvent.SessionsUpdate -> {
           val args = data as Array<*>
@@ -41,12 +35,12 @@ fun SessionController() {
       }
     }
 
-    onDispose { uiComponentsManager.removeCallback(callback) }
+    onDispose { uiManager.removeCallback(callback) }
   }
 
   Row(verticalAlignment = Alignment.CenterVertically) {
     TextButton(onClick = {
-      uiComponentsManager.notifyListeners(
+      uiManager.notifyListeners(
         AppEvent.SessionSwitch,
         getSession(currentSessionName, sessions, false)
       )
@@ -57,7 +51,7 @@ fun SessionController() {
     Text(currentSessionName)
 
     TextButton(onClick = {
-      uiComponentsManager.notifyListeners(
+      uiManager.notifyListeners(
         AppEvent.SessionSwitch,
         getSession(currentSessionName, sessions, true)
       )

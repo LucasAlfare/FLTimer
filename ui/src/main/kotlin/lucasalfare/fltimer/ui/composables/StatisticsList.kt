@@ -14,11 +14,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import lucasalfare.fltimer.core.AppEvent
-import lucasalfare.fltimer.core.configuration.Config
 import lucasalfare.fltimer.core.data.Solves
 import lucasalfare.fltimer.core.statistics.getStats
 import lucasalfare.fltimer.core.toTimestamp
-import lucasalfare.fltimer.ui.uiComponentsManager
+import lucasalfare.fltimer.ui.uiManager
 
 @Composable
 fun StatisticsList(modifier: Modifier = Modifier) {
@@ -27,7 +26,7 @@ fun StatisticsList(modifier: Modifier = Modifier) {
   var relatedSolves by remember { mutableStateOf(Solves()) }
 
   DisposableEffect(true) {
-    val callback = uiComponentsManager.addCallback { appEvent, data ->
+    val callback = uiManager.addCallback { appEvent, data ->
       when (appEvent) {
         AppEvent.SolvesUpdate -> {
           solves = (data as Solves).clone()
@@ -39,7 +38,7 @@ fun StatisticsList(modifier: Modifier = Modifier) {
       }
     }
 
-    onDispose { uiComponentsManager.removeCallback(callback) }
+    onDispose { uiManager.removeCallback(callback) }
   }
 
   LazyColumn {

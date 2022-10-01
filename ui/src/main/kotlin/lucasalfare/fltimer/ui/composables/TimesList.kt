@@ -1,6 +1,5 @@
 package lucasalfare.fltimer.ui.composables
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,14 +11,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import lucasalfare.fltimer.core.AppEvent
-import lucasalfare.fltimer.core.configuration.Config
 import lucasalfare.fltimer.core.data.Solves
 import lucasalfare.fltimer.ui.ClipboardCharacter
-import lucasalfare.fltimer.ui.uiComponentsManager
+import lucasalfare.fltimer.ui.uiManager
 
 @Composable
 fun TimesList(modifier: Modifier = Modifier) {
@@ -32,7 +29,7 @@ fun TimesList(modifier: Modifier = Modifier) {
   var showDetails by remember { mutableStateOf(false) }
 
   DisposableEffect(true) {
-    val callback = uiComponentsManager.addCallback { appEvent, data ->
+    val callback = uiManager.addCallback { appEvent, data ->
       when (appEvent) {
         AppEvent.SolvesUpdate -> {
           solves = (data as Solves).clone()
@@ -51,7 +48,7 @@ fun TimesList(modifier: Modifier = Modifier) {
       }
     }
 
-    onDispose { uiComponentsManager.removeCallback(callback) }
+    onDispose { uiManager.removeCallback(callback) }
   }
 
   Column(

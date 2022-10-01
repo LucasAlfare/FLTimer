@@ -9,7 +9,6 @@ import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.*
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.configuration.ConfigurationManager
@@ -20,7 +19,7 @@ import lucasalfare.fltimer.core.scramble.ScrambleManager
 import lucasalfare.fltimer.core.setupManagers
 import lucasalfare.fltimer.core.timer.TimerManager
 import lucasalfare.fltimer.ui.composables.FullScreenHandleableApplication
-import lucasalfare.fltimer.ui.uiComponentsManager
+import lucasalfare.fltimer.ui.uiManager
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
@@ -33,7 +32,7 @@ fun main() = application {
       if (it.key == Key.Spacebar) {
         when (it.type) {
           KeyEventType.KeyDown -> {
-            uiComponentsManager.notifyListeners(
+            uiManager.notifyListeners(
               event = AppEvent.TimerToggleDown,
               data = getCurrentTime(),
               origin = this
@@ -41,7 +40,7 @@ fun main() = application {
           }
 
           KeyEventType.KeyUp -> {
-            uiComponentsManager.notifyListeners(
+            uiManager.notifyListeners(
               event = AppEvent.TimerToggleUp,
               data = getCurrentTime(),
               origin = this
@@ -49,7 +48,7 @@ fun main() = application {
           }
         }
       } else if (it.key == Key.Escape) {
-        uiComponentsManager.notifyListeners(event = AppEvent.TimerCancel, origin = this)
+        uiManager.notifyListeners(event = AppEvent.TimerCancel, origin = this)
       }
       false
     },
@@ -58,7 +57,7 @@ fun main() = application {
     // before show UI, sets managers up
     LaunchedEffect(true) {
       setupManagers(
-        uiComponentsManager,
+        uiManager,
         ScrambleManager(),
         SolvesManager(),
         SessionManager(),

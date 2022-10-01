@@ -1,6 +1,5 @@
 package lucasalfare.fltimer.ui
 
-import androidx.compose.ui.unit.IntSize
 import lucasalfare.fltimer.core.*
 import lucasalfare.fltimer.core.data.Penalty
 import lucasalfare.fltimer.core.data.Solves
@@ -18,12 +17,12 @@ const val PreviousCharacter = "⏪"
 const val NextCharacter = "⏩"
 
 /**
- * Pre created instance of a [ComponentsManager] class to be used
+ * Pre created instance of a [UIManager] class to be used
  * over UI components.
  *
  * TODO: must this be placed in a Companion Object?
  */
-val uiComponentsManager = ComponentsManager()
+val uiManager = UIManager()
 
 /**
  * Custom implementation of a class that can be listened and emit
@@ -33,7 +32,7 @@ val uiComponentsManager = ComponentsManager()
  * in order to make then emit application events and receive then as
  * well.
  */
-class ComponentsManager : EventManageable() {
+class UIManager : EventManageable() {
 
   private val callbacks = mutableListOf<(AppEvent, Any?) -> Unit>()
 

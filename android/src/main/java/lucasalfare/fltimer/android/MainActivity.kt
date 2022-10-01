@@ -17,7 +17,7 @@ import lucasalfare.fltimer.core.getCurrentTime
 import lucasalfare.fltimer.core.scramble.ScrambleManager
 import lucasalfare.fltimer.core.setupManagers
 import lucasalfare.fltimer.core.timer.TimerManager
-import lucasalfare.fltimer.ui.uiComponentsManager
+import lucasalfare.fltimer.ui.uiManager
 
 class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,13 +28,13 @@ class MainActivity : AppCompatActivity() {
           .fillMaxSize()
           .pointerInput(true) {
             detectTapGestures(onPress = {
-              uiComponentsManager.notifyListeners(
+              uiManager.notifyListeners(
                 event = AppEvent.TimerToggleDown,
                 data = getCurrentTime(),
                 origin = this
               )
               if (tryAwaitRelease()) {
-                uiComponentsManager.notifyListeners(
+                uiManager.notifyListeners(
                   event = AppEvent.TimerToggleUp,
                   data = getCurrentTime(),
                   origin = this
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
       ) {
         LaunchedEffect(true) {
           setupManagers(
-            uiComponentsManager,
+            uiManager,
             ScrambleManager(),
             SolvesManager(),
             SessionManager(),

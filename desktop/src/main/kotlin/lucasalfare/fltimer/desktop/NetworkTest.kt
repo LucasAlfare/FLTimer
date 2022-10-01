@@ -2,7 +2,6 @@
 
 package lucasalfare.fltimer.desktop
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -31,7 +30,7 @@ import lucasalfare.fltimer.core.setupManagers
 import lucasalfare.fltimer.core.timer.TimerManager
 import lucasalfare.fltimer.core.toTimestamp
 import lucasalfare.fltimer.ui.composables.Display
-import lucasalfare.fltimer.ui.uiComponentsManager
+import lucasalfare.fltimer.ui.uiManager
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
@@ -44,7 +43,7 @@ fun main() = application {
       if (it.key == Key.Spacebar) {
         when (it.type) {
           KeyEventType.KeyDown -> {
-            uiComponentsManager.notifyListeners(
+            uiManager.notifyListeners(
               event = AppEvent.TimerToggleDown,
               data = getCurrentTime(),
               origin = this // this pointing to curr context :(
@@ -52,7 +51,7 @@ fun main() = application {
           }
 
           KeyEventType.KeyUp -> {
-            uiComponentsManager.notifyListeners(
+            uiManager.notifyListeners(
               event = AppEvent.TimerToggleUp,
               data = getCurrentTime(),
               origin = this // this pointing to curr context :(
@@ -60,7 +59,7 @@ fun main() = application {
           }
         }
       } else if (it.key == Key.Escape) {
-        uiComponentsManager.notifyListeners(AppEvent.TimerCancel)
+        uiManager.notifyListeners(AppEvent.TimerCancel)
       }
       false
     },
@@ -69,7 +68,7 @@ fun main() = application {
     // before show UI, sets managers up
     LaunchedEffect(true) {
       setupManagers(
-        uiComponentsManager,
+        uiManager,
         ConfigurationManager(),
         TimerManager(),
         NetworkManager()
