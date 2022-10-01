@@ -22,7 +22,15 @@ enum class Config {
   ShowScramblesInDetailsUI,
 
   /**
-   * TODO
+   * This configuration determines if the current session is in
+   * online mode. Its value is [Boolean].
    */
-  NetworkingModeOn
+  NetworkingModeOn,
+
+  /**
+   * This configuration determines if the application should
+   * still asking for the desired mode on startup.
+   * Its value is [Boolean].
+   */
+  AskForTimerMode,
 }

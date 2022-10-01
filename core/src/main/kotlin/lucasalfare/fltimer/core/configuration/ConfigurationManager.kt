@@ -8,7 +8,8 @@ class ConfigurationManager : EventManageable() {
   private val configurations = mutableMapOf<Config, Any>(
     Pair(Config.UseInspection, false),
     Pair(Config.ShowScramblesInDetailsUI, true),
-    Pair(Config.NetworkingModeOn, true)
+    Pair(Config.NetworkingModeOn, true),
+    Pair(Config.AskForTimerMode, true)
   )
 
   override fun init() {
