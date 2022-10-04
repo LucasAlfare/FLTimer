@@ -1,20 +1,15 @@
 package lucasalfare.fltimer.desktop
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.toSize
 import lucasalfare.fltimer.ui.composables.*
 
 
 @Composable
-fun DesktopApp() {
+fun DefaultDesktopApp() {
   Box(modifier = Modifier
     .fillMaxSize()
   ) {

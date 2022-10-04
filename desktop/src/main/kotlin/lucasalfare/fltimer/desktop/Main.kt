@@ -68,7 +68,7 @@ fun main() = application {
 
     // ...then show UI
     FullScreenHandleableApplication {
-      DesktopApp()
+      DefaultDesktopApp()
     }
   }
 }
