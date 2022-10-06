@@ -1,9 +1,6 @@
 package lucasalfare.fltimer.ui.composables
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -40,7 +37,9 @@ fun Scramble() {
   Box(
     modifier = Modifier
       .shadow(5.dp)
-      .defaultMinSize(minWidth = 200.dp, minHeight = 70.dp)
+      .fillMaxWidth()
+      .height(80.dp)
+      //.defaultMinSize(minWidth = 200.dp, minHeight = 70.dp)
       .padding(12.dp)
   ) {
     Text(

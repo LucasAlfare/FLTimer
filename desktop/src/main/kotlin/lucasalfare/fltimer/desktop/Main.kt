@@ -67,7 +67,7 @@ fun main() = application {
       )
     }
 
-    UsersPanel()
+    DefaultDesktopApp()
 
     /*
     // ...then show UI
