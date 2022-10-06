@@ -1,10 +1,14 @@
 package lucasalfare.fltimer.ui.composables
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -21,11 +25,12 @@ fun Scramble() {
 
   DisposableEffect(true) {
     val callback = uiManager.addCallback { appEvent, data ->
-      when(appEvent) {
+      when (appEvent) {
         AppEvent.ScrambleGenerated -> {
           val args = data as Array<*>
           text = args[1] as String
         }
+        else -> {}
       }
     }
 
@@ -34,9 +39,12 @@ fun Scramble() {
 
   Box(
     modifier = Modifier
+      .shadow(5.dp)
+      .defaultMinSize(minWidth = 200.dp, minHeight = 70.dp)
       .padding(12.dp)
   ) {
     Text(
+      modifier = Modifier.align(Alignment.Center),
       text = text,
       textAlign = TextAlign.Center,
       fontFamily = FontFamily.Monospace
