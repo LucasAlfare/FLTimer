@@ -15,3 +15,5 @@ callbacks_ onto the global `uiManager` field.
 The `DiposableEffect` side effect was choose once it provides a way to "remove" the previous
 attached function callback, which is a nice way to manage those callbacks if the UI needs repaint or
 something like that.
+
+Is important to know that the main layout UI for each platform is stored in their respective sub-projects. This module stores only the minimal components pieces to deal with the application.
