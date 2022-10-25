@@ -49,7 +49,6 @@ fun StatisticsList(modifier: Modifier = Modifier) {
     LazyColumn(
       modifier = Modifier
         .shadow(4.dp)
-        .border(width = 4.dp, shape = RoundedCornerShape(5.dp), color = Color.LightGray)
         .padding(8.dp)
         .fillMaxSize()
     ) {

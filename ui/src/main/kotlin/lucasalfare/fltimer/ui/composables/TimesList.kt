@@ -1,10 +1,7 @@
 package lucasalfare.fltimer.ui.composables
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -56,10 +53,10 @@ fun TimesList(modifier: Modifier = Modifier) {
   Column(
     modifier = Modifier
       .shadow(4.dp)
-      .border(width = 4.dp, shape = RoundedCornerShape(5.dp), color = Color.LightGray)
       .padding(8.dp)
       .fillMaxWidth()
-      .fillMaxHeight(),
+      .fillMaxHeight()
+    ,
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
     Text(text = "Number of solves: ${solves.size}", fontSize = 12.sp)
@@ -77,7 +74,7 @@ fun TimesList(modifier: Modifier = Modifier) {
       solves.values.forEachIndexed { index, solve ->
         item {
           TimesListItem(index = index, solve = solve)
-          Divider()
+          Divider(startIndent = 5.dp, modifier = Modifier.padding(end = 5.dp))
         }
       }
     }

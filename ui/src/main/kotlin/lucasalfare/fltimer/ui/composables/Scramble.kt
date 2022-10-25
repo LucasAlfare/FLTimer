@@ -36,7 +36,6 @@ fun Scramble() {
 
   Box(
     modifier = Modifier
-      .shadow(5.dp)
       .fillMaxWidth()
       .height(80.dp)
       //.defaultMinSize(minWidth = 200.dp, minHeight = 70.dp)
