@@ -22,7 +22,7 @@ import lucasalfare.fltimer.ui.ClipboardCharacter
 import lucasalfare.fltimer.ui.uiManager
 
 @Composable
-fun TimesList(modifier: Modifier = Modifier) {
+fun TimesList() {
   var solves by remember { mutableStateOf(Solves()) }
 
   // list scrolling management
@@ -55,8 +55,7 @@ fun TimesList(modifier: Modifier = Modifier) {
       .shadow(4.dp)
       .padding(8.dp)
       .fillMaxWidth()
-      .fillMaxHeight()
-    ,
+      .fillMaxHeight(),
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
     Text(text = "Number of solves: ${solves.size}", fontSize = 12.sp)
