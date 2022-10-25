@@ -209,7 +209,7 @@ abstract class EventManageable {
  * Also, automatically calls initializations of all listeners, but only
  * when adding is finished.
  */
-fun setupManagers(vararg managers: EventManageable) {
+fun setupManagers(vararg managers: EventManageable): Array<out EventManageable> {
   managers.forEach { m1 ->
     managers.forEach { m2 ->
       if (m2 != m1) {
@@ -219,4 +219,6 @@ fun setupManagers(vararg managers: EventManageable) {
   }
 
   managers.forEach { it.init() }
+
+  return managers
 }
