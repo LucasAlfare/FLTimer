@@ -29,7 +29,7 @@ fun Display() {
 
   Text(
     text = text,
-    fontSize = 50.sp,
+    fontSize = 60.sp,
     fontFamily = FontFamily.Monospace,
     fontWeight = FontWeight.Bold
   )

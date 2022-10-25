@@ -1,11 +1,13 @@
 package lucasalfare.fltimer.ui.composables
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
@@ -46,34 +48,43 @@ fun StatisticsList(modifier: Modifier = Modifier) {
   }
 
   if (solves.isNotEmpty()) {
-    LazyColumn(
-      modifier = Modifier
-        .shadow(4.dp)
-        .padding(8.dp)
-        .fillMaxSize()
-    ) {
-      solves.getStats().forEach {
-        item {
-          TextButton(modifier = Modifier.fillMaxWidth(), onClick = {
-            showDetails = !showDetails
-            relatedSolves = it.related
-          }) {
-            Text(
-              text = buildAnnotatedString {
-                append("${it.name}:\n")
-                withStyle(
-                  SpanStyle(
-                    fontFamily = FontFamily.Monospace,
-                    fontWeight = FontWeight.Bold
-                  )
-                ) {
-                  append(it.result.toTimestamp())
-                }
-              },
-              textAlign = TextAlign.Center
-            )
+    Column {
+      Button(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = {}
+      ) {
+        Text("See all details...")
+      }
+
+      LazyColumn(
+        modifier = Modifier
+          .shadow(4.dp)
+          .padding(8.dp)
+          .fillMaxSize()
+      ) {
+        solves.getStats().forEach {
+          item {
+            TextButton(modifier = Modifier.fillMaxWidth(), onClick = {
+              showDetails = !showDetails
+              relatedSolves = it.related
+            }) {
+              Text(
+                text = buildAnnotatedString {
+                  append("${it.name}:\n")
+                  withStyle(
+                    SpanStyle(
+                      fontFamily = FontFamily.Monospace,
+                      fontWeight = FontWeight.Bold
+                    )
+                  ) {
+                    append(it.result.toTimestamp())
+                  }
+                },
+                textAlign = TextAlign.Center
+              )
+            }
+            Divider()
           }
-          Divider()
         }
       }
     }
