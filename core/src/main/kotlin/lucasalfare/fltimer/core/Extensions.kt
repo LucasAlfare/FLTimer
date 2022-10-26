@@ -13,6 +13,8 @@ package lucasalfare.fltimer.core
  * @author Francisco Lucas
  */
 fun Long.toTimestamp(): String {
+  if (this == -1L) return "DNF"
+
   val seconds = "${(this / 1000) % 60}".padStart(2, '0')
   val milliseconds = "${this % 1000}".padStart(3, '0')
 

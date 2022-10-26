@@ -1,99 +1,97 @@
 package lucasalfare.fltimer.desktop
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.Composable
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.material.TextField
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.ui.composables.*
+import lucasalfare.fltimer.ui.uiManager
 
 
 @Composable
 fun DefaultDesktopApp() {
-  Row {
-    Box(
-      modifier = Modifier
-        .width(180.dp)
-        .weight(1f)
-        .padding(bottom = 8.dp)
-    ) {
-      Column {
-        SessionController()
-        TimesList()
+  var currentPresentation by remember { mutableStateOf("app") }
+  var currentStatisticResultText by remember { mutableStateOf("") }
+
+  DisposableEffect(true) {
+    val callback = uiManager.addCallback { appEvent, data ->
+      when (appEvent) {
+        AppEvent.StatisticsResponse -> {
+          currentPresentation = "stats"
+          currentStatisticResultText = data as String
+        }
+        else -> {}
       }
     }
 
-    Box(modifier = Modifier.weight(2f)) {
-      Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Box(modifier = Modifier.weight(1f)) {
-          Scramble()
-        }
+    onDispose { uiManager.removeCallback(callback) }
+  }
 
-        Box(modifier = Modifier.weight(2f), contentAlignment = Alignment.TopCenter) {
-          Display()
+  if (currentPresentation == "app") {
+    Row {
+      Box(
+        modifier = Modifier
+          //.width(120.dp)
+          .weight(0.75f)
+          .padding(bottom = 8.dp)
+      ) {
+        Column {
+          SessionController()
+          TimesList()
         }
       }
-    }
 
-    Box(
+      Box(modifier = Modifier.weight(2f)) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+          Box(modifier = Modifier.weight(1f)) {
+            Scramble()
+          }
+
+          Box(
+            modifier = Modifier.weight(2f),
+            contentAlignment = Alignment.TopCenter
+          ) {
+            Display()
+          }
+        }
+      }
+
+      Box(
+        modifier = Modifier
+          .fillMaxHeight()
+          //.width(120.dp)
+          .weight(0.75f)
+          .padding(bottom = 8.dp)
+      ) {
+        StatisticsList()
+      }
+    }
+  } else {
+    Column(
       modifier = Modifier
-        .fillMaxHeight()
-        .width(180.dp)
-        .weight(1f)
-        .padding(bottom = 8.dp)
+        .fillMaxSize()
+        .padding(8.dp)
     ) {
-      StatisticsList()
+      TextButton(
+        modifier = Modifier.padding(bottom = 8.dp),
+        onClick = {
+          currentPresentation = "app"
+        }
+      ) {
+        Text("<- Return")
+      }
+
+      TextField(
+        value = currentStatisticResultText,
+        modifier = Modifier.fillMaxSize(),
+        //readOnly = true,
+        onValueChange = {}
+      )
     }
   }
-
-
-  /**
-  Box(modifier = Modifier
-  .fillMaxSize()
-  ) {
-  Box(
-  Modifier
-  .align(Alignment.TopCenter)
-  .width(300.dp)
-  .padding(12.dp)
-  .background(Color.Green)
-  ) {
-  Scramble()
-  }
-
-  Box(
-  Modifier
-  .align(Alignment.Center)
-  .padding(12.dp)
-  //.background(Color.Yellow)
-  ) {
-  Display()
-  }
-
-  Box(
-  Modifier
-  .fillMaxHeight()
-  .align(Alignment.TopStart)
-  .width(200.dp)
-  .padding(12.dp)
-  //.background(Color.Cyan)
-  ) {
-  Column {
-  SessionController()
-  TimesList()
-  }
-  }
-
-  Box(
-  Modifier
-  .align(Alignment.TopEnd)
-  .width(200.dp)
-  .fillMaxHeight()
-  .padding(12.dp)
-  //.background(Color.Red)
-  ) {
-  StatisticsList()
-  }
-  }
-   **/
 }

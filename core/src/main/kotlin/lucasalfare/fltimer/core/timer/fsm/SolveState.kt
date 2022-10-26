@@ -5,7 +5,6 @@ import lucasalfare.fltimer.core.getCurrentTime
 import lucasalfare.fltimer.core.timer.asyncRoutine
 import kotlinx.coroutines.Job
 import lucasalfare.fltimer.core.EventManageable
-import lucasalfare.fltimer.core.L
 
 class SolveState : TimerState {
 

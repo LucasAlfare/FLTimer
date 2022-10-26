@@ -5,6 +5,8 @@ package lucasalfare.fltimer.core.data
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.AppEvent.*
 import lucasalfare.fltimer.core.EventManageable
+import lucasalfare.fltimer.core.statistics.buildAllStatisticResultsVisualization
+import lucasalfare.fltimer.core.statistics.getStats
 import java.util.*
 
 class SolvesManager : EventManageable() {
@@ -70,6 +72,21 @@ class SolvesManager : EventManageable() {
         currentSolves.clear()
         notifyListeners(event = SolvesUpdate, data = currentSolves, origin = this)
       }
+
+      StatisticRequest -> {
+        val statisticResponseData = when (data as String) {
+          "all" -> {
+            currentSolves.buildAllStatisticResultsVisualization()
+          }
+
+          else -> {
+            "lalalala"
+          }
+        }
+
+        notifyListeners(event = StatisticsResponse, data = statisticResponseData, origin = this)
+      }
+
       else -> {}
     }
   }

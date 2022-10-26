@@ -1,19 +1,11 @@
 package lucasalfare.fltimer.core
 
 
-class L {
-  var logAllowed = true
-
-  fun d(data: Any) {
-    if (logAllowed) {
-      print(data)
-    }
-  }
-}
+enum class AppMode { Default, Online, NotSet }
 
 /**
  * Returns appropriated current time.
  */
-fun getCurrentTime(nanos: Boolean = false) =
-  if (nanos) System.nanoTime()
+fun getCurrentTime(useNanos: Boolean = false) =
+  if (useNanos) System.nanoTime()
   else System.currentTimeMillis()

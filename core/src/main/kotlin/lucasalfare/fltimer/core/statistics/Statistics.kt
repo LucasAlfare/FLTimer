@@ -12,7 +12,7 @@ import lucasalfare.fltimer.core.data.Penalty
 import lucasalfare.fltimer.core.data.Solves
 import java.util.*
 
-fun Solves.best(): StatisticResult? {
+fun Solves.best(): StatisticResult {
   if (size > 0) {
     var result = Long.MAX_VALUE
     var related: UUID? = null
@@ -30,10 +30,10 @@ fun Solves.best(): StatisticResult? {
     )
   }
 
-  return null
+  return StatisticResult.dnfResult
 }
 
-fun Solves.worst(): StatisticResult? {
+fun Solves.worst(): StatisticResult {
   if (size > 0) {
     var result = Long.MIN_VALUE
     var related: UUID? = null
@@ -51,10 +51,10 @@ fun Solves.worst(): StatisticResult? {
     )
   }
 
-  return null
+  return StatisticResult.dnfResult
 }
 
-fun Solves.mean(): StatisticResult? {
+fun Solves.mean(): StatisticResult {
   if (size >= 2) {
     var result = 0L
     val related = Solves()
@@ -78,7 +78,7 @@ fun Solves.mean(): StatisticResult? {
     )
   }
 
-  return null
+  return StatisticResult.dnfResult
 }
 
 fun Solves.globalAverage() = calculateAverage(
@@ -86,7 +86,7 @@ fun Solves.globalAverage() = calculateAverage(
   data = this
 )
 
-fun Solves.rollingAverage(avgSize: Int): StatisticResult? {
+fun Solves.rollingAverage(avgSize: Int): StatisticResult {
   if (size >= avgSize) {
     val range = this.values.toTypedArray().slice((size - avgSize) until (size))
     val data = Solves()
@@ -94,15 +94,15 @@ fun Solves.rollingAverage(avgSize: Int): StatisticResult? {
     return calculateAverage(averageName = "current ao$avgSize", data = data)
   }
 
-  return null
+  return StatisticResult.dnfResult
 }
 
-fun Solves.bestAverageOf(avgSize: Int): StatisticResult? {
+fun Solves.bestAverageOf(avgSize: Int): StatisticResult {
   if (size >= avgSize) {
     val averages = collectAverages(averageName = "best ao$avgSize", data = this, size = avgSize)
 
     var min = Long.MAX_VALUE
-    var search: StatisticResult? = null
+    var search = StatisticResult.notCalculatedResult
     averages.forEach {
       if (it.result < min) {
         min = it.result
@@ -113,16 +113,16 @@ fun Solves.bestAverageOf(avgSize: Int): StatisticResult? {
     return search
   }
 
-  return null
+  return StatisticResult.dnfResult
 }
 
-fun Solves.worstAverageOf(avgSize: Int): StatisticResult? {
+fun Solves.worstAverageOf(avgSize: Int): StatisticResult {
   if (size >= avgSize) {
     val id = "worst ao$avgSize"
     val averages = collectAverages(averageName = id, data = this, size = avgSize)
 
     var max = Long.MIN_VALUE
-    var search: StatisticResult? = null
+    var search = StatisticResult.notCalculatedResult
     averages.forEach {
       if (it.result > max) {
         max = it.result
@@ -133,7 +133,7 @@ fun Solves.worstAverageOf(avgSize: Int): StatisticResult? {
     return search
   }
 
-  return null
+  return StatisticResult.dnfResult
 }
 
 fun Solves.getStats() = mutableListOf(
@@ -159,4 +159,4 @@ fun Solves.getStats() = mutableListOf(
   this.worstAverageOf(1000),
   this.mean(),
   this.globalAverage(),
-).filterNotNull()
+).toList()

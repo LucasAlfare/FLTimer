@@ -59,6 +59,8 @@ class Solves(vararg someSolves: Solve) : LinkedHashMap<UUID, Solve>() {
     someSolves.forEach { this += it }
   }
 
+  fun nDNFs() = this.filter { it.value.penalty == Penalty.Dnf }.size
+
   operator fun plusAssign(solve: Solve) {
     this[solve.id] = solve
   }

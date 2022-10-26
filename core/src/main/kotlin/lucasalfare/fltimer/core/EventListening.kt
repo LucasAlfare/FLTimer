@@ -142,6 +142,16 @@ enum class AppEvent {
   SessionsRequestUpdate,
 
   /**
+   * TODO
+   */
+  StatisticRequest,
+
+  /**
+   * TODO
+   */
+  StatisticsResponse,
+
+  /**
    * This event indicates that networking module also received a primary
    * "NetworkingUsersUpdate" event from the server. This comes with a list of
    * users matching the type [User].

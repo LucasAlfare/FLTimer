@@ -72,7 +72,11 @@ fun TimesList() {
     ) {
       solves.values.forEachIndexed { index, solve ->
         item {
-          TimesListItem(index = index, solve = solve)
+          TimesListItem(
+            index = index,
+            solve = solve,
+            solveDisplayableRepresentation = solve.getDisplayableRepresentation()
+          )
           Divider(startIndent = 5.dp, modifier = Modifier.padding(end = 5.dp))
         }
       }
