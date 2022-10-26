@@ -19,9 +19,9 @@ import lucasalfare.fltimer.ui.WastebasketCharacter
 import lucasalfare.fltimer.ui.uiManager
 
 @Composable
-fun TimesListItem(index: Int, solve: Solve, solveDisplayableRepresentation: String) {
+fun TimesListItem(index: Int, solve: Solve) {
   var expanded by remember { mutableStateOf(false) }
-  var txt by remember { mutableStateOf(solveDisplayableRepresentation) }
+  var txt by remember { mutableStateOf(solve.getDisplayableRepresentation()) }
 
   Column(
     modifier = Modifier
@@ -33,12 +33,7 @@ fun TimesListItem(index: Int, solve: Solve, solveDisplayableRepresentation: Stri
         expanded = !expanded
         println(expanded)
       }
-      .padding(
-        start = 12.dp,
-        end = 12.dp,
-        top = 24.dp,
-        bottom = 24.dp
-      )
+      .padding(12.dp)
   ) {
     Box(modifier = Modifier.fillMaxWidth()) {
       Text(modifier = Modifier.align(Alignment.CenterStart), text = "${index + 1})")
@@ -50,13 +45,13 @@ fun TimesListItem(index: Int, solve: Solve, solveDisplayableRepresentation: Stri
       )
 
       TextButton(
-        modifier = Modifier.size(width = 40.dp, height = 30.dp).align(Alignment.CenterEnd),
+        modifier = Modifier.align(Alignment.CenterEnd),
         onClick = {
           uiManager.notifyListeners(AppEvent.SolvesItemRemove, solve.id)
           println("clicked REMOVE")
         }
       ) {
-        Text(text = WastebasketCharacter, fontSize = 8.sp)
+        Text(text = WastebasketCharacter)
       }
     }
 
@@ -97,19 +92,5 @@ fun TimesListItem(index: Int, solve: Solve, solveDisplayableRepresentation: Stri
         Text(text = "DNF", fontSize = 8.sp)
       }
     }
-
-    /*
-    Text(modifier = Modifier.align(Alignment.CenterStart), text = "${index + 1})")
-    Text(
-      modifier = Modifier.align(Alignment.Center),
-      text = solve.getDisplayableRepresentation(),
-      fontWeight = FontWeight.Bold,
-      fontFamily = FontFamily.Monospace
-    )
-
-    if (expanded) {
-
-    }
-     */
   }
 }

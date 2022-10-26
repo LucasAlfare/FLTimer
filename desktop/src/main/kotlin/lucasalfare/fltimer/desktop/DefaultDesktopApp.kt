@@ -7,9 +7,11 @@ import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.ui.composables.*
+import lucasalfare.fltimer.ui.onFocusSelectAll
 import lucasalfare.fltimer.ui.uiManager
 
 
@@ -77,21 +79,7 @@ fun DefaultDesktopApp() {
         .fillMaxSize()
         .padding(8.dp)
     ) {
-      TextButton(
-        modifier = Modifier.padding(bottom = 8.dp),
-        onClick = {
-          currentPresentation = "app"
-        }
-      ) {
-        Text("<- Return")
-      }
-
-      TextField(
-        value = currentStatisticResultText,
-        modifier = Modifier.fillMaxSize(),
-        //readOnly = true,
-        onValueChange = {}
-      )
+      StatisticDetails(currentStatisticResultText) { currentPresentation = "app" }
     }
   }
 }

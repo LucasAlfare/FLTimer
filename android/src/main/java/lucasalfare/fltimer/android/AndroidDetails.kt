@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import lucasalfare.fltimer.ui.composables.SessionController
+import lucasalfare.fltimer.ui.composables.StatisticsList
 import lucasalfare.fltimer.ui.composables.TimesList
 
 @Composable
@@ -147,7 +148,7 @@ private fun ExpandedDetails(onToggle: () -> Unit = {}) {
               )
               .animateContentSize()
           ) {
-            Text(text = "BILUUUUUUUUUUUU")
+            StatisticsList()
           }
         }
       }

@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.data.Solves
 import lucasalfare.fltimer.ui.ClipboardCharacter
+import lucasalfare.fltimer.ui.WastebasketCharacter
 import lucasalfare.fltimer.ui.uiManager
 
 @Composable
@@ -59,8 +60,11 @@ fun TimesList() {
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
     Text(text = "Number of solves: ${solves.size}", fontSize = 12.sp)
-    TextButton(onClick = { showDetails = !showDetails }) {
-      Text("Copy $ClipboardCharacter")
+
+    TextButton(onClick = {
+      uiManager.notifyListeners(event = AppEvent.SolvesClear, origin = this)
+    }) {
+      Text("Clear $WastebasketCharacter")
     }
     LazyColumn(
       modifier = Modifier
@@ -74,8 +78,7 @@ fun TimesList() {
         item {
           TimesListItem(
             index = index,
-            solve = solve,
-            solveDisplayableRepresentation = solve.getDisplayableRepresentation()
+            solve = solve
           )
           Divider(startIndent = 5.dp, modifier = Modifier.padding(end = 5.dp))
         }
