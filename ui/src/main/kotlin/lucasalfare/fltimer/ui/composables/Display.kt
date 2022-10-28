@@ -21,6 +21,7 @@ fun Display() {
         AppEvent.TimerUpdate -> {
           text = (data as Long).toTimestamp()
         }
+        else -> {}
       }
     }
 
@@ -29,7 +30,7 @@ fun Display() {
 
   Text(
     text = text,
-    fontSize = 60.sp,
+    fontSize = 65.sp,
     fontFamily = FontFamily.Monospace,
     fontWeight = FontWeight.Bold
   )

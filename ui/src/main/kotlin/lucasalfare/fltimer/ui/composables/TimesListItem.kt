@@ -45,7 +45,7 @@ fun TimesListItem(index: Int, solve: Solve) {
       )
 
       TextButton(
-        modifier = Modifier.align(Alignment.CenterEnd),
+        modifier = Modifier.align(Alignment.CenterEnd).width(30.dp),
         onClick = {
           uiManager.notifyListeners(AppEvent.SolvesItemRemove, solve.id)
           println("clicked REMOVE")
@@ -57,7 +57,7 @@ fun TimesListItem(index: Int, solve: Solve) {
 
     Row(horizontalArrangement = Arrangement.Start) {
       TextButton(
-        modifier = Modifier.size(width = 35.dp, height = 30.dp),
+        modifier = Modifier.size(width = 40.dp, height = 30.dp),
         onClick = {
           solve.penalty = Penalty.Ok
           txt = solve.getDisplayableRepresentation()
@@ -65,11 +65,11 @@ fun TimesListItem(index: Int, solve: Solve) {
           println("clicked OK")
         }
       ) {
-        Text(text = "OK", fontSize = 8.sp)
+        Text(text = "OK", fontSize = 12.sp)
       }
 
       TextButton(
-        modifier = Modifier.size(width = 35.dp, height = 30.dp),
+        modifier = Modifier.size(width = 40.dp, height = 30.dp),
         onClick = {
           solve.penalty = Penalty.PlusTwo
           uiManager.notifyListeners(AppEvent.SolvesItemUpdate)
@@ -77,11 +77,11 @@ fun TimesListItem(index: Int, solve: Solve) {
           println("clicked PLUS_TWO")
         }
       ) {
-        Text(text = "+2", fontSize = 8.sp)
+        Text(text = "+2", fontSize = 12.sp)
       }
 
       TextButton(
-        modifier = Modifier.size(width = 40.dp, height = 30.dp),
+        modifier = Modifier.size(width = 50.dp, height = 30.dp),
         onClick = {
           solve.penalty = Penalty.Dnf
           uiManager.notifyListeners(AppEvent.SolvesItemUpdate)
@@ -89,7 +89,7 @@ fun TimesListItem(index: Int, solve: Solve) {
           println("clicked DNF")
         }
       ) {
-        Text(text = "DNF", fontSize = 8.sp)
+        Text(text = "DNF", fontSize = 12.sp)
       }
     }
   }

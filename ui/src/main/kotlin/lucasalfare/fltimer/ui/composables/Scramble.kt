@@ -7,8 +7,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.ui.uiManager
 
@@ -44,6 +46,8 @@ fun Scramble() {
     Text(
       modifier = Modifier.align(Alignment.Center),
       text = text,
+      fontSize = 20.sp,
+      fontWeight = FontWeight.Bold,
       textAlign = TextAlign.Center,
       fontFamily = FontFamily.Monospace
     )
