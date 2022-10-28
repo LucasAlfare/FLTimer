@@ -16,6 +16,8 @@ the main bytes structure to the format, where is presented in the form:
 
 *total = `16 bytes`*
 
+Note that this header chuck might contain more information as the timer data grows up. 
+
 # Single Solve chunk
 
 - (4 bytes) time (int);
