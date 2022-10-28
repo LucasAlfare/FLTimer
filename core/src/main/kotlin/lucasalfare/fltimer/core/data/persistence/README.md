@@ -2,6 +2,7 @@
 
 The FLTimer app has its own binary format that is used to store data into files. Below is described
 the main bytes structure to the format, where is presented in the form:
+
 `number of bytes of each information` `information "description"` `target information type`
 
 # Header chunk
