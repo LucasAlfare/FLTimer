@@ -34,28 +34,23 @@ class TimerManager : EventManageable() {
       }
 
       TimerToggleDown, TimerToggleUp -> {
-        val nextState: TimerState? = currentState.handleInput(event, useInspection)
+        val nextState: TimerState? = currentState.handleInput(
+          event,
+          booleanArrayOf(
+            useInspection,
+            networkingModeOn,
+            networkingCanStart
+          )
+        )
         if (nextState != null) {
-
-          when (networkingModeOn) {
-            true -> {
-              if (nextState is SolveState && !networkingCanStart) {
-                currentState = ReadyState()
-              } else {
-                currentState = nextState
-                currentState.update(eventManageable = this, data = data as Long)
-              }
-
-              if (nextState is FinishState) {
-                networkingCanStart = false
-              }
-            }
-
-            else -> {
-              currentState = nextState
-              currentState.update(eventManageable = this, data = data as Long)
-            }
-          }
+          currentState = nextState
+          currentState.update(
+            eventManageable = this,
+            data = arrayOf(
+              data as Long,
+              fun() { networkingCanStart = false }
+            )
+          )
         }
 
         // re-sends the event, normally target is UI

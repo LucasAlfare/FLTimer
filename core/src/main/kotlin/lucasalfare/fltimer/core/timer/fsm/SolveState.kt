@@ -21,12 +21,15 @@ class SolveState : TimerState {
   }
 
   override fun update(eventManageable: EventManageable, data: Any?) {
+    val props = data as Array<*>
+    val t = props[0] as Long
+
     eventManageable.notifyListeners(
       event = AppEvent.TimerStarted,
       origin = this
     )
 
-    start = data as Long
+    start = t
     repeater = asyncRoutine {
       elapsed = getCurrentTime() - start
       eventManageable.notifyListeners(
