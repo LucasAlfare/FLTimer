@@ -22,6 +22,8 @@ class TimerManager : EventManageable() {
   /**
    * This field is set to [true] by default once any client
    * is able to start when just connected to the server/room.
+   *
+   * TODO: refactor this logic to state class
    */
   private var networkingCanStart = true
 
