@@ -4,6 +4,7 @@ import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.EventManageable
 
 class PersistenceManager : EventManageable() {
+
   override fun init() {
 
   }
