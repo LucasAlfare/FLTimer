@@ -6,7 +6,6 @@ import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.AppEvent.*
 import lucasalfare.fltimer.core.EventManageable
 import lucasalfare.fltimer.core.statistics.buildAllStatisticResultsVisualization
-import lucasalfare.fltimer.core.statistics.getStats
 import java.util.*
 
 class SolvesManager : EventManageable() {

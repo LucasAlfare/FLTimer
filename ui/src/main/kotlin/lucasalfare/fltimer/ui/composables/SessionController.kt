@@ -10,7 +10,6 @@ import lucasalfare.fltimer.ui.NextCharacter
 import lucasalfare.fltimer.ui.PreviousCharacter
 import lucasalfare.fltimer.ui.uiManager
 
-@OptIn(ExperimentalMaterialApi::class)
 @Suppress(
   "UNCHECKED_CAST",
   "NON_EXHAUSTIVE_WHEN_STATEMENT"

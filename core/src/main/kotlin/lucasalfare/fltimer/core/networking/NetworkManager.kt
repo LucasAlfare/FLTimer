@@ -6,10 +6,7 @@ import io.socket.client.Socket
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.AppEvent.*
 import lucasalfare.fltimer.core.EventManageable
-import lucasalfare.fltimer.core.data.Solve
-import lucasalfare.fltimer.core.data.Solves
 import org.json.JSONArray
-import org.json.JSONObject
 
 class NetworkManager : EventManageable() {
 

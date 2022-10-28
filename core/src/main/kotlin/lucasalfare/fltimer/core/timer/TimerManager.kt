@@ -1,17 +1,15 @@
 package lucasalfare.fltimer.core.timer
 
-import lucasalfare.fltimer.core.AppEvent
-import lucasalfare.fltimer.core.AppEvent.*
-import lucasalfare.fltimer.core.configuration.Config
-import lucasalfare.fltimer.core.timer.fsm.ReadyState
-import lucasalfare.fltimer.core.timer.fsm.TimerState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import lucasalfare.fltimer.core.AppEvent
+import lucasalfare.fltimer.core.AppEvent.*
 import lucasalfare.fltimer.core.EventManageable
-import lucasalfare.fltimer.core.timer.fsm.FinishState
-import lucasalfare.fltimer.core.timer.fsm.SolveState
+import lucasalfare.fltimer.core.configuration.Config
+import lucasalfare.fltimer.core.timer.fsm.ReadyState
+import lucasalfare.fltimer.core.timer.fsm.TimerState
 
 class TimerManager : EventManageable() {
 

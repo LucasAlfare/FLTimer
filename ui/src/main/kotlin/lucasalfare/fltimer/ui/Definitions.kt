@@ -1,8 +1,5 @@
 package lucasalfare.fltimer.ui
 
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -10,11 +7,8 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
-import lucasalfare.fltimer.core.*
-import lucasalfare.fltimer.core.data.Penalty
-import lucasalfare.fltimer.core.data.Solves
-import lucasalfare.fltimer.core.statistics.getStats
-import java.text.SimpleDateFormat
+import lucasalfare.fltimer.core.AppEvent
+import lucasalfare.fltimer.core.EventManageable
 
 const val GearCharacter = "\u2699"
 const val WastebasketCharacter = "\uD83D\uDDD1"

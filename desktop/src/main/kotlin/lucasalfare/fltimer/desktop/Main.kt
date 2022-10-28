@@ -15,7 +15,10 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.*
+import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowPosition
+import androidx.compose.ui.window.WindowState
+import androidx.compose.ui.window.application
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.AppMode
 import lucasalfare.fltimer.core.configuration.Config
@@ -27,8 +30,7 @@ import lucasalfare.fltimer.core.networking.NetworkManager
 import lucasalfare.fltimer.core.scramble.ScrambleManager
 import lucasalfare.fltimer.core.setupManagers
 import lucasalfare.fltimer.core.timer.TimerManager
-import lucasalfare.fltimer.ui.composables.*
-import lucasalfare.fltimer.ui.composables.online.UsersPanel
+import lucasalfare.fltimer.ui.composables.Display
 import lucasalfare.fltimer.ui.uiManager
 
 @OptIn(ExperimentalComposeUiApi::class)

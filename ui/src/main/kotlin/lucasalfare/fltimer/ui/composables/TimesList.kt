@@ -1,7 +1,10 @@
 package lucasalfare.fltimer.ui.composables
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,7 +21,6 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.data.Solves
-import lucasalfare.fltimer.ui.ClipboardCharacter
 import lucasalfare.fltimer.ui.WastebasketCharacter
 import lucasalfare.fltimer.ui.uiManager
 
