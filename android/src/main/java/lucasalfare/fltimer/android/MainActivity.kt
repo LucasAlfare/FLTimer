@@ -12,6 +12,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.configuration.ConfigurationManager
 import lucasalfare.fltimer.core.data.SolvesManager
+import lucasalfare.fltimer.core.data.persistence.PersistenceManager
 import lucasalfare.fltimer.core.data.session.SessionManager
 import lucasalfare.fltimer.core.getCurrentTime
 import lucasalfare.fltimer.core.scramble.ScrambleManager
@@ -50,7 +51,8 @@ class MainActivity : AppCompatActivity() {
             SolvesManager(),
             SessionManager(),
             TimerManager(),
-            ConfigurationManager()
+            ConfigurationManager(),
+            PersistenceManager()
           )
         }
 

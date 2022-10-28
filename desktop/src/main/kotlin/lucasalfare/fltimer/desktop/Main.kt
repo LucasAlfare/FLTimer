@@ -24,6 +24,7 @@ import lucasalfare.fltimer.core.AppMode
 import lucasalfare.fltimer.core.configuration.Config
 import lucasalfare.fltimer.core.configuration.ConfigurationManager
 import lucasalfare.fltimer.core.data.SolvesManager
+import lucasalfare.fltimer.core.data.persistence.PersistenceManager
 import lucasalfare.fltimer.core.data.session.SessionManager
 import lucasalfare.fltimer.core.getCurrentTime
 import lucasalfare.fltimer.core.networking.NetworkManager
@@ -100,7 +101,8 @@ fun main() = application {
             SolvesManager(),
             SessionManager(),
             TimerManager(),
-            ConfigurationManager()
+            ConfigurationManager(),
+            PersistenceManager()
           )
 
           uiManager.notifyListeners(
