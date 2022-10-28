@@ -55,23 +55,12 @@ class TimerManager : EventManageable() {
           )
         }
 
-        // re-sends the event, normally target is UI
-        //TODO: create dedicated event to this to avoid other
-        //  interested in [TimerToggleDown, TimerToggleUp, TimerCancel]
-        //  receive null data
-        //notifyListeners(event = event, origin = this)
+        notifyListeners(event = event, data = data, origin = this)
       }
 
       TimerCancel -> {
-        if (currentState != null) {
-          currentState.suspendState()
-          currentState = ReadyState()
-          // re-sends the event, normally target is UI
-          //TODO: create dedicated event to this to avoid other
-          //  interested in [TimerToggleDown, TimerToggleUp, TimerCancel]
-          //  receive null data
-          //notifyListeners(event = event, origin = this)
-        }
+        currentState.suspendState()
+        currentState = ReadyState()
       }
 
       ConfigsUpdate -> {

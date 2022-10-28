@@ -11,9 +11,13 @@ import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.toTimestamp
 import lucasalfare.fltimer.ui.uiManager
 
+/*
+TODO: implement dynamic text size based on application screen width size
+ */
 @Composable
 fun Display() {
   var text by remember { mutableStateOf("ready") }
+  var textSize by remember { mutableStateOf(65.sp) }
 
   DisposableEffect(true) {
     val callback = uiManager.addCallback { appEvent, data ->
@@ -21,8 +25,11 @@ fun Display() {
         AppEvent.TimerUpdate -> {
           text = (data as Long).toTimestamp()
         }
+
         else -> {}
       }
+
+      textSize = if (appEvent == AppEvent.TimerToggleDown) 45.sp else 65.sp
     }
 
     onDispose { uiManager.removeCallback(callback) }
@@ -30,7 +37,7 @@ fun Display() {
 
   Text(
     text = text,
-    fontSize = 65.sp,
+    fontSize = textSize,
     fontFamily = FontFamily.Monospace,
     fontWeight = FontWeight.Bold
   )
