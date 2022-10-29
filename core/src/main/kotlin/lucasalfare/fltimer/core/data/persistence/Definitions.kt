@@ -1,26 +1,85 @@
-package lucasalfare.fltimer.core.data.persistence
+@Suppress("MemberVisibilityCanBePrivate")
+class BytesReader(private val data: IntArray) {
 
-/**
-- header chunk:
-(4 bytes) "fltimer" (string)
-(2 bytes) (UseInspection) (boolean)
-(2 bytes) (ShowScramblesInDetailsUI) (boolean)
-(2 bytes) (NetworkingModeOn) (boolean)
-(2 bytes) (AskForTimerMode) (boolean)
-(4 bytes) number of session chunks (int)
-total = 16 bytes
+  var position = 0
 
-- solve chuck:
-(4 bytes) time (int)
-(4 bytes) scramble (string)
-(3 bytes) penalty (char)
-(4 bytes) comment (string)
-(4 bytes) id (string)(id as an UUID)
-total = 19 bytes
+  private val tmpBuffer = IntArray(4) { 0 }
 
-- session chunk:
-(4 bytes) session name (string)
-(4 bytes) number of solves (int)
-(19 bytes) each solve (object Solve)
-total = at least 8 bytes
- */
+  fun read1Byte(customPosition: Int = position): Int {
+    seek(customPosition)
+    if (updateTmpBuffer(1)) return (tmpBuffer[0])
+    return -1
+  }
+
+  fun read2Bytes(customPosition: Int = position): Int {
+    seek(customPosition)
+    if (updateTmpBuffer(2)) {
+      return tmpBuffer[0] shl 8 or
+              tmpBuffer[1]
+    }
+    return -1
+  }
+
+  fun read3Bytes(customPosition: Int = position): Int {
+    seek(customPosition)
+    if (updateTmpBuffer(3)) {
+      return tmpBuffer[0] shl 16 or
+              (tmpBuffer[1] shl 8 or
+                      tmpBuffer[2])
+    }
+    return -1
+  }
+
+  fun read4Bytes(customPosition: Int = position): Int {
+    seek(customPosition)
+    if (updateTmpBuffer(4)) {
+      return tmpBuffer[0] shl 24 or
+              (tmpBuffer[1] shl 16 or
+                      (tmpBuffer[2] shl 8 or
+                              tmpBuffer[3]))
+    }
+    return -1
+  }
+
+  fun seek(nextPos: Int): Int {
+    if (nextPos < data.size) {
+      return -1
+    }
+
+    position = nextPos
+    return position
+  }
+
+  private fun updateTmpBuffer(nBytes: Int): Boolean {
+    if (position + nBytes >= data.size) return false
+    repeat(nBytes) { tmpBuffer[it] = data[position + it] }
+    position += nBytes
+    return true
+  }
+}
+
+class BytesWriter(size: Int) {
+
+  val data = Array(size) { 0 }
+  var offset = 0
+
+  fun writeByte(byte: Int) {
+    data[offset++] = byte
+  }
+
+  fun writeShort(short: Int) {
+
+  }
+
+  fun writeInt(int: Int) {
+
+  }
+
+  fun writeString(string: String) {
+
+  }
+}
+
+fun main() {
+  //debugging
+}
