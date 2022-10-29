@@ -16,22 +16,26 @@ the main bytes structure to the format, where is presented in the form:
 
 *total = `16 bytes`*
 
-Note that this header chunk might contain more information as the timer data grows up. 
+Note that this header chunk might contain more information as the timer data grows up.
 
 # Single Solve chunk
 
 - (4 bytes) time (int);
-- (4 bytes) scramble (string);
-- (3 bytes) penalty (char);
-- (4 bytes) comment (string);
-- (4 bytes) id (string)(id as an UUID)
+- (4 bytes) nBytes of the next string value (int);
+- (x bytes) scramble (string);
+- (2 bytes) penalty (char);
+- (4 bytes) nBytes of the next string value (int);
+- (x bytes) comment (string);
+- (4 bytes) nBytes of the next string value (int); (should be fixed length?)
+- (x bytes) id (string)(id as an UUID).
 
-*total = `19 bytes`*
+*total = `at least 18 bytes`*
 
 # Single Session chunk
 
-- (4 bytes) session name (string);
+- (4 bytes) nBytes of the next string value (int);
+- (x bytes) session name (string);
 - (4 bytes) number of solves (int);
-- (19 bytes) each solve (object Solve).
+- (18* bytes) each solve (object Solve).
 
 *total = `at least 8 bytes`*
