@@ -33,13 +33,13 @@ target type to those information, which are, then, stored into the main database
 They are:
 
 - (3 bytes) time (int);
-- (1 bytes) nBytes of the next string value (int);
+- (1 byte) nBytes of the next string value (int);
 - (x bytes) scramble (string);
-- (1 bytes) penalty (char);
-- (1 bytes) nBytes of the next string value (int);
+- (1 byte) penalty (char);
+- (1 byte) nBytes of the next string value (int);
 - (x bytes) comment (string);
 - (1 byte) 0xFF represents end of the string (int);
-- (1 bytes) nBytes of the next string value (int); (should be fixed length?)
+- (1 byte) nBytes of the next string value (int); (should be fixed length?)
 - (x bytes) id (string)(id as an UUID);
 - (1 byte) 0xFF represents end of the string (int).
 
@@ -54,7 +54,7 @@ stored into the main database file.
 
 The relevant information are:
 
-- (1 bytes) nBytes of the next string value (int);
+- (1 byte) nBytes of the next string value (int);
 - (x bytes) session name (string);
 - (1 byte) 0xFF represents end of the string (int);
 - (2 bytes) number of solves (int);
