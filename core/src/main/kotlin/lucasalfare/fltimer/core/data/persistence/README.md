@@ -7,35 +7,65 @@ the main bytes structure to the format, where is presented in the form:
 
 # Header chunk
 
-- (4 bytes) _"fltimer"_ (string);
-- (2 bytes) (UseInspection) (boolean);
-- (2 bytes) (ShowScramblesInDetailsUI) (boolean);
-- (2 bytes) (NetworkingModeOn) (boolean);
-- (2 bytes) (AskForTimerMode) (boolean);
-- (4 bytes) number of session chunks (int).
+The FLTimer has some boolean and other meta properties used to adjust its behaviour. Below are
+listed the main of those bu may sure that might have other fields and properties in the future
+beyond these.
 
-*total = `16 bytes`*
+They are:
+
+- (7 bytes) _"fltimer"_ signature (string);
+- (1 byte) (UseInspection) (boolean);
+- (1 byte) (ShowScramblesInDetailsUI) (boolean);
+- (1 byte) (NetworkingModeOn) (boolean);
+- (1 byte) (AskForTimerMode) (boolean);
+- (2 bytes) number of session chunks (int).
+
+*total = `13 bytes`*
 
 Note that this header chunk might contain more information as the timer data grows up.
 
-# Single Solve chunk
+# Single `Solve` chunk
 
-- (4 bytes) time (int);
-- (2 bytes) nBytes of the next string value (int);
+The root piece of data of this timer is an `Solve` type. The objects created from this type has most
+important information, such as `time` and `scramble`. Below is described the amount of bytes and the
+target type to those information, which are, then, stored into the main database file.
+
+They are:
+
+- (3 bytes) time (int);
+- (1 bytes) nBytes of the next string value (int);
 - (x bytes) scramble (string);
-- (2 bytes) penalty (char);
-- (2 bytes) nBytes of the next string value (int);
+- (1 bytes) penalty (char);
+- (1 bytes) nBytes of the next string value (int);
 - (x bytes) comment (string);
-- (2 bytes) nBytes of the next string value (int); (should be fixed length?)
-- (x bytes) id (string)(id as an UUID).
+- (1 byte) 0xFF represents end of the string (int);
+- (1 bytes) nBytes of the next string value (int); (should be fixed length?)
+- (x bytes) id (string)(id as an UUID);
+- (1 byte) 0xFF represents end of the string (int).
 
-*total = `at least 12 bytes`*
+*total = `at least 9 bytes`*
 
 # Single Session chunk
 
-- (2 bytes) nBytes of the next string value (int);
-- (x bytes) session name (string);
-- (4 bytes) number of solves (int);
-- (15* bytes) each solve (object Solve).
+Since the root piece of data is an `Solve` object, these objects are organized into "`Session`"
+chunks. These chunks normally indicates different moments of the user training, indicating different
+groups of data. For this reason, there are also important information about then that should be
+stored into the main database file.
 
-*total = `at least 6 bytes`*
+The relevant information are:
+
+- (1 bytes) nBytes of the next string value (int);
+- (x bytes) session name (string);
+- (1 byte) 0xFF represents end of the string (int);
+- (2 bytes) number of solves (int);
+- (9* bytes) each solve (object Solve).
+
+*total = `at least 4 bytes`*
+
+# Bytes ordering
+
+In this format, the bytes are either written and read from most significant bit to the least
+significant one. For example the hexadecimal number `0xaabbccdd` is written to the file in the
+following sequence of bytes:
+
+- `0xaa`, `0xbb`, `0xcc`, `0xdd`.

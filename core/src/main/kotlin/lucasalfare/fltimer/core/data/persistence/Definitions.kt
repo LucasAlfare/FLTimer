@@ -1,6 +1,18 @@
-@Suppress("MemberVisibilityCanBePrivate")
+@file:Suppress("MemberVisibilityCanBePrivate")
+package lucasalfare.fltimer.core.data.persistence
+
+/**
+ * This class encapsulates the task of reading bytes from an single Array.
+ *
+ * Normally the [data] field represents bytes that comes from some file that should be
+ * read.
+ */
 class BytesReader(private val data: IntArray) {
 
+  /**
+   * This field indicates the current offset that is being read.
+   * It is constantly updated as something is read, being a dynamic mark.
+   */
   var position = 0
 
   private val tmpBuffer = IntArray(4) { 0 }
@@ -41,8 +53,16 @@ class BytesReader(private val data: IntArray) {
     return -1
   }
 
+  fun readString(stringLength: Int): String? {
+    if (position + stringLength > data.size) return null
+
+    var result = ""
+    data.slice(position..(position - 1 + stringLength)).forEach { result += Char(it) }
+    return result
+  }
+
   fun seek(nextPos: Int): Int {
-    if (nextPos < data.size) {
+    if (nextPos >= data.size) {
       return -1
     }
 
@@ -51,35 +71,54 @@ class BytesReader(private val data: IntArray) {
   }
 
   private fun updateTmpBuffer(nBytes: Int): Boolean {
-    if (position + nBytes >= data.size) return false
+    if (position + nBytes > data.size) return false
     repeat(nBytes) { tmpBuffer[it] = data[position + it] }
     position += nBytes
     return true
   }
 }
 
-class BytesWriter(size: Int) {
+/**
+ * This class encapsulates the task of writing bytes to an single Array.
+ *
+ * Normally the [data] field represents bytes that should be recorded to an file.
+ */
+class BytesWriter {
 
-  val data = Array(size) { 0 }
-  var offset = 0
+  private val data = mutableListOf<Int>()
 
-  fun writeByte(byte: Int) {
-    data[offset++] = byte
+  fun write1Byte(value: Int) {
+    data += value
   }
 
-  fun writeShort(short: Int) {
-
+  fun write2Bytes(value: Int) {
+    data += value shr 8
+    data += value and 0xff
   }
 
-  fun writeInt(int: Int) {
-
+  fun write3Bytes(value: Int) {
+    data += ((value shr 16) and 0xff)
+    data += ((value shr 8) and 0xff)
+    data += ((value shr 0) and 0xff)
   }
 
-  fun writeString(string: String) {
-
+  fun write4Bytes(value: Long) {
+    data += ((value shr 24) and 0xff).toInt()
+    data += ((value shr 16) and 0xff).toInt()
+    data += ((value shr 8) and 0xff).toInt()
+    data += ((value shr 0) and 0xff).toInt()
   }
-}
 
-fun main() {
-  //debugging
+  fun writeString(value: String) {
+    value.toCharArray().forEach {
+      write1Byte(it.code)
+    }
+  }
+
+  fun getData() = data.toIntArray()
+
+  override fun toString() =
+    data.map {
+      "0x${Integer.toHexString(it)}"
+    }.toString()
 }
