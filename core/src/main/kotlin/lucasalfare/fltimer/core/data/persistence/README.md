@@ -21,21 +21,21 @@ Note that this header chunk might contain more information as the timer data gro
 # Single Solve chunk
 
 - (4 bytes) time (int);
-- (3 bytes) nBytes of the next string value (int);
+- (2 bytes) nBytes of the next string value (int);
 - (x bytes) scramble (string);
 - (2 bytes) penalty (char);
-- (3 bytes) nBytes of the next string value (int);
+- (2 bytes) nBytes of the next string value (int);
 - (x bytes) comment (string);
-- (3 bytes) nBytes of the next string value (int); (should be fixed length?)
+- (2 bytes) nBytes of the next string value (int); (should be fixed length?)
 - (x bytes) id (string)(id as an UUID).
 
-*total = `at least 15 bytes`*
+*total = `at least 12 bytes`*
 
 # Single Session chunk
 
-- (3 bytes) nBytes of the next string value (int);
+- (2 bytes) nBytes of the next string value (int);
 - (x bytes) session name (string);
 - (4 bytes) number of solves (int);
 - (15* bytes) each solve (object Solve).
 
-*total = `at least 7 bytes`*
+*total = `at least 6 bytes`*
