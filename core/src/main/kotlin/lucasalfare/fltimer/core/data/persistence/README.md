@@ -56,13 +56,13 @@ The relevant information are:
 - [x bytes] session name (string);
 - [2 bytes] number of solves (int);
 - [9* bytes] `Solve` chunk (object Solve).
-- [1 byte] `0xFF` byte indicating end of the current `Session` chunk [int]
+- [1 byte] `0xFF` byte indicating end of the current `Session` chunk (int).
 
 *total = `at least 4 bytes`*
 
 # Bytes ordering
 
-In this format, the bytes are either written and read from most significant bit to the least
+In this format specification, the bytes are either written and read from most significant bit to the least
 significant one. For example the hexadecimal number `0xaabbccdd` is written to the file in the
 following sequence of single bytes:
 
