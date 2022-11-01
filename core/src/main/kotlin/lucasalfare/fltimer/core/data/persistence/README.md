@@ -58,7 +58,7 @@ The relevant information are:
 - [9* bytes] `Solve` chunk (object Solve).
 - [1 byte] `0xFF` byte indicating end of the current `Session` chunk [int]
 
-*total = `at least 3 bytes`*
+*total = `at least 4 bytes`*
 
 # Bytes ordering
 
