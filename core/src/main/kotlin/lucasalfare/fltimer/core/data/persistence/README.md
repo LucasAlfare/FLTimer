@@ -24,6 +24,23 @@ They are:
 
 Note that this header chunk might contain more information as the timer data grows up.
 
+# Single `Session` chunk
+
+Since the root piece of data is an `Solve` object, these objects are organized into "`Session`"
+chunks. These chunks normally indicates different moments of the user training, indicating different
+groups of data. For this reason, there are also important information about then that should be
+stored into the main database file.
+
+The relevant information are:
+
+- [1 byte] nBytes of the next string value (int);
+- [x bytes] session name (string);
+- [2 bytes] number of solves (int);
+- [9* bytes/chunk] `Solve` chunks (object Solve);
+- [1 byte] `0xFF` byte indicating the end of the current chunk (int).
+
+*total = `at least 4 bytes`*
+
 # Single `Solve` chunk
 
 The root piece of data of this timer is the `Solve` type. The objects created from this type has
@@ -42,23 +59,6 @@ They are:
 - [x bytes] id (string)(id as an UUID).
 
 *total = `at least 7 bytes`*
-
-# Single `Session` chunk
-
-Since the root piece of data is an `Solve` object, these objects are organized into "`Session`"
-chunks. These chunks normally indicates different moments of the user training, indicating different
-groups of data. For this reason, there are also important information about then that should be
-stored into the main database file.
-
-The relevant information are:
-
-- [1 byte] nBytes of the next string value (int);
-- [x bytes] session name (string);
-- [2 bytes] number of solves (int);
-- [9* bytes/chunk] `Solve` chunks (object Solve);
-- [1 byte] `0xFF` byte indicating the end of the current chunk (int).
-
-*total = `at least 4 bytes`*
 
 # Bytes ordering
 
