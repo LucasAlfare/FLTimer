@@ -63,14 +63,14 @@ The relevant information are:
 # Bytes ordering
 
 In this format specification, the bytes are either written and read from most significant bit to the
-least significant one. For example, the hexadecimal number `0xaabbccdd` is written to the file in the
-following sequence of single bytes:
+least significant one. For example, the hexadecimal number `0xaabbccdd` is written to the file in
+the following sequence of single bytes:
 
 - `[0xaa, 0xbb, 0xcc, 0xdd]`.
 
 # General structure view
 
-Below is demonstrated, using the above descriptions, how should look a full file containing some 
+Below is demonstrated, using the above descriptions, how should look a full file containing some
 `Session` chunks with their own `Solve` chunks.
 
 - [7 bytes] _"fltimer"_ signature (string);
@@ -82,34 +82,34 @@ Below is demonstrated, using the above descriptions, how should look a full file
 
 - [1 byte] nBytes of the next string value (int);
 - [x bytes] session name (string);
-- [2 bytes] number of solves (int);
-  -- [3 bytes] time (int);
-  -- [1 byte] nBytes of the next string value (int);
-  -- [x bytes] scramble (string);
-  -- [1 byte] penalty (int: 0=ok,1=plusTwo,2=dnf);
-  -- [1 byte] nBytes of the next string value (int);
-  -- [x bytes] comment (string);
-  -- [1 byte] nBytes of the next string value (int); (should be fixed length?);
-  -- [x bytes] id (string)(id as an UUID);
-  -- [3 bytes] time (int);
-  -- [1 byte] nBytes of the next string value (int);
-  -- [x bytes] scramble (string);
-  -- [1 byte] penalty (int: 0=ok,1=plusTwo,2=dnf);
-  -- [1 byte] nBytes of the next string value (int);
-  -- [x bytes] comment (string);
-  -- [1 byte] nBytes of the next string value (int); (should be fixed length?);
-  -- [x bytes] id (string)(id as an UUID);
+- [2 bytes] number of solves (int):
+    - [3 bytes] time (int);
+    - [1 byte] nBytes of the next string value (int);
+    - [x bytes] scramble (string);
+    - [1 byte] penalty (int: 0=ok,1=plusTwo,2=dnf);
+    - [1 byte] nBytes of the next string value (int);
+    - [x bytes] comment (string);
+    - [1 byte] nBytes of the next string value (int); (should be fixed length?);
+    - [x bytes] id (string)(id as an UUID);
+    - [3 bytes] time (int);
+    - [1 byte] nBytes of the next string value (int);
+    - [x bytes] scramble (string);
+    - [1 byte] penalty (int: 0=ok,1=plusTwo,2=dnf);
+    - [1 byte] nBytes of the next string value (int);
+    - [x bytes] comment (string);
+    - [1 byte] nBytes of the next string value (int); (should be fixed length?);
+    - [x bytes] id (string)(id as an UUID);
 - [1 byte] `0xFF` byte indicating the end of the current chunk (int);
 
 - [1 byte] nBytes of the next string value (int);
 - [x bytes] session name (string);
 - [2 bytes] number of solves (int);
-  -- [3 bytes] time (int);
-  -- [1 byte] nBytes of the next string value (int);
-  -- [x bytes] scramble (string);
-  -- [1 byte] penalty (int: 0=ok,1=plusTwo,2=dnf);
-  -- [1 byte] nBytes of the next string value (int);
-  -- [x bytes] comment (string);
-  -- [1 byte] nBytes of the next string value (int); (should be fixed length?);
-  -- [x bytes] id (string)(id as an UUID);
+    - [3 bytes] time (int);
+    - [1 byte] nBytes of the next string value (int);
+    - [x bytes] scramble (string);
+    - [1 byte] penalty (int: 0=ok,1=plusTwo,2=dnf);
+    - [1 byte] nBytes of the next string value (int);
+    - [x bytes] comment (string);
+    - [1 byte] nBytes of the next string value (int); (should be fixed length?);
+    - [x bytes] id (string)(id as an UUID);
 - [1 byte] `0xFF` byte indicating the end of the current chunk (int);
