@@ -26,9 +26,9 @@ Note that this header chunk might contain more information as the timer data gro
 
 # Single `Solve` chunk
 
-The root piece of data of this timer is the `Solve` type. The objects created from this type has most
-important information, such as `time` and `scramble`. Below is described the amount of bytes and the
-target type to those information, which are, then, stored into the main database file.
+The root piece of data of this timer is the `Solve` type. The objects created from this type has
+most important information, such as `time` and `scramble`. Below is described the amount of bytes
+and the target type to those information, which are, then, stored into the main database file.
 
 They are:
 
@@ -62,8 +62,8 @@ The relevant information are:
 
 # Bytes ordering
 
-In this format specification, the bytes are either written and read from most significant bit to the least
-significant one. For example the hexadecimal number `0xaabbccdd` is written to the file in the
+In this format specification, the bytes are either written and read from most significant bit to the
+least significant one. For example the hexadecimal number `0xaabbccdd` is written to the file in the
 following sequence of single bytes:
 
-- [`0xaa`, `0xbb`, `0xcc`, `0xdd`].
+- `[0xaa, 0xbb, 0xcc, 0xdd]`.
