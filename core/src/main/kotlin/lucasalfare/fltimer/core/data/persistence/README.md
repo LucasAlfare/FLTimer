@@ -55,8 +55,8 @@ The relevant information are:
 - [1 byte] nBytes of the next string value (int);
 - [x bytes] session name (string);
 - [2 bytes] number of solves (int);
-- [9* bytes] `Solve` chunk (object Solve).
-- [1 byte] `0xFF` byte indicating end of the current `Session` chunk (int).
+- [9* bytes] `Solve` chunk (object Solve);
+- [1 byte] `0xFF` byte indicating the end of the current chunk (int).
 
 *total = `at least 4 bytes`*
 
