@@ -38,14 +38,12 @@ They are:
 - (1 byte) penalty (char);
 - (1 byte) nBytes of the next string value (int);
 - (x bytes) comment (string);
-- (1 byte) 0xFF represents end of the string (int);
 - (1 byte) nBytes of the next string value (int); (should be fixed length?)
-- (x bytes) id (string)(id as an UUID);
-- (1 byte) 0xFF represents end of the string (int).
+- (x bytes) id (string)(id as an UUID).
 
-*total = `at least 9 bytes`*
+*total = `at least 7 bytes`*
 
-# Single Session chunk
+# Single `Session` chunk
 
 Since the root piece of data is an `Solve` object, these objects are organized into "`Session`"
 chunks. These chunks normally indicates different moments of the user training, indicating different
@@ -56,16 +54,15 @@ The relevant information are:
 
 - (1 byte) nBytes of the next string value (int);
 - (x bytes) session name (string);
-- (1 byte) 0xFF represents end of the string (int);
 - (2 bytes) number of solves (int);
-- (9* bytes) each solve (object Solve).
+- (9* bytes) `Solve` chunk (object Solve).
 
-*total = `at least 4 bytes`*
+*total = `at least 3 bytes`*
 
 # Bytes ordering
 
 In this format, the bytes are either written and read from most significant bit to the least
 significant one. For example the hexadecimal number `0xaabbccdd` is written to the file in the
-following sequence of bytes:
+following sequence of single bytes:
 
-- `0xaa`, `0xbb`, `0xcc`, `0xdd`.
+- [`0xaa`, `0xbb`, `0xcc`, `0xdd`].
