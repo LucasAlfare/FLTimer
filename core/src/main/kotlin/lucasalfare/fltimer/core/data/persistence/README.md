@@ -13,12 +13,12 @@ beyond these.
 
 They are:
 
-- (7 bytes) _"fltimer"_ signature (string);
-- (1 byte) (UseInspection) (boolean);
-- (1 byte) (ShowScramblesInDetailsUI) (boolean);
-- (1 byte) (NetworkingModeOn) (boolean);
-- (1 byte) (AskForTimerMode) (boolean);
-- (2 bytes) number of session chunks (int).
+- [7 bytes] _"fltimer"_ signature (string);
+- [1 byte] (UseInspection) (boolean);
+- [1 byte] (ShowScramblesInDetailsUI) (boolean);
+- [1 byte] (NetworkingModeOn) (boolean);
+- [1 byte] (AskForTimerMode) (boolean);
+- [2 bytes] number of session chunks (int).
 
 *total = `13 bytes`*
 
@@ -32,14 +32,14 @@ target type to those information, which are, then, stored into the main database
 
 They are:
 
-- (3 bytes) time (int);
-- (1 byte) nBytes of the next string value (int);
-- (x bytes) scramble (string);
-- (1 byte) penalty (char);
-- (1 byte) nBytes of the next string value (int);
-- (x bytes) comment (string);
-- (1 byte) nBytes of the next string value (int); (should be fixed length?)
-- (x bytes) id (string)(id as an UUID).
+- [3 bytes] time (int);
+- [1 byte] nBytes of the next string value (int);
+- [x bytes] scramble (string);
+- [1 byte] penalty (char);
+- [1 byte] nBytes of the next string value (int);
+- [x bytes] comment (string);
+- [1 byte] nBytes of the next string value (int); (should be fixed length?)
+- [x bytes] id (string)(id as an UUID).
 
 *total = `at least 7 bytes`*
 
@@ -52,10 +52,10 @@ stored into the main database file.
 
 The relevant information are:
 
-- (1 byte) nBytes of the next string value (int);
-- (x bytes) session name (string);
-- (2 bytes) number of solves (int);
-- (9* bytes) `Solve` chunk (object Solve).
+- [1 byte] nBytes of the next string value (int);
+- [x bytes] session name (string);
+- [2 bytes] number of solves (int);
+- [9* bytes] `Solve` chunk (object Solve).
 
 *total = `at least 3 bytes`*
 
