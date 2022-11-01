@@ -1,5 +1,10 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
+
 package lucasalfare.fltimer.core.data.persistence
+
+import lucasalfare.fltimer.core.data.Session
+import lucasalfare.fltimer.core.data.Solve
+import lucasalfare.fltimer.core.data.Solves
 
 /**
  * This class encapsulates the task of reading bytes from an single Array.
@@ -121,4 +126,10 @@ class BytesWriter {
     data.map {
       "0x${Integer.toHexString(it)}"
     }.toString()
+}
+
+fun main() {
+  val solve = Solve(time = 10000L, scramble = "R U F")
+  val solves = Solves(solve)
+  val session = Session("sessao teste", solves)
 }

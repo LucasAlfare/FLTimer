@@ -45,7 +45,12 @@ fun main() = application {
       position = WindowPosition(Alignment.Center),
       size = currentWindowSize
     ),
-    onCloseRequest = this::exitApplication,
+    onCloseRequest = {
+      // Here is assumed that when Compose receive an
+      // close request the managers was already set
+      // TODO commit db file here
+      this.exitApplication()
+    },
     onKeyEvent = {
       if (it.key == Key.Spacebar) {
         when (it.type) {
