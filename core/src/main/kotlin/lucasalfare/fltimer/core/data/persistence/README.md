@@ -26,7 +26,7 @@ Note that this header chunk might contain more information as the timer data gro
 
 # Single `Solve` chunk
 
-The root piece of data of this timer is an `Solve` type. The objects created from this type has most
+The root piece of data of this timer is the `Solve` type. The objects created from this type has most
 important information, such as `time` and `scramble`. Below is described the amount of bytes and the
 target type to those information, which are, then, stored into the main database file.
 
