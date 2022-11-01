@@ -63,7 +63,7 @@ The relevant information are:
 # Bytes ordering
 
 In this format specification, the bytes are either written and read from most significant bit to the
-least significant one. For example the hexadecimal number `0xaabbccdd` is written to the file in the
+least significant one. For example, the hexadecimal number `0xaabbccdd` is written to the file in the
 following sequence of single bytes:
 
 - `[0xaa, 0xbb, 0xcc, 0xdd]`.
