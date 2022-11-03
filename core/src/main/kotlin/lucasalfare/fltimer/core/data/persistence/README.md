@@ -8,7 +8,7 @@ the main bytes structure to the format, where is presented in the form:
 # Header chunk
 
 The FLTimer has some boolean and other meta properties used to adjust its behaviour. Below are
-listed the main of those bu may sure that might have other fields and properties in the future
+listed the main of those but may sure that might have other fields and properties in the future
 beyond these.
 
 They are:
@@ -69,7 +69,7 @@ the following sequence of single bytes:
 - `[0xaa, 0xbb, 0xcc, 0xdd]`.
 
 # Parsing files
-After getting the above specification should parse (read) and/or write files should be easy.
+After getting the above specification parse (read) and/or write files should be easy.
 
 The application data architecture is built in a encapsulated way. This means that the data is not
 placed in static fields of even accessible through object instances. Instead, they are managed based
