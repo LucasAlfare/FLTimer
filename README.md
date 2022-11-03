@@ -53,3 +53,12 @@ sequence typing, and so on);
 
 All of these features I plan to implement by myself as best as I can, using only my own knowledge. Reinventing the
 wheel today is not a good thing to do, but when it comes to studying it is one of the most powerful weapons. :)
+
+# Contact me
+If you are interested in talk me about this project or even another programming stuff, for now, I can answer on my email _god-lucas@hotmail.com_
+and/or, if you have Instagram account, find me there using my address _@lucas.alfare_
+
+# License
+
+I'm not interested in create an restrict use of this or even of part of this. Feel free to use as you need! 
+That's said, I may update this README with an appropriated license text in the future, based on above decision.
