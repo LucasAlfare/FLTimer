@@ -11,9 +11,13 @@ to put my knowledge in check and see if I can really write the application from 
 
 # Application overview
 
-I'm designing this app to be as customizable as possible.
+This is an application used to practice the speedcubing modality. This offers a chronometer with other integrated tools, such
+as scramble generators, statistics measurement an so on. Also, may have another extra tools implemented over the application
+development, when/if needed.
 
-Also, after finished, some of the separate packages should work as libraries, offering all their functions to be used anywhere.
+Is important to know that I'm designing this app to be as customizable as possible. Also, after finished, some of the
+separate packages should work as libraries, offering all their functions to be used anywhere or even UI, being possible
+to mutate based on user definitions.
 
 # Project structure
 
