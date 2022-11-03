@@ -73,16 +73,17 @@ After getting the above specification should parse (read) and/or write files sho
 
 The application data architecture is built in a encapsulated way. This means that the data is not
 placed in static fields of even accessible through object instances. Instead, they are managed based
-on events calls and their custom managers performs the work.
+on events calls and their custom managers, which performs the work.
 
 For this reason, is not recommended, for example, read data directly from the file. For this is recomended
-read the file information, store then into the application objects and fire some events indicating
-that information was read.
+read the file information, store then into the application appropried objects types and fire some events
+indicating that information was read. Note that using this suggested approach the events can carry the 
+read data thrgough function arguments or something like that.
 
 In the other hand, writing the application data to files can be easy after getting the target information
 that should be wrote. For example, always that a `SolvesUpdate` or `SessionsUpdate` events was fired
-is possible to store those informations in temporary fields and parse all of then at once when the application
-request to finish.
+is possible to store those informations in temporary fields and compile all of then at once when the
+application fires an event indicating a, e.g., request to finish.
 
 # General structure view
 
