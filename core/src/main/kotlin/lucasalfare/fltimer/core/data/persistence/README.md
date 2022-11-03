@@ -69,7 +69,9 @@ the following sequence of single bytes:
 - `[0xaa, 0xbb, 0xcc, 0xdd]`.
 
 # Parsing files
-After getting the above specification parse (read) and/or write files should be easy.
+After getting the above specification parse (read) and/or write files should be easy. Depending on what
+is being this files applied the only requirement to take information from then is just follow the
+specification above.
 
 The application data architecture is built in a encapsulated way. This means that the data is not
 placed in static fields of even accessible through object instances. Instead, they are managed based
