@@ -54,6 +54,14 @@ sequence typing, and so on);
 All of these features I plan to implement by myself as best as I can, using only my own knowledge. Reinventing the
 wheel today is not a good thing to do, but when it comes to studying it is one of the most powerful weapons. :)
 
+# Contributing
+
+To setup this in your machine should be pretty easy if you have Android Studio or IntelliJ IDEA IDEs, once the importing tools from
+then are very good.
+
+Also, have any suggestion and/or improvements to this repository? Feel free to open issues!
+English fixes are appreciated. :)
+
 # Contact me
 If you are interested in talk me about this project or even another programming stuff, for now, I can answer on my email _god-lucas@hotmail.com_
 and/or, if you have Instagram account, find me there using my address _@lucas.alfare_
