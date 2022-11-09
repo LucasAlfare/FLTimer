@@ -3,6 +3,8 @@
 package lucasalfare.fltimer.desktop
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
+import androidx.compose.material.Checkbox
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.*
@@ -25,6 +27,7 @@ import lucasalfare.fltimer.core.configuration.Config
 import lucasalfare.fltimer.core.configuration.ConfigurationManager
 import lucasalfare.fltimer.core.data.SolvesManager
 import lucasalfare.fltimer.core.data.persistence.PersistenceManager
+import lucasalfare.fltimer.core.data.persistence.setupFileBytesReader
 import lucasalfare.fltimer.core.data.session.SessionManager
 import lucasalfare.fltimer.core.getCurrentTime
 import lucasalfare.fltimer.core.networking.NetworkManager
@@ -36,8 +39,10 @@ import lucasalfare.fltimer.ui.uiManager
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
-  // TODO initial database load here
-  val loadedCurrentMode = AppMode.Default // the value should comes from database file
+  val r = setupFileBytesReader()!!
+  val netWorkingModeOn = r.readBoolean(9)
+  val askForTimerMode = r.readBoolean(10)
+
   var currentWindowSize by remember { mutableStateOf(DpSize(400.dp, 200.dp)) }
 
   Window(
@@ -48,7 +53,7 @@ fun main() = application {
     onCloseRequest = {
       // Here is assumed that when Compose receive an
       // close request the managers was already set
-      // TODO commit db file here
+      // TODO: notify [PersistenceManager] to commit database file here
       this.exitApplication()
     },
     onKeyEvent = {
@@ -79,26 +84,37 @@ fun main() = application {
       false
     }
   ) {
-    var appMode by remember { mutableStateOf(loadedCurrentMode) }
-    var modeWasSelected by remember { mutableStateOf(appMode != AppMode.NotSet) }
+    var onlineMode by remember { mutableStateOf(netWorkingModeOn) }
+    var modeWasSelected by remember { mutableStateOf(!askForTimerMode) }
 
-    if (!modeWasSelected) {
-      Column {
-        Text("Choose FLTimer mode:")
-        Row {
-          TextButton(onClick = { appMode = AppMode.Default; modeWasSelected = true }) {
-            Text(AppMode.Default.name)
-          }
-
-          TextButton(onClick = { appMode = AppMode.Online; modeWasSelected = true }) {
-            Text(AppMode.Online.name)
-          }
-        }
-      }
+    if (askForTimerMode && !modeWasSelected) {
+      DecisionDialog(
+        onDefaultCallback = { onlineMode = false; modeWasSelected = true },
+        onOnlineCallback = { onlineMode = true; modeWasSelected = true }
+      )
     } else {
-      currentWindowSize = DpSize(800.dp, 400.dp)
+      if (onlineMode) {
+        LaunchedEffect(true) {
+          setupManagers(
+            uiManager,
+            ConfigurationManager(),
+            TimerManager(),
+            NetworkManager()
+          )
 
-      if (appMode == AppMode.Default) {
+          uiManager.notifyListeners(
+            event = AppEvent.ConfigSet,
+            data = arrayOf(Config.NetworkingModeOn, true),
+            origin = this
+          )
+
+          currentWindowSize = DpSize(800.dp, 400.dp)
+        }
+
+        // show UI
+        TestApp()
+      } else {
+        currentWindowSize = DpSize(800.dp, 400.dp)
         LaunchedEffect(true) {
           setupManagers(
             uiManager,
@@ -119,24 +135,25 @@ fun main() = application {
 
         // show UI
         DefaultDesktopApp()
-      } else {
-        LaunchedEffect(true) {
-          setupManagers(
-            uiManager,
-            ConfigurationManager(),
-            TimerManager(),
-            NetworkManager()
-          )
+      }
+    }
+  }
+}
 
-          uiManager.notifyListeners(
-            event = AppEvent.ConfigSet,
-            data = arrayOf(Config.NetworkingModeOn, true),
-            origin = this
-          )
-        }
+@Composable
+fun DecisionDialog(
+  onDefaultCallback: () -> Unit = {},
+  onOnlineCallback: () -> Unit = {}
+) {
+  Column {
+    Text("Select the timer mode:")
+    Row {
+      Button(onClick = { onDefaultCallback() }) {
+        Text("Default")
+      }
 
-        // show UI
-        TestApp()
+      Button(onClick = { onOnlineCallback() }) {
+        Text("Online")
       }
     }
   }

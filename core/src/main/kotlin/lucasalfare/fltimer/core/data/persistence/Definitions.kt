@@ -6,6 +6,8 @@ import lucasalfare.fltimer.core.data.Penalty
 import lucasalfare.fltimer.core.data.Session
 import lucasalfare.fltimer.core.data.Solve
 import lucasalfare.fltimer.core.data.Solves
+import lucasalfare.fltimer.core.toByteArray
+import java.io.File
 
 /**
  * This class encapsulates the task of reading bytes from an single Array.
@@ -29,12 +31,7 @@ class BytesReader(private val data: IntArray) {
     return -1
   }
 
-  fun readBoolean(customPosition: Int = position): Boolean {
-    seek(customPosition)
-    if (updateTmpBuffer(1))
-      return (tmpBuffer[0] == 1)
-    return false
-  }
+  fun readBoolean(customPosition: Int = position) = read1Byte(customPosition) == 1
 
   fun read2Bytes(customPosition: Int = position): Int {
     seek(customPosition)
@@ -146,6 +143,9 @@ class BytesWriter {
   }
 }
 
+/**
+ * EXAMPLE usage of the bytes reader/writer
+ */
 fun main() {
   val writer = BytesWriter()
 
@@ -163,13 +163,15 @@ fun main() {
   )
   val session2 = Session("sessao teste 2", solves2)
 
-  val sessions = arrayOf(session1, session2)
+  val sessions = arrayOf(
+    session1, session2
+  )
 
   val fltimerSignature = "fltimer"
   val useInspection = false
   val showScramblesInDetailsUi = false
   val networkingModeOn = false
-  val askForTimerMode = true
+  val askForTimerMode = false
   val nSessions = sessions.size
 
   writer.writeString(fltimerSignature)
@@ -205,4 +207,6 @@ fun main() {
   }
 
   println(writer)
+
+  File("fltimer_data.fltd").writeBytes(writer.getData().toByteArray())
 }
