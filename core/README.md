@@ -33,3 +33,10 @@ In this way, even all pieces are registered as listeners/observers to all the ot
 to the events that are handled inside there. In other words, if, e.g., `Networking` is registered to `Scramble`,
 `Scramble` will listen only events it needs, if one of that can be fired from `Networking` it will be handled,
 otherwise will just skip it.
+
+# Implementation
+
+The main implementation for the pattern is made in the file [EventListening.kt](https://github.com/LucasAlfare/FLTimer/blob/master/core/src/main/kotlin/lucasalfare/fltimer/core/EventListening.kt). This file contains some structures:
+- an enumeration representing the _type_ of the events that runs over application flow;
+- an super class that offers root methods to the pattern work: `add`, `remove`, `notify`;
+- a shortcut function to setup a `vararg` of `EventManageable`.
