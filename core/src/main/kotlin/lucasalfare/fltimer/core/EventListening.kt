@@ -89,6 +89,8 @@ enum class AppEvent {
   /**
    * Comes with a [String] representing the name of the session to
    * switch to.
+   *
+   * TODO: refactor this to notify only a value indicating "previous" or "forward"
    */
   SessionSwitch,
 
