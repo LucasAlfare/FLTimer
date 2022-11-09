@@ -17,9 +17,11 @@ application flow. These packages are:
 # Core architectures
 
 This application is using Observer pattern. The reason for this choice is that the app has to many single
-pieces of code. For example, there are scrambling management, networking, timming... Note that all these
-features has its own meaning at the same time they need to work together. This means that is potentially
-easy, if not take care, to mix codes from then, making the use of some architectures strategies needed.
+pieces of code. For example, there are scrambling management, networking, timming...
+
+Note that all these features has its own meaning and, at the same time, they need to work together. This means
+that is potentially easy, if not take care, to mix codes from then, making the use of some architectures
+strategies needed.
 
 # Observer pattern
 
