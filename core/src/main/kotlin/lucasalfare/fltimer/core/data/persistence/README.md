@@ -3,7 +3,8 @@
 The FLTimer app has its own binary format that is used to store data into files. Below is described
 the main bytes structure to the format, where is presented in the form:
 
-(`nBytes of each information`) `information "description"` `target information type`
+| ` Number of Bytes` | `Description` | `Target type` |
+|--------------------|---------------|---------------|
 
 # Header chunk
 
@@ -50,15 +51,15 @@ most important information, such as `time` and `scramble`. Below is described th
 and the target type to those information, which are, then, stored into the main database file.
 
 They are:
-
-- [3 bytes] time (int);
-- [1 byte] nBytes of the next string value (int);
-- [x bytes] scramble (string);
-- [1 byte] penalty (int: 0=ok,1=plusTwo,2=dnf);
-- [1 byte] nBytes of the next string value (int);
-- [x bytes] comment (string).
-
-*total = `at least 6 bytes`*
+| Number of bytes              | Description               | Target type                |
+|------------------------------|---------------------------|----------------------------|
+| 3                            | time                      | int                        |
+| 1                            | nBytes of the next string | int                        |
+| x                            | scramble                  | string                     |
+| 1                            | penalty code              | int (0=ok,1=plusTwo,2=dnf) |
+| 1                            | nBytes of the next string | int                        |
+| x                            | comment                   | string                     |
+| *total = `at least 6 bytes`* |                           |                            |
 
 # Bytes ordering
 
