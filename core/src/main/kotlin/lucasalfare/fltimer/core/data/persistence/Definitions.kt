@@ -15,7 +15,7 @@ import java.io.File
  * Normally the [data] field represents bytes that comes from some file that should be
  * read.
  */
-class BytesReader(private val data: IntArray) {
+class BytesReader(val data: IntArray) {
 
   /**
    * This field indicates the current offset that is being read.
@@ -129,6 +129,10 @@ class BytesWriter {
     }
   }
 
+  fun clearWritingData() {
+    data.clear()
+  }
+
   fun getData() = data.toIntArray()
 
   override fun toString(): String {
@@ -149,22 +153,8 @@ class BytesWriter {
 fun main() {
   val writer = BytesWriter()
 
-  val solves1 = Solves(
-    Solve(time = 10000L, scramble = "R U F"),
-    Solve(time = 10400L, scramble = "X Y Z L U F")
-  )
-  val session1 = Session("sessao teste 1", solves1)
-
-  val solves2 = Solves(
-    Solve(time = 9999L, scramble = "R U F"),
-    Solve(time = 1111L, scramble = "R U F"),
-    Solve(time = 2222L, scramble = "R U F"),
-    Solve(time = 3333L, scramble = "R U F")
-  )
-  val session2 = Session("sessao teste 2", solves2)
-
   val sessions = arrayOf(
-    session1, session2
+    Session("Standard")
   )
 
   val fltimerSignature = "fltimer"

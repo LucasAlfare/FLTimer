@@ -5,11 +5,11 @@ import lucasalfare.fltimer.core.EventManageable
 
 class ConfigurationManager : EventManageable() {
 
-  private val configurations = mutableMapOf<Config, Any>(
+  private var configurations = mutableMapOf<Config, Any>(
     Pair(Config.UseInspection, false),
-    Pair(Config.ShowScramblesInDetailsUI, true),
+    Pair(Config.ShowScramblesInDetailsUI, false),
     Pair(Config.NetworkingModeOn, false),
-    Pair(Config.AskForTimerMode, true)
+    Pair(Config.AskForTimerMode, false)
   )
 
   override fun init() {
@@ -27,6 +27,10 @@ class ConfigurationManager : EventManageable() {
       val newValue = props[1] as Any
       configurations[config] = newValue
 
+      notifyListeners(event = AppEvent.ConfigsUpdate, data = configurations, origin = this)
+    } else if (event == AppEvent.PersistenceUpdate) {
+      val props = data as Array<*>
+      configurations = props[0] as MutableMap<Config, Any>
       notifyListeners(event = AppEvent.ConfigsUpdate, data = configurations, origin = this)
     }
   }

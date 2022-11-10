@@ -37,7 +37,7 @@ The relevant information are:
 - [x bytes] session name (string);
 - [2 bytes] number of solves (int);
 - [9* bytes/chunk] `Solve` chunks (object Solve);
-- [1 byte] `0xFF` byte indicating the end of the current chunk (int).
+- [1 byte] `0xFF` byte indicating the end of the current chunk (int). // TODO: REMOVE
 
 *total = `at least 4 bytes`*
 
@@ -55,6 +55,7 @@ They are:
 - [1 byte] penalty (int: 0=ok,1=plusTwo,2=dnf);
 - [1 byte] nBytes of the next string value (int);
 - [x bytes] comment (string);
+REMOVE
 - [1 byte] nBytes of the next string value (int); (should be fixed length?)
 - [x bytes] id (string)(id as an UUID).
 

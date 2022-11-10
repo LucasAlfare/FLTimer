@@ -24,6 +24,10 @@ enum class Penalty {
   Dnf
 }
 
+fun getPenaltyByCode(code: Int) = when (code) {
+  1 -> Penalty.PlusTwo; 2 -> Penalty.Dnf; else -> Penalty.Ok
+}
+
 /**
  * Main piece of data of the application.
  */
@@ -32,7 +36,7 @@ data class Solve(
   var scramble: String = "[no scramble]",
   var penalty: Penalty = Penalty.Ok,
   var comment: String = "",
-  val id: UUID = UUID.randomUUID()
+  var id: UUID = UUID.randomUUID()
 ) {
   fun getDisplayableRepresentation() = when (penalty) {
     Penalty.PlusTwo -> "+${(time + 2000).toTimestamp()}"

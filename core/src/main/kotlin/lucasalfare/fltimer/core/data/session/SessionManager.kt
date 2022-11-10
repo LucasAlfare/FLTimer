@@ -11,15 +11,15 @@ private const val StandardSessionName = "Standard"
 
 class SessionManager : EventManageable() {
 
-  private val sessions = mutableMapOf<String, Session>()
+  private var sessions = mutableMapOf<String, Session>()
   private var currentSession: Session
 
   init {
     sessions[StandardSessionName] = Session(StandardSessionName)
     currentSession = sessions[StandardSessionName]!!
 
-    tmpCreateSession("bilu teteia", 100)
-    tmpCreateSession("repetiliano", 27)
+//    tmpCreateSession("bilu teteia", 100)
+//    tmpCreateSession("repetiliano", 27)
   }
 
   private fun tmpCreateSession(name: String, nSolves: Int) {
@@ -63,6 +63,17 @@ class SessionManager : EventManageable() {
           )
         }
       }
+
+      AppEvent.PersistenceUpdate -> {
+        val props = data as Array<*>
+        sessions = props[1] as MutableMap<String, Session>
+        notifyListeners(
+          event = AppEvent.SessionsUpdate,
+          data = arrayOf(currentSession.name, sessions),
+          origin = this
+        )
+      }
+
       else -> {}
     }
   }

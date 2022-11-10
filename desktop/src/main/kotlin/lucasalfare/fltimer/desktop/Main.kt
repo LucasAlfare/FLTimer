@@ -39,6 +39,7 @@ import lucasalfare.fltimer.ui.uiManager
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
+  // TODO: abstract this
   val r = setupFileBytesReader()!!
   val netWorkingModeOn = r.readBoolean(9)
   val askForTimerMode = r.readBoolean(10)
@@ -53,7 +54,7 @@ fun main() = application {
     onCloseRequest = {
       // Here is assumed that when Compose receive an
       // close request the managers was already set
-      // TODO: notify [PersistenceManager] to commit database file here
+      uiManager.notifyListeners(AppEvent.ApplicationFinish)
       this.exitApplication()
     },
     onKeyEvent = {
@@ -117,13 +118,13 @@ fun main() = application {
         currentWindowSize = DpSize(800.dp, 400.dp)
         LaunchedEffect(true) {
           setupManagers(
+            PersistenceManager(),
             uiManager,
             ScrambleManager(),
             SolvesManager(),
             SessionManager(),
             TimerManager(),
-            ConfigurationManager(),
-            PersistenceManager()
+            ConfigurationManager()
           )
 
           uiManager.notifyListeners(

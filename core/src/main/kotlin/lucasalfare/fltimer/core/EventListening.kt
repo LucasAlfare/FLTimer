@@ -166,7 +166,17 @@ enum class AppEvent {
    * all users inside the server finished their rounds and THIS client is able to
    * play again.
    */
-  NetworkingAllUsersFinished
+  NetworkingAllUsersFinished,
+
+  /**
+   * Comes with an array with two maps, first configs, second sessions
+   */
+  PersistenceUpdate,
+
+  /**
+   * TODO
+   */
+  ApplicationFinish
 }
 
 /**
