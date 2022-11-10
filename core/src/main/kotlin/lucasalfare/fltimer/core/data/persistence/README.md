@@ -43,13 +43,6 @@ The relevant information are:
 | 6*              | `Solve` chunk(s)                | Solve object type |
 *total = `at least 3 bytes`*
 
-- [1 byte] nBytes of the next string value (int);
-- [x bytes] session name (string);
-- [2 bytes] number of solves (int);
-- [6* bytes/chunk] `Solve` chunk(s) (Solve object type).
-
-*total = `at least 3 bytes`*
-
 # Single `Solve` chunk
 
 The root piece of data of this timer is the `Solve` type. The objects created from this type has
