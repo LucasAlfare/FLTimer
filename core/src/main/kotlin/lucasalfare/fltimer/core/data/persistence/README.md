@@ -13,13 +13,14 @@ beyond these.
 
 They are:
 
-- [7 bytes] _"fltimer"_ signature (string);
-- [1 byte] (UseInspection) (boolean);
-- [1 byte] (ShowScramblesInDetailsUI) (boolean);
-- [1 byte] (NetworkingModeOn) (boolean);
-- [1 byte] (AskForTimerMode) (boolean);
-- [2 bytes] number of session chunks (int).
-
+| Number of bytes | Description  | Target type |
+| --------------- | -----------  | ----------- |
+| 7 | _"fltimer"_ signature      | String      |
+| 1 | (UseInspection)            | boolean     |
+| 1 | (ShowScramblesInDetailsUI) | boolean     |
+| 1 | (NetworkingModeOn)         | boolean     |
+| 1 | (AskForTimerMode)          | boolean     |
+| 2 | number of session chunks   |   int       |
 *total = `13 bytes`*
 
 Note that this header chunk might contain more information as the timer data grows up.
