@@ -34,6 +34,15 @@ stored into the main database file.
 
 The relevant information are:
 
+
+| Number of bytes | Description                     | Target type       |
+| --------------- | ------------------------------- | ----------------- |
+| 1               | nBytes of the next string value | int               |
+| x               | session name                    | string            |
+| 2               | number of solves                | int               |
+| 6*              | `Solve` chunk(s)                | Solve object type |
+*total = `at least 3 bytes`*
+
 - [1 byte] nBytes of the next string value (int);
 - [x bytes] session name (string);
 - [2 bytes] number of solves (int);
