@@ -36,10 +36,9 @@ The relevant information are:
 - [1 byte] nBytes of the next string value (int);
 - [x bytes] session name (string);
 - [2 bytes] number of solves (int);
-- [9* bytes/chunk] `Solve` chunks (object Solve);
-- [1 byte] `0xFF` byte indicating the end of the current chunk (int). // TODO: REMOVE
+- [9* bytes/chunk] `Solve` chunks (object Solve).
 
-*total = `at least 4 bytes`*
+*total = `at least 3 bytes`*
 
 # Single `Solve` chunk
 
@@ -54,12 +53,9 @@ They are:
 - [x bytes] scramble (string);
 - [1 byte] penalty (int: 0=ok,1=plusTwo,2=dnf);
 - [1 byte] nBytes of the next string value (int);
-- [x bytes] comment (string);
-REMOVE
-- [1 byte] nBytes of the next string value (int); (should be fixed length?)
-- [x bytes] id (string)(id as an UUID).
+- [x bytes] comment (string).
 
-*total = `at least 7 bytes`*
+*total = `at least 6 bytes`*
 
 # Bytes ordering
 
@@ -93,43 +89,4 @@ application fires an event indicating a, e.g., request to finish.
 Below is demonstrated, using the above descriptions, how should look a full file containing some
 `Session` chunks with their own `Solve` chunks.
 
-- [7 bytes] _"fltimer"_ signature (string);
-- [1 byte] (UseInspection) (boolean);
-- [1 byte] (ShowScramblesInDetailsUI) (boolean);
-- [1 byte] (NetworkingModeOn) (boolean);
-- [1 byte] (AskForTimerMode) (boolean);
-- [2 bytes] number of session chunks (int);
-
-- [1 byte] nBytes of the next string value (int);
-- [x bytes] session name (string);
-- [2 bytes] number of solves (int):
-    - [3 bytes] time (int);
-    - [1 byte] nBytes of the next string value (int);
-    - [x bytes] scramble (string);
-    - [1 byte] penalty (int: 0=ok,1=plusTwo,2=dnf);
-    - [1 byte] nBytes of the next string value (int);
-    - [x bytes] comment (string);
-    - [1 byte] nBytes of the next string value (int); (should be fixed length?);
-    - [x bytes] id (string)(id as an UUID);
-    - [3 bytes] time (int);
-    - [1 byte] nBytes of the next string value (int);
-    - [x bytes] scramble (string);
-    - [1 byte] penalty (int: 0=ok,1=plusTwo,2=dnf);
-    - [1 byte] nBytes of the next string value (int);
-    - [x bytes] comment (string);
-    - [1 byte] nBytes of the next string value (int); (should be fixed length?);
-    - [x bytes] id (string)(id as an UUID);
-- [1 byte] `0xFF` byte indicating the end of the current chunk (int);
-
-- [1 byte] nBytes of the next string value (int);
-- [x bytes] session name (string);
-- [2 bytes] number of solves (int);
-    - [3 bytes] time (int);
-    - [1 byte] nBytes of the next string value (int);
-    - [x bytes] scramble (string);
-    - [1 byte] penalty (int: 0=ok,1=plusTwo,2=dnf);
-    - [1 byte] nBytes of the next string value (int);
-    - [x bytes] comment (string);
-    - [1 byte] nBytes of the next string value (int); (should be fixed length?);
-    - [x bytes] id (string)(id as an UUID);
-- [1 byte] `0xFF` byte indicating the end of the current chunk (int);
+- TODO
