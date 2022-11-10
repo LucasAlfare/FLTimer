@@ -36,7 +36,7 @@ The relevant information are:
 - [1 byte] nBytes of the next string value (int);
 - [x bytes] session name (string);
 - [2 bytes] number of solves (int);
-- [9* bytes/chunk] `Solve` chunks (object Solve).
+- [6* bytes/chunk] `Solve` chunk(s) (Solve object type).
 
 *total = `at least 3 bytes`*
 
@@ -82,7 +82,7 @@ read data thrgough function arguments or something like that.
 In the other hand, writing the application data to files can be easy after getting the target information
 that should be wrote. For example, always that a `SolvesUpdate` or `SessionsUpdate` events was fired
 is possible to store those informations in temporary fields and compile all of then at once when the
-application fires an event indicating a, e.g., request to finish.
+application fires an event indicating an, e.g., request to finish.
 
 # General structure view
 
