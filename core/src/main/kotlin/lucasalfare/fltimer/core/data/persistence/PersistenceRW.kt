@@ -10,7 +10,6 @@ fun getStartupReader(): Reader {
   if (f.exists()) {
     val data = f.readBytes().toUByteArray()
     if (data.isNotEmpty()) {
-      println("[RW] file data was loaded.")
       return Reader(data)
     }
   }
@@ -18,7 +17,5 @@ fun getStartupReader(): Reader {
   val d = UByteArray(11)
   d[9] = 0u
   d[10] = 1u
-
-  println("[RW] no file, loaded a tmp reader.")
   return Reader(d)
 }

@@ -3,8 +3,28 @@
 
 package lucasalfare.fltimer.core.data.persistence
 
+const val FLTIMER_STRING_SIGNATURE = "fltimer"
+
+/**
+ * Default name of application database file.
+ */
 const val APPLICATION_DATABASE_FILE_NAME = "fltimer_data.fltd"
 
+/**
+ * This class encapsulates the task of reading bytes to an single Array.
+ *
+ * This classes uses as main data source an array of type [UByteArray] in
+ * order to avoid cast/conversions problems. For example, the hex value
+ * [0xCC], when converted to Int, is turned to something like [0xFFFFFFCC].
+ *
+ * This result is totally expected by the [Int] type specification however,
+ * this is not appropriated to application. Then, to avoid this, using
+ * _unsigned bytes_ should be fine.
+ *
+ * Finally, the methods are written in the form "readXByte", this means that
+ * the method will take a sequence of that amount of elements from the [data]
+ * field and merge those into a single number.
+ */
 class Reader(var data: UByteArray) {
 
   private var position = 0
@@ -72,6 +92,8 @@ class Reader(var data: UByteArray) {
  * This class encapsulates the task of writing bytes to an single Array.
  *
  * Normally the [data] field represents bytes that should be recorded to an file.
+ *
+ * This class writes numbers of type [Int] directly as [Int]s to its root data.
  */
 class Writer {
 

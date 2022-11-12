@@ -19,7 +19,7 @@ class SessionManager : EventManageable() {
     currentSession = sessions[StandardSessionName]!!
 
 //    tmpCreateSession("bilu teteia", 100)
-//    tmpCreateSession("repetiliano", 27)
+    //tmpCreateSession("repetiliano", 27)
   }
 
   private fun tmpCreateSession(name: String, nSolves: Int) {

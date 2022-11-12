@@ -21,7 +21,11 @@ enum class Penalty {
   /**
    * Flags a time as not finished.
    */
-  Dnf
+  Dnf;
+
+  fun toCode() = when (this) {
+    Ok -> 0; PlusTwo -> 1; else -> 2
+  }
 }
 
 fun getPenaltyByCode(code: Int) = when (code) {
@@ -33,7 +37,7 @@ fun getPenaltyByCode(code: Int) = when (code) {
  */
 data class Solve(
   var time: Long = 0L,
-  var scramble: String = "[no scramble]",
+  var scramble: String = "[no scramble]", // TODO: introduce Scramble Object type
   var penalty: Penalty = Penalty.Ok,
   var comment: String = "",
   var id: UUID = UUID.randomUUID()

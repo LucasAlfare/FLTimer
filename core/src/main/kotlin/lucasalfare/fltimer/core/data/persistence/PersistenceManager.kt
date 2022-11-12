@@ -17,7 +17,9 @@ class PersistenceManager : EventManageable() {
 
   private var configs: MutableMap<Config, Any> = mutableMapOf()
   private var sessions: MutableMap<String, Session> = mutableMapOf()
+
   private var currentActiveSession = ""
+
   private var writer = Writer()
   private var initiated = false
 
@@ -26,9 +28,10 @@ class PersistenceManager : EventManageable() {
 
     if (f.exists()) {
       val fileData = f.readBytes()
+      // if file is not empty, reads its information
       if (fileData.isNotEmpty()) {
         val reader = Reader(fileData.toUByteArray())
-        val signature = reader.readString(7)!!
+        val signature = reader.readString(FLTIMER_STRING_SIGNATURE.length)!!
         if (signature != "fltimer") println("ARQUIVO INVALIDO")
 
         configs[Config.UseInspection] = reader.readBoolean()
@@ -121,7 +124,7 @@ class PersistenceManager : EventManageable() {
   }
 
   private fun updateHeaderBytes() {
-    writer.writeString("fltimer")
+    writer.writeString(FLTIMER_STRING_SIGNATURE)
     writer.writeBoolean(configs[Config.UseInspection] as Boolean)
     writer.writeBoolean(configs[Config.ShowScramblesInDetailsUI] as Boolean)
     writer.writeBoolean(configs[Config.NetworkingModeOn] as Boolean)
@@ -135,24 +138,21 @@ class PersistenceManager : EventManageable() {
       writer.writeString(it.name)
       writer.write2Bytes(it.solves.size)
 
-      it.solves.values.forEach { s ->
-        writer.write4Bytes(s.time)
-        writer.write1Byte(s.scramble.length)
-        writer.writeString(s.scramble)
-        writer.write1Byte(
-          when (s.penalty) {
-            Penalty.Ok -> 0
-            Penalty.PlusTwo -> 1
-            else -> 2
-          }
-        )
-        writer.write1Byte(s.comment.length)
-        writer.writeString(s.comment)
+      it.solves.values.forEach { solve ->
+        writer.write4Bytes(solve.time)
+        writer.write1Byte(solve.scramble.length)
+        writer.writeString(solve.scramble)
+        writer.write1Byte(solve.penalty.toCode())
+        writer.write1Byte(solve.comment.length)
+        writer.writeString(solve.comment)
       }
     }
   }
 
   private fun commitFile() {
-    File(APPLICATION_DATABASE_FILE_NAME).writeBytes(writer.getData().toByteArray())
+    File(APPLICATION_DATABASE_FILE_NAME)
+      .writeBytes(
+        writer.getData().toByteArray()
+      )
   }
 }
