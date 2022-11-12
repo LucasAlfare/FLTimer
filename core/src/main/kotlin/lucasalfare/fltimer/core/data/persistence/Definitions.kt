@@ -1,90 +1,70 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
+@file:OptIn(ExperimentalUnsignedTypes::class)
 
 package lucasalfare.fltimer.core.data.persistence
 
-import lucasalfare.fltimer.core.data.Penalty
-import lucasalfare.fltimer.core.data.Session
-import lucasalfare.fltimer.core.data.Solve
-import lucasalfare.fltimer.core.data.Solves
-import lucasalfare.fltimer.core.toByteArray
-import java.io.File
+const val APPLICATION_DATABASE_FILE_NAME = "fltimer_data.fltd"
 
-/**
- * This class encapsulates the task of reading bytes from an single Array.
- *
- * Normally the [data] field represents bytes that comes from some file that should be
- * read.
- */
-class BytesReader(val data: IntArray) {
+class Reader(var data: UByteArray) {
 
-  /**
-   * This field indicates the current offset that is being read.
-   * It is constantly updated as something is read, being a dynamic mark.
-   */
-  var position = 0
-
-  private val tmpBuffer = IntArray(4) { 0 }
+  private var position = 0
 
   fun read1Byte(customPosition: Int = position): Int {
-    seek(customPosition)
-    if (updateTmpBuffer(1)) return (tmpBuffer[0])
-    return -1
+    val a = data[customPosition]
+    val res = a.toInt()
+    position += 1
+    return res
   }
 
   fun readBoolean(customPosition: Int = position) = read1Byte(customPosition) == 1
 
   fun read2Bytes(customPosition: Int = position): Int {
-    seek(customPosition)
-    if (updateTmpBuffer(2)) {
-      return tmpBuffer[0] shl 8 or
-              tmpBuffer[1]
-    }
-    return -1
+    val a = data[customPosition + 0].toInt()
+    val b = data[customPosition + 1].toInt()
+    val res = (a shl 8) or b
+    position += 2
+    return res
   }
 
   fun read3Bytes(customPosition: Int = position): Int {
-    seek(customPosition)
-    if (updateTmpBuffer(3)) {
-      return tmpBuffer[0] shl 16 or
-              (tmpBuffer[1] shl 8 or
-                      tmpBuffer[2])
-    }
-    return -1
+    val a = data[customPosition + 0].toInt()
+    val b = data[customPosition + 1].toInt()
+    val c = data[customPosition + 2].toInt()
+    val res = ((a shl 16) or ((b shl 8))) or c
+    position += 3
+    return res
   }
 
-  fun read4Bytes(customPosition: Int = position): Int {
-    seek(customPosition)
-    if (updateTmpBuffer(4)) {
-      return tmpBuffer[0] shl 24 or
-              (tmpBuffer[1] shl 16 or
-                      (tmpBuffer[2] shl 8 or
-                              tmpBuffer[3]))
-    }
-    return -1
+  fun read4Bytes(customPosition: Int = position): Long {
+    val a = data[customPosition + 0].toInt()
+    val b = data[customPosition + 1].toInt()
+    val c = data[customPosition + 2].toInt()
+    val d = data[customPosition + 3].toInt()
+    val res = (((a shl 24) or (b shl 16)) or (c shl 8)) or d
+    position += 4
+    return res.toLong()
   }
 
-  fun readString(stringLength: Int): String? {
-    if (position + stringLength > data.size) return null
-
+  fun readString(length: Int): String? {
+    if (position + length > data.size) return null
     var result = ""
-    data.slice(position..(position - 1 + stringLength)).forEach { result += Char(it) }
+    data.slice(position..(position - 1 + length))
+      .forEach {
+        result += Char(it.toInt())
+      }
+    position += length
     return result
   }
 
-  fun seek(nextPos: Int): Int {
-    if (nextPos >= data.size) {
-      return -1
+  override fun toString(): String {
+    var res = ""
+    data.forEachIndexed { index, i ->
+      res += "0x${Integer.toHexString(i.toInt()).padStart(2, '0')} "
+      if ((index + 1) % 10 == 0) {
+        res += "\n"
+      }
     }
-
-    position = nextPos
-    return position
-  }
-
-  private fun updateTmpBuffer(nBytes: Int): Boolean {
-    if (position + nBytes > data.size) return false
-    repeat(nBytes) { tmpBuffer[it] = data[position + it] }
-    position += nBytes
-    return true
+    return res
   }
 }
 
@@ -93,7 +73,7 @@ class BytesReader(val data: IntArray) {
  *
  * Normally the [data] field represents bytes that should be recorded to an file.
  */
-class BytesWriter {
+class Writer {
 
   private val data = mutableListOf<Int>()
 
@@ -145,58 +125,4 @@ class BytesWriter {
     }
     return res
   }
-}
-
-/**
- * EXAMPLE usage of the bytes reader/writer
- */
-fun main() {
-  val writer = BytesWriter()
-
-  val sessions = arrayOf(
-    Session("Standard")
-  )
-
-  val fltimerSignature = "fltimer"
-  val useInspection = false
-  val showScramblesInDetailsUi = false
-  val networkingModeOn = false
-  val askForTimerMode = false
-  val nSessions = sessions.size
-
-  writer.writeString(fltimerSignature)
-  writer.writeBoolean(useInspection)
-  writer.writeBoolean(showScramblesInDetailsUi)
-  writer.writeBoolean(networkingModeOn)
-  writer.writeBoolean(askForTimerMode)
-  writer.write2Bytes(nSessions)
-
-  sessions.forEach {
-    writer.write1Byte(it.name.length)
-    writer.writeString(it.name)
-    writer.write2Bytes(it.solves.size)
-
-    it.solves.values.forEach { s ->
-      writer.write3Bytes(s.time.toInt())
-      writer.write1Byte(s.scramble.length)
-      writer.writeString(s.scramble)
-      writer.write1Byte(
-        when (s.penalty) {
-          Penalty.Ok -> 0
-          Penalty.PlusTwo -> 2
-          else -> 3
-        }
-      )
-      writer.write1Byte(s.comment.length)
-      writer.writeString(s.comment)
-      writer.write1Byte(s.id.toString().length)
-      writer.writeString(s.id.toString())
-    }
-
-    writer.write1Byte(0xff)
-  }
-
-  println(writer)
-
-  File("fltimer_data.fltd").writeBytes(writer.getData().toByteArray())
 }

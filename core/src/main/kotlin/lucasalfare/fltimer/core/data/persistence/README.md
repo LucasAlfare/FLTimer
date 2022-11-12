@@ -32,8 +32,6 @@ groups of data. For this reason, there are also important information about then
 stored into the main database file.
 
 The relevant information are:
-
-
 | Number of bytes | Description                     | Target type            |
 | --------------- | ------------------------------- | ---------------------- |
 | 1               | nBytes of the next string value | int                    |
@@ -53,7 +51,7 @@ and the target type to those information, which are, then, stored into the main 
 They are:
 | Number of bytes              | Description               | Target type                |
 |------------------------------|---------------------------|----------------------------|
-| 3                            | time                      | int                        |
+| 4                            | time                      | int                        |
 | 1                            | nBytes of the next string | int                        |
 | x                            | scramble                  | string                     |
 | 1                            | penalty code              | int (0=ok,1=plusTwo,2=dnf) |

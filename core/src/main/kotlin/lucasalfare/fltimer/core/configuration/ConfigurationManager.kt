@@ -9,7 +9,7 @@ class ConfigurationManager : EventManageable() {
     Pair(Config.UseInspection, false),
     Pair(Config.ShowScramblesInDetailsUI, false),
     Pair(Config.NetworkingModeOn, false),
-    Pair(Config.AskForTimerMode, false)
+    Pair(Config.AskForTimerMode, true)
   )
 
   override fun init() {

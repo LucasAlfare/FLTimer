@@ -4,9 +4,7 @@ package lucasalfare.fltimer.desktop
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
-import androidx.compose.material.Checkbox
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -22,12 +20,11 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import lucasalfare.fltimer.core.AppEvent
-import lucasalfare.fltimer.core.AppMode
 import lucasalfare.fltimer.core.configuration.Config
 import lucasalfare.fltimer.core.configuration.ConfigurationManager
 import lucasalfare.fltimer.core.data.SolvesManager
 import lucasalfare.fltimer.core.data.persistence.PersistenceManager
-import lucasalfare.fltimer.core.data.persistence.setupFileBytesReader
+import lucasalfare.fltimer.core.data.persistence.getStartupReader
 import lucasalfare.fltimer.core.data.session.SessionManager
 import lucasalfare.fltimer.core.getCurrentTime
 import lucasalfare.fltimer.core.networking.NetworkManager
@@ -39,10 +36,13 @@ import lucasalfare.fltimer.ui.uiManager
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
-  // TODO: abstract this
-  val r = setupFileBytesReader()!!
-  val netWorkingModeOn = r.readBoolean(9)
-  val askForTimerMode = r.readBoolean(10)
+  // TODO: abstract this?
+  val startupReader = getStartupReader()
+  val netWorkingModeOn = startupReader.readBoolean(9)
+  val askForTimerMode = startupReader.readBoolean(10)
+
+  println("netWorkingModeOn=$netWorkingModeOn")
+  println("askForTimerMode=$askForTimerMode")
 
   var currentWindowSize by remember { mutableStateOf(DpSize(400.dp, 200.dp)) }
 
@@ -87,6 +87,11 @@ fun main() = application {
   ) {
     var onlineMode by remember { mutableStateOf(netWorkingModeOn) }
     var modeWasSelected by remember { mutableStateOf(!askForTimerMode) }
+
+    println("onlineMode=$onlineMode")
+    println("modeWasSelected=$modeWasSelected")
+
+    println()
 
     if (askForTimerMode && !modeWasSelected) {
       DecisionDialog(
@@ -144,7 +149,8 @@ fun main() = application {
 @Composable
 fun DecisionDialog(
   onDefaultCallback: () -> Unit = {},
-  onOnlineCallback: () -> Unit = {}
+  onOnlineCallback: () -> Unit = {},
+  onToggleDialog: () -> Unit = {} // TODO
 ) {
   Column {
     Text("Select the timer mode:")
@@ -153,7 +159,7 @@ fun DecisionDialog(
         Text("Default")
       }
 
-      Button(onClick = { onOnlineCallback() }) {
+      Button(enabled = false, onClick = { onOnlineCallback() }) {
         Text("Online")
       }
     }

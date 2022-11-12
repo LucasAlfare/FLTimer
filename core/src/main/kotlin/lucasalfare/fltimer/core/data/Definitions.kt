@@ -88,4 +88,4 @@ class Solves(vararg someSolves: Solve) : LinkedHashMap<UUID, Solve>() {
  * Holds a [Solves] object in order to keep easy to track
  * different data groups.
  */
-data class Session(var name: String, val solves: Solves = Solves())
+data class Session(var name: String, var solves: Solves = Solves())

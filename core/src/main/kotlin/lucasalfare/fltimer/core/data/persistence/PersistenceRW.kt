@@ -1,24 +1,24 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
+
 package lucasalfare.fltimer.core.data.persistence
 
-import lucasalfare.fltimer.core.toIntArray
 import java.io.File
 
-private var reader: BytesReader? = null
+fun getStartupReader(): Reader {
+  val f = File(APPLICATION_DATABASE_FILE_NAME)
 
-fun setupFileBytesReader(): BytesReader? {
-  if (reader == null) {
-    val raw = File("fltimer_data.fltd")
-    if (raw.exists()) {
-      val rawBytes = raw.readBytes()
-      reader = BytesReader(rawBytes.toIntArray())
-    } else {
-      val d = IntArray(11)
-      d[9] = 0
-      d[10] = 1
-      reader = BytesReader(d)
+  if (f.exists()) {
+    val data = f.readBytes().toUByteArray()
+    if (data.isNotEmpty()) {
+      println("[RW] file data was loaded.")
+      return Reader(data)
     }
   }
 
-  // TODO: validate bytes before return?
-  return reader
+  val d = UByteArray(11)
+  d[9] = 0u
+  d[10] = 1u
+
+  println("[RW] no file, loaded a tmp reader.")
+  return Reader(d)
 }
