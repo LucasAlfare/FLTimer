@@ -32,6 +32,8 @@ groups of data. For this reason, there are also important information about then
 stored into the main database file.
 
 The relevant information are:
+
+
 | Number of bytes | Description                     | Target type            |
 | --------------- | ------------------------------- | ---------------------- |
 | 1               | nBytes of the next string value | int                    |
@@ -51,7 +53,7 @@ and the target type to those information, which are, then, stored into the main 
 They are:
 | Number of bytes              | Description               | Target type                |
 |------------------------------|---------------------------|----------------------------|
-| 4                            | time                      | int                        |
+| 3                            | time                      | int                        |
 | 1                            | nBytes of the next string | int                        |
 | x                            | scramble                  | string                     |
 | 1                            | penalty code              | int (0=ok,1=plusTwo,2=dnf) |
@@ -60,10 +62,10 @@ They are:
 | *total = `at least 6 bytes`* |                           |                            |
 
 Note: `Solve` objects has an `id` property. These IDs are in the Java `UUID` type, however,
-as can be seen in the table above, thse IDs are not stored in the database file. This happens
+as can be seen in the table above, these IDs are not stored in the database file. This happens
 because, at least for now, doesn't have any reason to store IDs, since they are used only to
 handle the case when having two (or more) `Solve` objects with same values (same `time`,
-`scramble`, etc) so IDs can be used to diff thenselves.
+`scramble`, etc) so IDs can be used to diff themselves.
 
 # Bytes ordering
 
@@ -83,21 +85,21 @@ The data architecture of the application is built in a encapsulated way. This me
 placed in static fields of even accessible through object instances. Instead, they are managed based
 on events calls flow over their custom managers, which performs the work.
 
-For this reason, is not recommended, for example, read data directly from the file. For this is recomended
+For this reason, is not recommended, for example, read data directly from the file. For this is recommended
 read the file information, store then into the application appropriated objects types and fire some events
-indicating that information was read. Note that using this suggested approach the events can carry the 
-read data thrgough function arguments or something like that.
+indicating that information was read. Note that using this suggested approach the events can carry the
+read data through function arguments or something like that.
 
 In the other hand, writing the application data to files can be easy after getting the target information
 that should be wrote. For example, always that a `SolvesUpdate` or `SessionsUpdate` events was fired
-is possible to store those informations in temporary fields and compile all of then at once when the
+is possible to store those information in temporary fields and compile all of then at once when the
 application fires an event indicating an, e.g., request to finish.
 
 In conclusion:
 - if doesn't exists a `fltimer_data.fltd` file:
   - app creates one;
   - initialize it with default values (header and a default/standard session);
-- if database file eixists:
+- if database file exists:
   - application attempts to validate it;
   - file is parsed with its information to appropriated objects;
   - notify other module managers with that data parsed.
