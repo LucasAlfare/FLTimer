@@ -40,9 +40,10 @@ The relevant information are:
 | --------------- | ------------------------------- | ---------------------- |
 | 1               | nBytes of the next string value | int                    |
 | x               | session name                    | string                 |
+| 1               | current session category code   | int (codes: TODO)      |
 | 2               | number of solves chunks         | int                    |
 | 6*              | `Solve` chunk(s)                | Solve object type each |
-*total = `at least 3 bytes`*
+*total = `at least 4 bytes`*
 
 _Note*: minimum number of bytes required to store 1 (one) single solve chunk._
 
@@ -57,11 +58,12 @@ They are:
 |------------------------------|---------------------------|----------------------------|
 | 4                            | time                      | int                        |
 | 1                            | nBytes of the next string | int                        |
+| 1                            | solve category code       | int                        |
 | x                            | scramble                  | string                     |
 | 1                            | penalty code              | int (0=ok,1=plusTwo,2=dnf) |
 | 1                            | nBytes of the next string | int                        |
 | x                            | comment                   | string                     |
-| *total = `at least 7 bytes`* |                           |                            |
+| *total = `at least 8 bytes`* |                           |                            |
 
 Note: `Solve` objects has an `id` property. These IDs are in the Java `UUID` type, however,
 as can be seen in the table above, these IDs are not stored in the database file. This happens
