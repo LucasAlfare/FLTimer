@@ -22,7 +22,7 @@ They header data is:
 | 2 | number of session chunks     | int         |
 | 1 | nBytes of the next string    | int         |
 | x | current active ssession name | String      |
-*total = `13 bytes`*
+*total = `at least 14 bytes`*
 
 Note that this header chunk might contain more information as the timer data fields grows up.
 
