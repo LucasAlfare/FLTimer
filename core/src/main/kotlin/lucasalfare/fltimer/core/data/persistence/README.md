@@ -13,13 +13,15 @@ listed the main of those but may sure that might have other fields and propertie
 
 They header data is:
 | Number of bytes | Description  | Target type |
-| --------------- | -----------  | ----------- |
-| 7 | _"fltimer"_ signature      | String      |
-| 1 | (UseInspection)            | boolean     |
-| 1 | (ShowScramblesInDetailsUI) | boolean     |
-| 1 | (NetworkingModeOn)         | boolean     |
-| 1 | (AskForTimerMode)          | boolean     |
-| 2 | number of session chunks   |   int       |
+| --------------- | -------------  | ----------- |
+| 7 | _"fltimer"_ signature        | String      |
+| 1 | (UseInspection)              | boolean     |
+| 1 | (ShowScramblesInDetailsUI)   | boolean     |
+| 1 | (NetworkingModeOn)           | boolean     |
+| 1 | (AskForTimerMode)            | boolean     |
+| 2 | number of session chunks     | int         |
+| 1 | nBytes of the next string    | int         |
+| x | current active ssession name | String      |
 *total = `13 bytes`*
 
 Note that this header chunk might contain more information as the timer data fields grows up.
@@ -59,7 +61,7 @@ They are:
 | 1                            | penalty code              | int (0=ok,1=plusTwo,2=dnf) |
 | 1                            | nBytes of the next string | int                        |
 | x                            | comment                   | string                     |
-| *total = `at least 6 bytes`* |                           |                            |
+| *total = `at least 7 bytes`* |                           |                            |
 
 Note: `Solve` objects has an `id` property. These IDs are in the Java `UUID` type, however,
 as can be seen in the table above, these IDs are not stored in the database file. This happens
