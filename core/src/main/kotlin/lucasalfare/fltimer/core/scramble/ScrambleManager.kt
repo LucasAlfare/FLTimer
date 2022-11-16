@@ -47,6 +47,8 @@ class ScrambleManager : EventManageable() {
 
   private fun genScramble() {
     lastScramble = currentScramble
-    currentScramble = getFreeRubiksCubeScramble()
+    currentScramble =
+      // ALWAYS GET SEQUENCE HERE...
+      getFreeRubiksCubeScramble()
   }
 }

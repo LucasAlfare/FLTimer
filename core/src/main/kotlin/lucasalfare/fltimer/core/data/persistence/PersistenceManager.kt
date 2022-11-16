@@ -45,13 +45,11 @@ class PersistenceManager : EventManageable() {
 
         val currentActiveSessionNameLength = reader.read1Byte()
         currentActiveSessionName = reader.readString(currentActiveSessionNameLength)!!
-        println("current active session read from file was: $currentActiveSessionName")
 
         repeat(nSessions) {
           val sessionNameLength = reader.read1Byte()
           val sessionName = reader.readString(sessionNameLength)!!
           val categoryCode = reader.read1Byte()
-          println("categoryCode=$categoryCode")
 
           val nextSession = Session(sessionName)
           val nSessionSolves = reader.read2Bytes()
@@ -85,7 +83,14 @@ class PersistenceManager : EventManageable() {
           updateBytes()
           notifyListeners(
             event = AppEvent.PersistenceUpdate,
-            data = arrayOf(configs, arrayOf(currentActiveSessionName, sessions)),
+            data = arrayOf(
+              configs,
+              arrayOf(
+                // sending session name read, unfortunately doesn't work with SessionSwitch event.
+                currentActiveSessionName,
+                sessions
+              )
+            ),
             origin = this
           )
 

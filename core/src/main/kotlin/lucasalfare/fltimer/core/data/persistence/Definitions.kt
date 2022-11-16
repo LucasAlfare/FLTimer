@@ -8,7 +8,7 @@ const val FLTIMER_STRING_SIGNATURE = "fltimer"
 /**
  * Default name of application database file.
  */
-const val APPLICATION_DATABASE_FILE_NAME = "fltimer_data.fltd"
+const val APPLICATION_DATABASE_FILE_NAME = "${FLTIMER_STRING_SIGNATURE}_data.fltd"
 
 /**
  * This class encapsulates the task of reading bytes to an single Array.
