@@ -1,8 +1,9 @@
 package lucasalfare.fltimer.core.data
 
+import lucasalfare.fltimer.core.scramble.Category
 import lucasalfare.fltimer.core.toTimestamp
 import java.util.*
-import kotlin.collections.LinkedHashMap
+
 
 /**
  * Enumeration holding the three possible penalties of a round.
@@ -92,4 +93,8 @@ class Solves(vararg someSolves: Solve) : LinkedHashMap<UUID, Solve>() {
  * Holds a [Solves] object in order to keep easy to track
  * different data groups.
  */
-data class Session(var name: String, var solves: Solves = Solves())
+data class Session(
+  var name: String,
+  var category: Category = Category.RubiksCube,
+  var solves: Solves = Solves()
+)

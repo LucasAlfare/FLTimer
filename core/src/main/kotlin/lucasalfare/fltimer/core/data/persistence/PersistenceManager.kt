@@ -6,11 +6,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import lucasalfare.fltimer.core.AppEvent
-import lucasalfare.fltimer.core.EventManageable
+import lucasalfare.fltimer.core.*
 import lucasalfare.fltimer.core.configuration.Config
 import lucasalfare.fltimer.core.data.*
-import lucasalfare.fltimer.core.toByteArray
+import lucasalfare.fltimer.core.data.session.DefaultSessionName
+import lucasalfare.fltimer.core.scramble.getCategoryByCode
 import java.io.File
 
 class PersistenceManager : EventManageable() {
@@ -18,21 +18,23 @@ class PersistenceManager : EventManageable() {
   private var configs: MutableMap<Config, Any> = mutableMapOf()
   private var sessions: MutableMap<String, Session> = mutableMapOf()
 
-  private var currentActiveSession = ""
+  private var currentActiveSessionName = DefaultSessionName
 
   private var writer = Writer()
   private var initiated = false
 
   override fun init() {
-    val f = File("fltimer_data.fltd")
+    val f = File(APPLICATION_DATABASE_FILE_NAME)
 
     if (f.exists()) {
       val fileData = f.readBytes()
       // if file is not empty, reads its information
       if (fileData.isNotEmpty()) {
+        // TODO: attempt to create better validation
         val reader = Reader(fileData.toUByteArray())
         val signature = reader.readString(FLTIMER_STRING_SIGNATURE.length)!!
-        if (signature != "fltimer") println("ARQUIVO INVALIDO")
+        if (signature != FLTIMER_STRING_SIGNATURE)
+          println("ARQUIVO INVALIDO!!!!!??????????????")
 
         configs[Config.UseInspection] = reader.readBoolean()
         configs[Config.ShowScramblesInDetailsUI] = reader.readBoolean()
@@ -41,11 +43,17 @@ class PersistenceManager : EventManageable() {
 
         val nSessions = reader.read2Bytes()
 
+        val currentActiveSessionNameLength = reader.read1Byte()
+        currentActiveSessionName = reader.readString(currentActiveSessionNameLength)!!
+        println("current active session read from file was: $currentActiveSessionName")
+
         repeat(nSessions) {
           val sessionNameLength = reader.read1Byte()
           val sessionName = reader.readString(sessionNameLength)!!
+          val categoryCode = reader.read1Byte()
+          println("categoryCode=$categoryCode")
 
-          val currentSession = Session(sessionName)
+          val nextSession = Session(sessionName)
           val nSessionSolves = reader.read2Bytes()
 
           repeat(nSessionSolves) {
@@ -56,31 +64,33 @@ class PersistenceManager : EventManageable() {
             val commentLength = reader.read1Byte()
             val comment = reader.readString(commentLength)!!
 
-            currentSession.solves += Solve(
+            val nextSolve = Solve(
               time = time,
               scramble = scramble,
               penalty = getPenaltyByCode(penaltyCode),
               comment = comment
             )
+            nextSession.solves += nextSolve
           }
 
-          sessions[currentSession.name] = currentSession
+          nextSession.category = getCategoryByCode(categoryCode)
+          sessions[nextSession.name] = nextSession
         }
       }
     }
 
     CoroutineScope(Job()).launch {
-      while (true) {
+      while (!initiated) {
         if (configs.isNotEmpty() && sessions.isNotEmpty()) {
           updateBytes()
           notifyListeners(
             event = AppEvent.PersistenceUpdate,
-            data = arrayOf(configs, sessions),
+            data = arrayOf(configs, arrayOf(currentActiveSessionName, sessions)),
             origin = this
           )
+
           initiated = true
           commitFile()
-          break
         }
       }
       this.cancel()
@@ -96,13 +106,13 @@ class PersistenceManager : EventManageable() {
 
       AppEvent.SessionsUpdate -> {
         val props = data as Array<*>
-        currentActiveSession = props[0] as String
+        currentActiveSessionName = props[0] as String
         sessions = props[1] as MutableMap<String, Session>
         updateBytes()
       }
 
       AppEvent.SolvesUpdate -> {
-        sessions[currentActiveSession]!!.solves = data as Solves
+        sessions[currentActiveSessionName]!!.solves = data as Solves
         updateBytes()
       }
 
@@ -130,15 +140,18 @@ class PersistenceManager : EventManageable() {
     writer.writeBoolean(configs[Config.NetworkingModeOn] as Boolean)
     writer.writeBoolean(configs[Config.AskForTimerMode] as Boolean)
     writer.write2Bytes(sessions.size)
+    writer.write1Byte(currentActiveSessionName.length)
+    writer.writeString(currentActiveSessionName)
   }
 
   private fun updateSessionsBytes() {
-    sessions.values.forEach {
-      writer.write1Byte(it.name.length)
-      writer.writeString(it.name)
-      writer.write2Bytes(it.solves.size)
+    sessions.values.forEach { session ->
+      writer.write1Byte(session.name.length)
+      writer.writeString(session.name)
+      writer.write1Byte(session.category.code)
+      writer.write2Bytes(session.solves.size)
 
-      it.solves.values.forEach { solve ->
+      session.solves.values.forEach { solve ->
         writer.write4Bytes(solve.time)
         writer.write1Byte(solve.scramble.length)
         writer.writeString(solve.scramble)

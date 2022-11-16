@@ -41,9 +41,6 @@ fun main() = application {
   val netWorkingModeOn = startupReader.readBoolean(9)
   val askForTimerMode = startupReader.readBoolean(10)
 
-  println("netWorkingModeOn=$netWorkingModeOn")
-  println("askForTimerMode=$askForTimerMode")
-
   var currentWindowSize by remember { mutableStateOf(DpSize(400.dp, 200.dp)) }
 
   Window(
@@ -87,11 +84,6 @@ fun main() = application {
   ) {
     var onlineMode by remember { mutableStateOf(netWorkingModeOn) }
     var modeWasSelected by remember { mutableStateOf(!askForTimerMode) }
-
-    println("onlineMode=$onlineMode")
-    println("modeWasSelected=$modeWasSelected")
-
-    println()
 
     if (askForTimerMode && !modeWasSelected) {
       DecisionDialog(

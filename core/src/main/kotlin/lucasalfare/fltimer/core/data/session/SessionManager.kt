@@ -7,19 +7,19 @@ import lucasalfare.fltimer.core.data.Solve
 import kotlin.random.Random
 
 
-private const val StandardSessionName = "Standard"
+const val DefaultSessionName = "Default"
 
 class SessionManager : EventManageable() {
 
   private var sessions = mutableMapOf<String, Session>()
-  private var currentSession: Session
+  private lateinit var currentActiveSession: Session
 
   init {
-    sessions[StandardSessionName] = Session(StandardSessionName)
-    currentSession = sessions[StandardSessionName]!!
+    sessions[DefaultSessionName] = Session(DefaultSessionName)
+    currentActiveSession = sessions[DefaultSessionName]!!
 
-//    tmpCreateSession("bilu teteia", 100)
-    //tmpCreateSession("repetiliano", 27)
+    tmpCreateSession("bilu teteia", 10)
+    //tmpCreateSession("repetiliano", 50)
   }
 
   private fun tmpCreateSession(name: String, nSolves: Int) {
@@ -37,7 +37,7 @@ class SessionManager : EventManageable() {
   override fun init() {
     notifyListeners(
       event = AppEvent.SessionsUpdate,
-      data = arrayOf(currentSession.name, sessions),
+      data = arrayOf(currentActiveSession.name, sessions),
       origin = this
     )
   }
@@ -47,29 +47,34 @@ class SessionManager : EventManageable() {
       AppEvent.SessionsRequestUpdate -> {
         notifyListeners(
           event = AppEvent.SessionsUpdate,
-          data = arrayOf(currentSession.name, sessions),
+          data = arrayOf(currentActiveSession.name, sessions),
           origin = this
         )
       }
 
       AppEvent.SessionSwitch -> {
         val targetSessionName = data as String
-        if (targetSessionName != currentSession.name) {
-          currentSession = sessions[targetSessionName]!!
-          notifyListeners(
-            event = AppEvent.SessionsUpdate,
-            data = arrayOf(currentSession.name, sessions),
-            origin = this
-          )
-        }
+        currentActiveSession = sessions[targetSessionName]!!
+
+        println("SessionSwitch requested with arg $targetSessionName. The resulting session is\n${currentActiveSession}")
+
+        notifyListeners(
+          event = AppEvent.SessionsUpdate,
+          data = arrayOf(currentActiveSession.name, sessions),
+          origin = this
+        )
       }
 
       AppEvent.PersistenceUpdate -> {
-        val props = data as Array<*>
+        val props = ((data as Array<*>)[1]) as Array<*>
+        val targetSessionName = props[0] as String
+        currentActiveSession = sessions[targetSessionName]!!
+
         sessions = props[1] as MutableMap<String, Session>
+
         notifyListeners(
           event = AppEvent.SessionsUpdate,
-          data = arrayOf(currentSession.name, sessions),
+          data = arrayOf(currentActiveSession.name, sessions),
           origin = this
         )
       }
