@@ -1,5 +1,8 @@
 package lucasalfare.fltimer.core
 
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+
 /**
  * Enumeration to hold all the events that can transit over the application flow.
  *
@@ -191,6 +194,8 @@ abstract class EventManageable {
    */
   var listeners = mutableListOf<EventManageable>()
 
+  var initiated = false
+
   /**
    * Function that offers a custom initialization block.
    *
@@ -231,16 +236,30 @@ abstract class EventManageable {
  * Also, automatically calls initializations of all listeners, but only
  * when adding is finished.
  */
-fun setupManagers(vararg managers: EventManageable): Array<out EventManageable> {
+suspend fun setupManagers(vararg managers: EventManageable): Array<out EventManageable> {
   managers.forEach { m1 ->
     managers.forEach { m2 ->
       if (m2 != m1) {
-        m2.addListener(m1)
+        m1.addListener(m2)
       }
     }
   }
 
-  managers.forEach { it.init() }
+  coroutineScope {
+    managers.forEach {
+      launch { it.init() }
+    }
+
+    launch {
+      while (true) {
+        val nFinished = managers.count { it.initiated }
+        if (nFinished == managers.size) {
+          println("TUDO INICIADO!!!!")
+          break
+        }
+      }
+    }
+  }
 
   return managers
 }

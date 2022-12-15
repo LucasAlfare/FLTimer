@@ -21,7 +21,6 @@ class PersistenceManager : EventManageable() {
   private var currentActiveSessionName = DefaultSessionName
 
   private var writer = Writer()
-  private var initiated = false
 
   override fun init() {
     val f = File(APPLICATION_DATABASE_FILE_NAME)

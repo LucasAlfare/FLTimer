@@ -44,7 +44,7 @@ class ConsoleManager : EventManageable() {
   }
 }
 
-fun main() {
+suspend fun main() {
   setupManagers(
     TimerManager(),
     ConsoleManager()
