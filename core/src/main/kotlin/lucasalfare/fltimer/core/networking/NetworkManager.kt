@@ -17,6 +17,7 @@ class NetworkManager : EventManageable() {
   override fun init() {
     socket.on(Socket.EVENT_CONNECT) {
       println("Connected to the server.")
+      initiated = true
     }
 
     socket.on("NetworkingUsersUpdate") {

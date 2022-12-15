@@ -40,6 +40,8 @@ class SessionManager : EventManageable() {
       data = arrayOf(currentActiveSession.name, sessions),
       origin = this
     )
+
+    initiated = true
   }
 
   override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {

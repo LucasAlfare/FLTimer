@@ -17,7 +17,7 @@ class SolvesManager : EventManageable() {
   private var tmpPenalty = Penalty.Ok
 
   override fun init() {
-
+    initiated = true
   }
 
   override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {

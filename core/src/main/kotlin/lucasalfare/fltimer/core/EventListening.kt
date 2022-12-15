@@ -1,5 +1,6 @@
 package lucasalfare.fltimer.core
 
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
@@ -236,7 +237,9 @@ abstract class EventManageable {
  * Also, automatically calls initializations of all listeners, but only
  * when adding is finished.
  */
-suspend fun setupManagers(vararg managers: EventManageable): Array<out EventManageable> {
+suspend fun setupManagers(
+  vararg managers: EventManageable
+): Array<out EventManageable> {
   managers.forEach { m1 ->
     managers.forEach { m2 ->
       if (m2 != m1) {

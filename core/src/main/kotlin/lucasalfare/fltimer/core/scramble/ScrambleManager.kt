@@ -18,6 +18,8 @@ class ScrambleManager : EventManageable() {
       data = arrayOf(lastScramble, currentScramble),
       origin = this
     )
+
+    initiated = true
   }
 
   override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {

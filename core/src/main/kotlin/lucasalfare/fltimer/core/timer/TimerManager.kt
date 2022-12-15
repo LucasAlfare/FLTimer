@@ -25,7 +25,7 @@ class TimerManager : EventManageable() {
    */
   private var networkingCanStart = true
 
-  override fun init() {}
+  override fun init() { initiated = true }
 
   override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
     when (event) {

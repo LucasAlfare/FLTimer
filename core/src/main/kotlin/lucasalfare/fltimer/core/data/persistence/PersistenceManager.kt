@@ -76,28 +76,25 @@ class PersistenceManager : EventManageable() {
       }
     }
 
-    CoroutineScope(Job()).launch {
-      while (!initiated) {
-        if (configs.isNotEmpty() && sessions.isNotEmpty()) {
-          updateBytes()
-          notifyListeners(
-            event = AppEvent.PersistenceUpdate,
-            data = arrayOf(
-              configs,
-              arrayOf(
-                // sending session name read, unfortunately doesn't work with SessionSwitch event.
-                currentActiveSessionName,
-                sessions
-              )
-            ),
-            origin = this
-          )
+    while (!initiated) {
+      if (configs.isNotEmpty() && sessions.isNotEmpty()) {
+        updateBytes()
+        notifyListeners(
+          event = AppEvent.PersistenceUpdate,
+          data = arrayOf(
+            configs,
+            arrayOf(
+              // sending session name read, unfortunately doesn't work with SessionSwitch event.
+              currentActiveSessionName,
+              sessions
+            )
+          ),
+          origin = this
+        )
 
-          initiated = true
-          commitFile()
-        }
+        initiated = true
+        commitFile()
       }
-      this.cancel()
     }
   }
 

@@ -19,6 +19,8 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import lucasalfare.fltimer.core.AppEvent
 import lucasalfare.fltimer.core.configuration.Config
 import lucasalfare.fltimer.core.configuration.ConfigurationManager
@@ -113,22 +115,25 @@ fun main() = application {
         TestApp()
       } else {
         currentWindowSize = DpSize(800.dp, 400.dp)
-        LaunchedEffect(true) {
-          setupManagers(
-            PersistenceManager(),
-            uiManager,
-            ScrambleManager(),
-            SolvesManager(),
-            SessionManager(),
-            TimerManager(),
-            ConfigurationManager()
-          )
 
-          uiManager.notifyListeners(
-            event = AppEvent.ConfigSet,
-            data = arrayOf(Config.NetworkingModeOn, false),
-            origin = this
-          )
+        uiManager.notifyListeners(
+          event = AppEvent.ConfigSet,
+          data = arrayOf(Config.NetworkingModeOn, false),
+          origin = this
+        )
+
+        LaunchedEffect(true) {
+          launch {
+            setupManagers(
+              PersistenceManager(),
+              uiManager,
+              ScrambleManager(),
+              SolvesManager(),
+              SessionManager(),
+              TimerManager(),
+              ConfigurationManager()
+            )
+          }
         }
 
         // show UI
