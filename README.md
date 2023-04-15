@@ -59,6 +59,8 @@ wheel today is not a good thing to do, but when it comes to studying it is one o
 To setup this in your machine should be pretty easy if you have Android Studio or IntelliJ IDEA IDEs, once the importing tools from
 then are very good.
 
+If you don't/can't use these IDEs, VSCode editor still usable, but keep in mind that programming gradle/kotlin/jvm/android on it should be a real challenge.
+
 Also, have any suggestion and/or improvements to this repository? Feel free to open issues!
 English fixes are appreciated. :)
 
