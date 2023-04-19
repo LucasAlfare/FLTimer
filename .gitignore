@@ -1,3 +1,4 @@
+# sensitive local properties from the development machine/computer
 local.properties
 
 *.iml
