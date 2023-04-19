@@ -2,7 +2,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
   kotlin("jvm")
-  id("org.jetbrains.compose") version "1.1.1"
+  id("org.jetbrains.compose")
 }
 
 group = "lucasalfare.fltimer"

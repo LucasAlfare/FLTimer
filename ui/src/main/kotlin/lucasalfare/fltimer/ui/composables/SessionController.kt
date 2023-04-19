@@ -31,6 +31,8 @@ fun SessionController() {
           currentSessionName = args[0] as String
           sessions = args[1] as MutableMap<String, Session>
         }
+
+        else -> {}
       }
     }
 

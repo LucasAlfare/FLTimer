@@ -1,24 +1,30 @@
 plugins {
+    kotlin("android")
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.compose")
 }
 
 android {
-    compileSdk = 32
-
+    compileSdk = 33
     defaultConfig {
         applicationId = "lucasalfare.fltimer.android"
-        minSdk = 21
-        targetSdk = 32
+        minSdk = 26
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     buildFeatures {
         // Enables Jetpack Compose for this module
         compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.1.1"
     }
 
     buildTypes {
@@ -30,19 +36,12 @@ android {
             )
         }
     }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
+    
     kotlinOptions {
         jvmTarget = "1.8"
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.1"
-    }
+    namespace = "lucasalfare.fltimer.android"
 }
 
 dependencies {
