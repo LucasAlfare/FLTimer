@@ -6,6 +6,12 @@ include(":console")
 include(":desktop")
 include(":android")
 
+sourceControl {
+    gitRepository(java.net.URI("https://github.com/LucasAlfare/FLListening.git")) {
+        producesModule("com.lucasalfare.fllistening:FLListening")
+    }
+}
+
 pluginManagement {
     repositories {
         gradlePluginPortal()

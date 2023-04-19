@@ -15,6 +15,12 @@ repositories {
 }
 
 dependencies {
+  implementation("com.lucasalfare.fllistening:FLListening") {
+    version {
+      branch = "master"
+    }
+  }
+
   implementation(kotlin("stdlib"))
   implementation(compose.desktop.currentOs)
   implementation(project(":core"))

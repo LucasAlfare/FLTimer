@@ -43,9 +43,18 @@ android {
 
     namespace = "lucasalfare.fltimer.android"
     buildToolsVersion = "33.0.2"
+
+    lint {
+        checkReleaseBuilds = false
+    }
 }
 
 dependencies {
+    implementation("com.lucasalfare.fllistening:FLListening") {
+        version {
+            branch = "master"
+        }
+    }
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")

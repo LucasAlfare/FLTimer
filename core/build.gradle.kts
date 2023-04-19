@@ -10,6 +10,12 @@ repositories {
 }
 
 dependencies {
+    implementation("com.lucasalfare.fllistening:FLListening") {
+        version {
+            branch = "master"
+        }
+    }
+
     implementation(kotlin("stdlib"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
     implementation("io.socket:socket.io-client:2.1.0")
