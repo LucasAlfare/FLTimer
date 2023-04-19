@@ -1,5 +1,11 @@
 rootProject.name = "FLTimer"
 
+include(":core")
+include(":ui")
+include(":console")
+include(":desktop")
+include(":android")
+
 sourceControl {
     gitRepository(java.net.URI("https://github.com/LucasAlfare/FLListening.git")) {
         producesModule("com.lucasalfare.fllistening:FLListening")
@@ -24,10 +30,6 @@ pluginManagement {
         id("com.android.application").version(agpVersion)
         id("com.android.library").version(agpVersion)
         id("org.jetbrains.compose").version(composeVersion)
-
-//        id("com.android.application") version "8.0.0" apply false
-//        id("com.android.library") version "8.0.0" apply false
-//        id("org.jetbrains.kotlin.android") version "1.6.21" apply false
     }
 }
 
@@ -38,9 +40,3 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-
-include(":core")
-include(":android")
-include(":desktop")
-include(":ui")
-include(":console")
