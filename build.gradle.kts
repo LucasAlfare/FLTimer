@@ -18,24 +18,4 @@ allprojects {
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
         mavenLocal()
     }
-
-//    dependencies {
-//        implementation("com.lucasalfare.fllistening:FLListening") {
-//            version {
-//                branch = "master"
-//            }
-//        }
-//    }
 }
-
-//subprojects {
-//    apply(plugin = "org.jetbrains.kotlin.jvm")
-//
-//    dependencies {
-//        implementation("com.lucasalfare.fllistening:FLListening") {
-//            version {
-//                branch = "master"
-//            }
-//        }
-//    }
-//}
