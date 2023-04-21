@@ -34,3 +34,5 @@ enum class Config {
    */
   AskForTimerMode,
 }
+
+// TODO create extension shortcut function to set configuration here
