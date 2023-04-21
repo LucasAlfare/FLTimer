@@ -11,6 +11,7 @@ kotlin {
         implementation(compose.desktop.currentOs)
         implementation(project(":core"))
         implementation(project(":ui"))
+        implementation("com.github.LucasAlfare:FLListening:1.1")
       }
     }
   }

@@ -5,7 +5,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.lucasalfare.fltimer.core.AppEvent
+import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.ui.composables.*
 import com.lucasalfare.fltimer.ui.uiManager
 
@@ -18,7 +18,7 @@ fun DefaultDesktopApp() {
   DisposableEffect(true) {
     val callback = uiManager.addCallback { appEvent, data ->
       when (appEvent) {
-        AppEvent.StatisticsResponse -> {
+        FLTimerEvent.StatisticsResponse -> {
           currentPresentation = "stats"
           currentStatisticResultText = data as String
         }

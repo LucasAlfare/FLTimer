@@ -1,10 +1,10 @@
 package com.lucasalfare.fltimer.core.timer.fsm
 
+import com.lucasalfare.fllistener.EventManageable
 import kotlinx.coroutines.Job
-import com.lucasalfare.fltimer.core.AppEvent
+import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.data.Penalty
 import com.lucasalfare.fltimer.core.timer.asyncRoutine
-import com.lucasalfare.fltimer.core.EventManageable
 
 class InspectState : TimerState {
 
@@ -12,7 +12,7 @@ class InspectState : TimerState {
   private var countdown = 15
   private var currentPenalty = Penalty.Ok
 
-  override fun handleInput(inputType: AppEvent, data: Any?): TimerState? {
+  override fun handleInput(inputType: FLTimerEvent, data: Any?): TimerState? {
     if (inputType == InputRelease) {
       suspendState()
       return SolveState()
@@ -30,7 +30,7 @@ class InspectState : TimerState {
       }
 
       eventManageable.notifyListeners(
-        event = AppEvent.TimerInspectionUpdate,
+        event = FLTimerEvent.TimerInspectionUpdate,
         data = arrayOf(countdown, currentPenalty),
         origin = this
       )

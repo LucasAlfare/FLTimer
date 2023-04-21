@@ -19,8 +19,9 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
+import com.lucasalfare.fllistener.setupManagers
 import kotlinx.coroutines.launch
-import com.lucasalfare.fltimer.core.AppEvent
+import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.configuration.Config
 import com.lucasalfare.fltimer.core.configuration.ConfigurationManager
 import com.lucasalfare.fltimer.core.data.SolvesManager
@@ -30,7 +31,6 @@ import com.lucasalfare.fltimer.core.data.session.SessionManager
 import com.lucasalfare.fltimer.core.getCurrentTime
 import com.lucasalfare.fltimer.core.networking.NetworkManager
 import com.lucasalfare.fltimer.core.scramble.ScrambleManager
-import com.lucasalfare.fltimer.core.setupManagers
 import com.lucasalfare.fltimer.core.timer.TimerManager
 import com.lucasalfare.fltimer.ui.composables.Display
 import com.lucasalfare.fltimer.ui.uiManager
@@ -52,7 +52,7 @@ fun main() = application {
     onCloseRequest = {
       // Here is assumed that when Compose receive an
       // close request the managers was already set
-      uiManager.notifyListeners(AppEvent.ApplicationFinish)
+      uiManager.notifyListeners(FLTimerEvent.ApplicationFinish)
       this.exitApplication()
     },
     onKeyEvent = {
@@ -60,7 +60,7 @@ fun main() = application {
         when (it.type) {
           KeyEventType.KeyDown -> {
             uiManager.notifyListeners(
-              event = AppEvent.TimerToggleDown,
+              event = FLTimerEvent.TimerToggleDown,
               data = getCurrentTime(),
               origin = "[MainClass]"
             )
@@ -68,7 +68,7 @@ fun main() = application {
 
           KeyEventType.KeyUp -> {
             uiManager.notifyListeners(
-              event = AppEvent.TimerToggleUp,
+              event = FLTimerEvent.TimerToggleUp,
               data = getCurrentTime(),
               origin = "[MainClass]"
             )
@@ -76,7 +76,7 @@ fun main() = application {
         }
       } else if (it.key == Key.Escape) {
         uiManager.notifyListeners(
-          event = AppEvent.TimerCancel,
+          event = FLTimerEvent.TimerCancel,
           origin = "[MainClass]"
         )
       }
@@ -102,7 +102,7 @@ fun main() = application {
           )
 
           uiManager.notifyListeners(
-            event = AppEvent.ConfigSet,
+            event = FLTimerEvent.ConfigSet,
             data = arrayOf(Config.NetworkingModeOn, true),
             origin = this
           )
@@ -116,7 +116,7 @@ fun main() = application {
         currentWindowSize = DpSize(800.dp, 400.dp)
 
         uiManager.notifyListeners(
-          event = AppEvent.ConfigSet,
+          event = FLTimerEvent.ConfigSet,
           data = arrayOf(Config.NetworkingModeOn, false),
           origin = this
         )

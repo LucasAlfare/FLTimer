@@ -1,11 +1,10 @@
 package com.lucasalfare.fltimer.core.networking
 
 
+import com.lucasalfare.fllistener.EventManageable
 import io.socket.client.IO
 import io.socket.client.Socket
-import com.lucasalfare.fltimer.core.AppEvent
-import com.lucasalfare.fltimer.core.AppEvent.*
-import com.lucasalfare.fltimer.core.EventManageable
+import com.lucasalfare.fltimer.core.FLTimerEvent.*
 import org.json.JSONArray
 
 class NetworkManager : EventManageable() {
@@ -14,7 +13,16 @@ class NetworkManager : EventManageable() {
 
   private lateinit var users: MutableList<User>
 
-  override fun init() {
+  override fun onEvent(event: Any, data: Any?, origin: Any?) {
+    when (event) {
+      TimerToggleUp -> {
+        socket.emit("TimerToggle", data as Long)
+      }
+      else -> {}
+    }
+  }
+
+  override fun onInitiated() {
     socket.on(Socket.EVENT_CONNECT) {
       println("Connected to the server.")
       initiated = true
@@ -35,12 +43,7 @@ class NetworkManager : EventManageable() {
     socket.connect()
   }
 
-  override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
-    when (event) {
-      TimerToggleUp -> {
-        socket.emit("TimerToggle", data as Long)
-      }
-      else -> {}
-    }
+  override fun onNotInitiated() {
+
   }
 }

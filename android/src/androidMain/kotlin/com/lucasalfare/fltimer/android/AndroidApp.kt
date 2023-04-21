@@ -1,4 +1,4 @@
-package comlucasalfare.fltimer.android
+package com.lucasalfare.fltimer.android
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.*
@@ -12,8 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.lucasalfare.fltimer.android.AndroidDetails
-import com.lucasalfare.fltimer.core.AppEvent
+import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.ui.composables.Display
 import com.lucasalfare.fltimer.ui.composables.Scramble
 import com.lucasalfare.fltimer.ui.composables.StatisticDetails
@@ -30,15 +29,15 @@ fun AndroidApp() {
   DisposableEffect(true) {
     val callback = uiManager.addCallback { appEvent, data ->
       when (appEvent) {
-        AppEvent.TimerStarted -> {
+        FLTimerEvent.TimerStarted -> {
           shouldHide = true
         }
 
-        AppEvent.TimerFinished -> {
+        FLTimerEvent.TimerFinished -> {
           shouldHide = false
         }
 
-        AppEvent.StatisticsResponse -> {
+        FLTimerEvent.StatisticsResponse -> {
           currentPresentation = "stats"
           currentStatisticResultText = data as String
         }

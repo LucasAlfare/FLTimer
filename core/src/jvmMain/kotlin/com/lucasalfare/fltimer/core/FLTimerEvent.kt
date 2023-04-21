@@ -1,8 +1,5 @@
 package com.lucasalfare.fltimer.core
 
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-
 /**
  * Enumeration to hold all the events that can transit over the application flow.
  *
@@ -21,7 +18,7 @@ import kotlinx.coroutines.launch
  * Normally, these data objects are written in a nullable [Any] variable, which
  * should be cast to the appropriated types according to event definition from here.
  */
-enum class AppEvent {
+enum class FLTimerEvent {
 
   /**
    * Comes with a [Long] number representing the "exact" time the event
@@ -180,88 +177,4 @@ enum class AppEvent {
    * TODO
    */
   ApplicationFinish
-}
-
-/**
- * This class is used to make children to be able to receive events from other [EventManageable]
- * instances. Also, this class is used to make any children be able to propagate events to other
- * interested [EventManageable] instances.
- */
-abstract class EventManageable {
-
-  /**
-   * Holds all current objects that are listening to this instance.
-   */
-  var listeners = mutableListOf<EventManageable>()
-
-  var initiated = false
-
-  /**
-   * Function that offers a custom initialization block.
-   *
-   * Normally this is the first function to be called, after
-   * constructor and/or native init blocks.
-   */
-  abstract fun init()
-
-  /**
-   * Used to handle any kind of incoming event/data from outside
-   * the instance.
-   */
-  abstract fun onEvent(event: AppEvent, data: Any?, origin: Any?)
-
-  /**
-   * Takes any object that can listen/handle events and adds it in this instance.
-   * It will only add if is not added yet.
-   */
-  fun addListener(l: EventManageable) {
-    if (!listeners.contains(l)) listeners.add(l)
-  }
-
-  /**
-   * Function that pass its params to all previously added listeners of this instance.
-   */
-  fun notifyListeners(event: AppEvent, data: Any? = null, origin: Any? = null) {
-    listeners.forEach {
-      it.onEvent(event, data, origin)
-    }
-  }
-}
-
-/**
- * Takes all the managers from varargs and add each one to themselves.
- *
- * This is useful to make all managers communicate between themselves.
- *
- * Also, automatically calls initializations of all listeners, but only
- * when adding is finished.
- */
-suspend fun setupManagers(
-  vararg managers: EventManageable
-): Array<out EventManageable> {
-  managers.forEach { m1 ->
-    managers.forEach { m2 ->
-      if (m2 != m1) {
-        m1.addListener(m2)
-      }
-    }
-  }
-
-  coroutineScope {
-    managers.forEach {
-      launch { it.init() }
-    }
-
-    launch {
-      while (true) {
-        val nFinished = managers.count { it.initiated }
-        if (nFinished == managers.size) {
-          println("TUDO INICIADO!!!!")
-          break
-        }
-      }
-    }
-  }
-
-  return managers
 }

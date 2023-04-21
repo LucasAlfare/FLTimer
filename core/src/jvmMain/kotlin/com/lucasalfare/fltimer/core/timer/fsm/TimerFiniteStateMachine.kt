@@ -1,14 +1,14 @@
 package com.lucasalfare.fltimer.core.timer.fsm
 
-import com.lucasalfare.fltimer.core.AppEvent
-import com.lucasalfare.fltimer.core.EventManageable
+import com.lucasalfare.fllistener.EventManageable
+import com.lucasalfare.fltimer.core.FLTimerEvent
 
 /**
  * Shortcuts for the main events needed inside the state
  * machine.
  */
-val InputPress = AppEvent.TimerToggleDown
-val InputRelease = AppEvent.TimerToggleUp
+val InputPress = FLTimerEvent.TimerToggleDown
+val InputRelease = FLTimerEvent.TimerToggleUp
 
 /**
  * Core interface to all classes that can ben treated as an "application state".
@@ -29,7 +29,7 @@ interface TimerState {
    * Must always return the "next state", or null if the incoming event doesn't
    * matter for this state piece.
    */
-  fun handleInput(inputType: AppEvent, data: Any? = null): TimerState?
+  fun handleInput(inputType: FLTimerEvent, data: Any? = null): TimerState?
 
   /**
    * Updates anything related to the state. Can be called outside the state.

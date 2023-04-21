@@ -1,11 +1,11 @@
 package com.lucasalfare.fltimer.core.timer.fsm
 
-import com.lucasalfare.fltimer.core.AppEvent
-import com.lucasalfare.fltimer.core.EventManageable
+import com.lucasalfare.fllistener.EventManageable
+import com.lucasalfare.fltimer.core.FLTimerEvent
 
 class FinishState(private val start: Long) : TimerState {
 
-  override fun handleInput(inputType: AppEvent, data: Any?): TimerState? {
+  override fun handleInput(inputType: FLTimerEvent, data: Any?): TimerState? {
     if (inputType == InputRelease) {
       return ReadyState()
     }
@@ -21,13 +21,13 @@ class FinishState(private val start: Long) : TimerState {
     //diff between values sent by UI is authoritative
     val realElapsed = t - start
     eventManageable.notifyListeners(
-      event = AppEvent.TimerUpdate,
+      event = FLTimerEvent.TimerUpdate,
       data = realElapsed,
       origin = this
     )
 
     eventManageable.notifyListeners(
-      event = AppEvent.TimerFinished,
+      event = FLTimerEvent.TimerFinished,
       data = realElapsed,
       origin = this
     )

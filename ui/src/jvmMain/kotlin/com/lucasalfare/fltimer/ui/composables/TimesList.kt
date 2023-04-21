@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
-import com.lucasalfare.fltimer.core.AppEvent
+import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.data.Solves
 import com.lucasalfare.fltimer.ui.WastebasketCharacter
 import com.lucasalfare.fltimer.ui.uiManager
@@ -37,7 +37,7 @@ fun TimesList() {
   DisposableEffect(true) {
     val callback = uiManager.addCallback { appEvent, data ->
       when (appEvent) {
-        AppEvent.SolvesUpdate -> {
+        FLTimerEvent.SolvesUpdate -> {
           solves = (data as Solves).clone()
 
           if (solves.isNotEmpty()) {
@@ -64,7 +64,7 @@ fun TimesList() {
     Text(text = "Number of solves: ${solves.size}", fontSize = 12.sp)
 
     TextButton(onClick = {
-      uiManager.notifyListeners(event = AppEvent.SolvesClear, origin = this)
+      uiManager.notifyListeners(event = FLTimerEvent.SolvesClear, origin = this)
     }) {
       Text("Clear $WastebasketCharacter")
     }

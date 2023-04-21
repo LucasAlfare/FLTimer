@@ -12,6 +12,7 @@ kotlin {
       dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
         implementation(project(":core"))
+        implementation("com.github.LucasAlfare:FLListening:1.1")
       }
     }
   }

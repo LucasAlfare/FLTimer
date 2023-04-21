@@ -2,9 +2,8 @@
 
 package com.lucasalfare.fltimer.core.data
 
-import com.lucasalfare.fltimer.core.AppEvent
-import com.lucasalfare.fltimer.core.AppEvent.*
-import com.lucasalfare.fltimer.core.EventManageable
+import com.lucasalfare.fllistener.EventManageable
+import com.lucasalfare.fltimer.core.FLTimerEvent.*
 import com.lucasalfare.fltimer.core.statistics.buildAllStatisticResultsVisualization
 import java.util.*
 
@@ -16,11 +15,7 @@ class SolvesManager : EventManageable() {
   private var tmpScramble = ""
   private var tmpPenalty = Penalty.Ok
 
-  override fun init() {
-    initiated = true
-  }
-
-  override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
+  override fun onEvent(event: Any, data: Any?, origin: Any?) {
     when (event) {
       SolvesUpdateRequest -> {
         notifyListeners(event = SolvesUpdate, data = currentSolves, origin = this)
@@ -88,5 +83,12 @@ class SolvesManager : EventManageable() {
 
       else -> {}
     }
+  }
+
+  override fun onInitiated() {
+    initiated = true
+  }
+
+  override fun onNotInitiated() {
   }
 }

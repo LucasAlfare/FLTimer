@@ -7,7 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.lucasalfare.fltimer.core.AppEvent
+import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.toTimestamp
 import com.lucasalfare.fltimer.ui.uiManager
 
@@ -22,14 +22,14 @@ fun Display() {
   DisposableEffect(true) {
     val callback = uiManager.addCallback { appEvent, data ->
       when (appEvent) {
-        AppEvent.TimerUpdate -> {
+        FLTimerEvent.TimerUpdate -> {
           text = (data as Long).toTimestamp()
         }
 
         else -> {}
       }
 
-      textSize = if (appEvent == AppEvent.TimerToggleDown) 45.sp else 65.sp
+      textSize = if (appEvent == FLTimerEvent.TimerToggleDown) 45.sp else 65.sp
     }
 
     onDispose { uiManager.removeCallback(callback) }

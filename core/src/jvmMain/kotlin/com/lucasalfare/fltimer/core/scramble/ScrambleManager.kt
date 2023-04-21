@@ -2,8 +2,8 @@
 
 package com.lucasalfare.fltimer.core.scramble
 
-import com.lucasalfare.fltimer.core.AppEvent
-import com.lucasalfare.fltimer.core.EventManageable
+import com.lucasalfare.fllistener.EventManageable
+import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.scramble.scramblers.getFreeRubiksCubeScramble
 
 class ScrambleManager : EventManageable() {
@@ -11,34 +11,23 @@ class ScrambleManager : EventManageable() {
   private var lastScramble = ""
   private var currentScramble = ""
 
-  override fun init() {
-    genScramble()
-    notifyListeners(
-      event = AppEvent.ScrambleGenerated,
-      data = arrayOf(lastScramble, currentScramble),
-      origin = this
-    )
-
-    initiated = true
-  }
-
-  override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
+  override fun onEvent(event: Any, data: Any?, origin: Any?) {
     when (event) {
-      AppEvent.RequestScrambleGenerated -> {
+      FLTimerEvent.RequestScrambleGenerated -> {
         notifyListeners(
-          event = AppEvent.ScrambleGenerated,
+          event = FLTimerEvent.ScrambleGenerated,
           data = arrayOf(lastScramble, currentScramble),
           origin = this
         )
       }
 
-      AppEvent.TimerFinished -> {
+      FLTimerEvent.TimerFinished -> {
         genScramble()
       }
 
-      AppEvent.TimerReady -> { //only propagates the scrambles when timer says READY
+      FLTimerEvent.TimerReady -> { //only propagates the scrambles when timer says READY
         notifyListeners(
-          event = AppEvent.ScrambleGenerated,
+          event = FLTimerEvent.ScrambleGenerated,
           data = arrayOf(lastScramble, currentScramble),
           origin = this
         )
@@ -52,5 +41,20 @@ class ScrambleManager : EventManageable() {
     currentScramble =
       // ALWAYS GET SEQUENCE HERE...
       getFreeRubiksCubeScramble()
+  }
+
+  override fun onInitiated() {
+    genScramble()
+    notifyListeners(
+      event = FLTimerEvent.ScrambleGenerated,
+      data = arrayOf(lastScramble, currentScramble),
+      origin = this
+    )
+
+    initiated = true
+  }
+
+  override fun onNotInitiated() {
+
   }
 }

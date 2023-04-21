@@ -1,10 +1,10 @@
 package com.lucasalfare.fltimer.core.timer.fsm
 
+import com.lucasalfare.fllistener.EventManageable
 import kotlinx.coroutines.Job
-import com.lucasalfare.fltimer.core.AppEvent
+import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.getCurrentTime
 import com.lucasalfare.fltimer.core.timer.asyncRoutine
-import com.lucasalfare.fltimer.core.EventManageable
 
 class SolveState : TimerState {
 
@@ -12,7 +12,7 @@ class SolveState : TimerState {
   private var start = 0L
   private var elapsed = 0L
 
-  override fun handleInput(inputType: AppEvent, data: Any?): TimerState? {
+  override fun handleInput(inputType: FLTimerEvent, data: Any?): TimerState? {
     if (inputType == InputPress) {
       suspendState()
       return FinishState(start)
@@ -25,7 +25,7 @@ class SolveState : TimerState {
     val t = props[0] as Long
 
     eventManageable.notifyListeners(
-      event = AppEvent.TimerStarted,
+      event = FLTimerEvent.TimerStarted,
       origin = this
     )
 
@@ -33,7 +33,7 @@ class SolveState : TimerState {
     repeater = asyncRoutine {
       elapsed = getCurrentTime() - start
       eventManageable.notifyListeners(
-        event = AppEvent.TimerUpdate,
+        event = FLTimerEvent.TimerUpdate,
         data = elapsed,
         origin = this
       )

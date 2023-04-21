@@ -1,7 +1,11 @@
-package lucasalfare.fltimer.console
+package com.lucasalfare.fltimer.console
 
-import com.lucasalfare.fltimer.core.*
+import com.lucasalfare.fllistener.EventManageable
+import com.lucasalfare.fllistener.setupManagers
+import com.lucasalfare.fltimer.core.FLTimerEvent
+import com.lucasalfare.fltimer.core.getCurrentTime
 import com.lucasalfare.fltimer.core.timer.TimerManager
+import com.lucasalfare.fltimer.core.toTimestamp
 import java.util.*
 
 class ConsoleManager : EventManageable() {
@@ -9,17 +13,24 @@ class ConsoleManager : EventManageable() {
   private val scanner = Scanner(System.`in`)
   private var state = false
 
-  override fun init() {
+  override fun onEvent(event: Any, data: Any?, origin: Any?) {
+    if (event == FLTimerEvent.TimerUpdate) {
+      clear()
+      println((data as Long).toTimestamp())
+    }
+  }
+
+  override fun onInitiated() {
     Thread {
       while (true) {
         val typing = scanner.nextLine()
         if (typing == "") {
           state = if (!state) {
-            notifyListeners(AppEvent.TimerToggleUp, getCurrentTime())
+            notifyListeners(FLTimerEvent.TimerToggleUp, getCurrentTime())
             !state
           } else {
-            notifyListeners(AppEvent.TimerToggleDown, getCurrentTime())
-            notifyListeners(AppEvent.TimerToggleUp, getCurrentTime())
+            notifyListeners(FLTimerEvent.TimerToggleDown, getCurrentTime())
+            notifyListeners(FLTimerEvent.TimerToggleUp, getCurrentTime())
             !state
           }
         }
@@ -27,11 +38,8 @@ class ConsoleManager : EventManageable() {
     }.start()
   }
 
-  override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
-    if (event == AppEvent.TimerUpdate) {
-      clear()
-      println((data as Long).toTimestamp())
-    }
+  override fun onNotInitiated() {
+
   }
 
   private fun clear() {

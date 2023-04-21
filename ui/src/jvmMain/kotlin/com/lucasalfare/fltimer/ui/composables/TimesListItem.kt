@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.lucasalfare.fltimer.core.AppEvent
+import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.data.Penalty
 import com.lucasalfare.fltimer.core.data.Solve
 import com.lucasalfare.fltimer.ui.WastebasketCharacter
@@ -47,7 +47,7 @@ fun TimesListItem(index: Int, solve: Solve) {
       TextButton(
         modifier = Modifier.align(Alignment.CenterEnd).width(30.dp),
         onClick = {
-          uiManager.notifyListeners(AppEvent.SolvesItemRemove, solve.id)
+          uiManager.notifyListeners(FLTimerEvent.SolvesItemRemove, solve.id)
           println("clicked REMOVE")
         }
       ) {
@@ -61,7 +61,7 @@ fun TimesListItem(index: Int, solve: Solve) {
         onClick = {
           solve.penalty = Penalty.Ok
           txt = solve.getDisplayableRepresentation()
-          uiManager.notifyListeners(AppEvent.SolvesItemUpdate)
+          uiManager.notifyListeners(FLTimerEvent.SolvesItemUpdate)
           println("clicked OK")
         }
       ) {
@@ -72,7 +72,7 @@ fun TimesListItem(index: Int, solve: Solve) {
         modifier = Modifier.size(width = 40.dp, height = 30.dp),
         onClick = {
           solve.penalty = Penalty.PlusTwo
-          uiManager.notifyListeners(AppEvent.SolvesItemUpdate)
+          uiManager.notifyListeners(FLTimerEvent.SolvesItemUpdate)
           txt = solve.getDisplayableRepresentation()
           println("clicked PLUS_TWO")
         }
@@ -84,7 +84,7 @@ fun TimesListItem(index: Int, solve: Solve) {
         modifier = Modifier.size(width = 50.dp, height = 30.dp),
         onClick = {
           solve.penalty = Penalty.Dnf
-          uiManager.notifyListeners(AppEvent.SolvesItemUpdate)
+          uiManager.notifyListeners(FLTimerEvent.SolvesItemUpdate)
           txt = solve.getDisplayableRepresentation()
           println("clicked DNF")
         }

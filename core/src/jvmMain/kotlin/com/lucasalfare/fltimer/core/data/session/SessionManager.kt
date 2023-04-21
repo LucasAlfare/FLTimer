@@ -1,7 +1,7 @@
 package com.lucasalfare.fltimer.core.data.session
 
-import com.lucasalfare.fltimer.core.AppEvent
-import com.lucasalfare.fltimer.core.EventManageable
+import com.lucasalfare.fllistener.EventManageable
+import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.data.Session
 import com.lucasalfare.fltimer.core.data.Solve
 import kotlin.random.Random
@@ -34,40 +34,30 @@ class SessionManager : EventManageable() {
     sessions[testSession.name] = testSession
   }
 
-  override fun init() {
-    notifyListeners(
-      event = AppEvent.SessionsUpdate,
-      data = arrayOf(currentActiveSession.name, sessions),
-      origin = this
-    )
-
-    initiated = true
-  }
-
-  override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
+  override fun onEvent(event: Any, data: Any?, origin: Any?) {
     when (event) {
-      AppEvent.SessionsRequestUpdate -> {
+      FLTimerEvent.SessionsRequestUpdate -> {
         notifyListeners(
-          event = AppEvent.SessionsUpdate,
+          event = FLTimerEvent.SessionsUpdate,
           data = arrayOf(currentActiveSession.name, sessions),
           origin = this
         )
       }
 
-      AppEvent.SessionSwitch -> {
+      FLTimerEvent.SessionSwitch -> {
         val targetSessionName = data as String
         currentActiveSession = sessions[targetSessionName]!!
 
         println("SessionSwitch requested with arg $targetSessionName. The resulting session is\n${currentActiveSession}")
 
         notifyListeners(
-          event = AppEvent.SessionsUpdate,
+          event = FLTimerEvent.SessionsUpdate,
           data = arrayOf(currentActiveSession.name, sessions),
           origin = this
         )
       }
 
-      AppEvent.PersistenceUpdate -> {
+      FLTimerEvent.PersistenceUpdate -> {
         val props = ((data as Array<*>)[1]) as Array<*>
         val targetSessionName = props[0] as String
         currentActiveSession = sessions[targetSessionName]!!
@@ -75,7 +65,7 @@ class SessionManager : EventManageable() {
         sessions = props[1] as MutableMap<String, Session>
 
         notifyListeners(
-          event = AppEvent.SessionsUpdate,
+          event = FLTimerEvent.SessionsUpdate,
           data = arrayOf(currentActiveSession.name, sessions),
           origin = this
         )
@@ -83,5 +73,19 @@ class SessionManager : EventManageable() {
 
       else -> {}
     }
+  }
+
+  override fun onInitiated() {
+    notifyListeners(
+      event = FLTimerEvent.SessionsUpdate,
+      data = arrayOf(currentActiveSession.name, sessions),
+      origin = this
+    )
+
+    initiated = true
+  }
+
+  override fun onNotInitiated() {
+
   }
 }

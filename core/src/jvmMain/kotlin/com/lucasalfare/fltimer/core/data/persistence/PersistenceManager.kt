@@ -2,15 +2,13 @@
 
 package com.lucasalfare.fltimer.core.data.persistence
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
-import com.lucasalfare.fltimer.core.*
+import com.lucasalfare.fllistener.EventManageable
+import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.configuration.Config
 import com.lucasalfare.fltimer.core.data.*
 import com.lucasalfare.fltimer.core.data.session.DefaultSessionName
 import com.lucasalfare.fltimer.core.scramble.getCategoryByCode
+import com.lucasalfare.fltimer.core.toByteArray
 import java.io.File
 
 class PersistenceManager : EventManageable() {
@@ -22,7 +20,35 @@ class PersistenceManager : EventManageable() {
 
   private var writer = Writer()
 
-  override fun init() {
+  override fun onEvent(event: Any, data: Any?, origin: Any?) {
+    when (event) {
+      FLTimerEvent.ConfigsUpdate -> {
+        configs = data as MutableMap<Config, Any>
+        updateBytes()
+      }
+
+      FLTimerEvent.SessionsUpdate -> {
+        val props = data as Array<*>
+        currentActiveSessionName = props[0] as String
+        sessions = props[1] as MutableMap<String, Session>
+        updateBytes()
+      }
+
+      FLTimerEvent.SolvesUpdate -> {
+        sessions[currentActiveSessionName]!!.solves = data as Solves
+        updateBytes()
+      }
+
+      FLTimerEvent.ApplicationFinish -> {
+        updateBytes()
+        commitFile()
+      }
+
+      else -> {}
+    }
+  }
+
+  override fun onInitiated() {
     val f = File(APPLICATION_DATABASE_FILE_NAME)
 
     if (f.exists()) {
@@ -80,7 +106,7 @@ class PersistenceManager : EventManageable() {
       if (configs.isNotEmpty() && sessions.isNotEmpty()) {
         updateBytes()
         notifyListeners(
-          event = AppEvent.PersistenceUpdate,
+          event = FLTimerEvent.PersistenceUpdate,
           data = arrayOf(
             configs,
             arrayOf(
@@ -98,32 +124,8 @@ class PersistenceManager : EventManageable() {
     }
   }
 
-  override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
-    when (event) {
-      AppEvent.ConfigsUpdate -> {
-        configs = data as MutableMap<Config, Any>
-        updateBytes()
-      }
+  override fun onNotInitiated() {
 
-      AppEvent.SessionsUpdate -> {
-        val props = data as Array<*>
-        currentActiveSessionName = props[0] as String
-        sessions = props[1] as MutableMap<String, Session>
-        updateBytes()
-      }
-
-      AppEvent.SolvesUpdate -> {
-        sessions[currentActiveSessionName]!!.solves = data as Solves
-        updateBytes()
-      }
-
-      AppEvent.ApplicationFinish -> {
-        updateBytes()
-        commitFile()
-      }
-
-      else -> {}
-    }
   }
 
   private fun updateBytes() {

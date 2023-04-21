@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.lucasalfare.fltimer.core.AppEvent
+import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.data.Solves
 import com.lucasalfare.fltimer.core.statistics.getStats
 import com.lucasalfare.fltimer.core.toTimestamp
@@ -34,7 +34,7 @@ fun StatisticsList(modifier: Modifier = Modifier) {
   DisposableEffect(true) {
     val callback = uiManager.addCallback { appEvent, data ->
       when (appEvent) {
-        AppEvent.SolvesUpdate -> {
+        FLTimerEvent.SolvesUpdate -> {
           solves = (data as Solves).clone()
         }
         else -> {}
@@ -49,7 +49,7 @@ fun StatisticsList(modifier: Modifier = Modifier) {
       Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
-          uiManager.notifyListeners(event = AppEvent.StatisticRequest, data = "all", origin = this)
+          uiManager.notifyListeners(event = FLTimerEvent.StatisticRequest, data = "all", origin = this)
         }
       ) {
         Text("See all details...")
@@ -69,7 +69,7 @@ fun StatisticsList(modifier: Modifier = Modifier) {
                 relatedSolves = it.related
 
                 uiManager.notifyListeners(
-                  event = AppEvent.StatisticRequest,
+                  event = FLTimerEvent.StatisticRequest,
                   data = it.name,
                   origin = this
                 )

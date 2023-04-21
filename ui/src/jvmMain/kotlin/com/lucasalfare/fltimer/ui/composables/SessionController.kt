@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import com.lucasalfare.fltimer.core.AppEvent
+import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.data.Session
 import com.lucasalfare.fltimer.ui.NextCharacter
 import com.lucasalfare.fltimer.ui.PreviousCharacter
@@ -20,13 +20,13 @@ fun SessionController() {
   var currentSessionName by remember { mutableStateOf("") }
 
   LaunchedEffect(true) {
-    uiManager.notifyListeners(AppEvent.SessionsRequestUpdate)
+    uiManager.notifyListeners(FLTimerEvent.SessionsRequestUpdate)
   }
 
   DisposableEffect(true) {
     val callback = uiManager.addCallback { appEvent, data ->
       when (appEvent) {
-        AppEvent.SessionsUpdate -> {
+        FLTimerEvent.SessionsUpdate -> {
           val args = data as Array<*>
           currentSessionName = args[0] as String
           sessions = args[1] as MutableMap<String, Session>
@@ -42,7 +42,7 @@ fun SessionController() {
   Row(verticalAlignment = Alignment.CenterVertically) {
     TextButton(onClick = {
       uiManager.notifyListeners(
-        AppEvent.SessionSwitch,
+        FLTimerEvent.SessionSwitch,
         getSession(currentSessionName, sessions, false)
       )
     }) {
@@ -53,7 +53,7 @@ fun SessionController() {
 
     TextButton(onClick = {
       uiManager.notifyListeners(
-        AppEvent.SessionSwitch,
+        FLTimerEvent.SessionSwitch,
         getSession(currentSessionName, sessions, true)
       )
     }) {

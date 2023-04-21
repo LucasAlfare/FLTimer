@@ -4,9 +4,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import com.lucasalfare.fltimer.core.AppEvent
-import com.lucasalfare.fltimer.core.AppEvent.*
-import com.lucasalfare.fltimer.core.EventManageable
+import com.lucasalfare.fllistener.EventManageable
+import com.lucasalfare.fltimer.core.FLTimerEvent
+import com.lucasalfare.fltimer.core.FLTimerEvent.*
 import com.lucasalfare.fltimer.core.configuration.Config
 import com.lucasalfare.fltimer.core.timer.fsm.ReadyState
 import com.lucasalfare.fltimer.core.timer.fsm.TimerState
@@ -25,9 +25,7 @@ class TimerManager : EventManageable() {
    */
   private var networkingCanStart = true
 
-  override fun init() { initiated = true }
-
-  override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
+  override fun onEvent(event: Any, data: Any?, origin: Any?) {
     when (event) {
       NetworkingAllUsersFinished -> {
         networkingCanStart = data as Boolean
@@ -35,7 +33,7 @@ class TimerManager : EventManageable() {
 
       TimerToggleDown, TimerToggleUp -> {
         val nextState: TimerState? = currentState.handleInput(
-          event,
+          event as FLTimerEvent,
           booleanArrayOf(
             useInspection,
             networkingModeOn,
@@ -68,6 +66,14 @@ class TimerManager : EventManageable() {
       }
       else -> {}
     }
+  }
+
+  override fun onInitiated() {
+    initiated = true
+  }
+
+  override fun onNotInitiated() {
+
   }
 }
 

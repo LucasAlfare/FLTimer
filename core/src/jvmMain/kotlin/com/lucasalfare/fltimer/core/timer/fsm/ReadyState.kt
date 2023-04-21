@@ -1,11 +1,11 @@
 package com.lucasalfare.fltimer.core.timer.fsm
 
-import com.lucasalfare.fltimer.core.AppEvent
-import com.lucasalfare.fltimer.core.EventManageable
+import com.lucasalfare.fllistener.EventManageable
+import com.lucasalfare.fltimer.core.FLTimerEvent
 
 class ReadyState : TimerState {
 
-  override fun handleInput(inputType: AppEvent, data: Any?): TimerState? {
+  override fun handleInput(inputType: FLTimerEvent, data: Any?): TimerState? {
     if (inputType == InputRelease) {
       if (data != null) {
         val props = (data as BooleanArray)
@@ -24,7 +24,7 @@ class ReadyState : TimerState {
   }
 
   override fun update(eventManageable: EventManageable, data: Any?) {
-    eventManageable.notifyListeners(event = AppEvent.TimerReady, origin = this)
+    eventManageable.notifyListeners(event = FLTimerEvent.TimerReady, origin = this)
   }
 
   override fun suspendState() {

@@ -15,6 +15,7 @@ kotlin {
         implementation("androidx.compose.animation:animation:1.4.2")
         implementation("androidx.compose.material:material:1.4.2")
 
+        implementation("com.github.LucasAlfare:FLListening:1.1")
         implementation(project(":ui"))
         implementation(project(":core"))
       }

@@ -7,8 +7,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
-import com.lucasalfare.fltimer.core.AppEvent
-import com.lucasalfare.fltimer.core.EventManageable
+import com.lucasalfare.fllistener.UIManager
 
 const val GearCharacter = "\u2699"
 const val WastebasketCharacter = "\uD83D\uDDD1"
@@ -61,24 +60,30 @@ fun Modifier.onFocusSelectAll(textFieldValueState: MutableState<TextFieldValue>)
  * in order to make then emit application events and receive then as
  * well.
  */
-class UIManager : EventManageable() {
-
-  private val callbacks = mutableListOf<(AppEvent, Any?) -> Unit>()
-
-  override fun init() {}
-
-  override fun onEvent(event: AppEvent, data: Any?, origin: Any?) {
-    callbacks.forEach { callback ->
-      callback(event, data)
-    }
-  }
-
-  fun addCallback(callback: (AppEvent, Any?) -> Unit): (AppEvent, Any?) -> Unit {
-    if (!callbacks.contains(callback)) callbacks.add(callback)
-    return callback
-  }
-
-  fun removeCallback(callback: (AppEvent, Any?) -> Unit) {
-    callbacks.remove(callback)
-  }
-}
+//class UIManager : EventManageable() {
+//
+//  private val callbacks = mutableListOf<(Any, Any?) -> Unit>()
+//
+//  override fun onEvent(event: Any, data: Any?, origin: Any?) {
+//    callbacks.forEach { callback ->
+//      callback(event, data)
+//    }
+//  }
+//
+//  fun addCallback(callback: (Any, Any?) -> Unit): (Any, Any?) -> Unit {
+//    if (!callbacks.contains(callback)) callbacks.add(callback)
+//    return callback
+//  }
+//
+//  fun removeCallback(callback: (Any, Any?) -> Unit) {
+//    callbacks.remove(callback)
+//  }
+//
+//  override fun onInitiated() {
+//    initiated = true
+//  }
+//
+//  override fun onNotInitiated() {
+//
+//  }
+//}
