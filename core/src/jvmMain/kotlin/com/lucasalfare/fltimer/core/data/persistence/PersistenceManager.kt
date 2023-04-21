@@ -20,35 +20,7 @@ class PersistenceManager : EventManageable() {
 
   private var writer = Writer()
 
-  override fun onEvent(event: Any, data: Any?, origin: Any?) {
-    when (event) {
-      FLTimerEvent.ConfigsUpdate -> {
-        configs = data as MutableMap<Config, Any>
-        updateBytes()
-      }
-
-      FLTimerEvent.SessionsUpdate -> {
-        val props = data as Array<*>
-        currentActiveSessionName = props[0] as String
-        sessions = props[1] as MutableMap<String, Session>
-        updateBytes()
-      }
-
-      FLTimerEvent.SolvesUpdate -> {
-        sessions[currentActiveSessionName]!!.solves = data as Solves
-        updateBytes()
-      }
-
-      FLTimerEvent.ApplicationFinish -> {
-        updateBytes()
-        commitFile()
-      }
-
-      else -> {}
-    }
-  }
-
-  override fun onInitiated() {
+  init {
     val f = File(APPLICATION_DATABASE_FILE_NAME)
 
     if (f.exists()) {
@@ -58,8 +30,10 @@ class PersistenceManager : EventManageable() {
         // TODO: attempt to create better validation
         val reader = Reader(fileData.toUByteArray())
         val signature = reader.readString(FLTIMER_STRING_SIGNATURE.length)!!
-        if (signature != FLTIMER_STRING_SIGNATURE)
+        if (signature != FLTIMER_STRING_SIGNATURE) {
           println("ARQUIVO INVALIDO!!!!!??????????????")
+          initiated = true
+        }
 
         configs[Config.UseInspection] = reader.readBoolean()
         configs[Config.ShowScramblesInDetailsUI] = reader.readBoolean()
@@ -101,31 +75,60 @@ class PersistenceManager : EventManageable() {
         }
       }
     }
+  }
 
-    while (!initiated) {
-      if (configs.isNotEmpty() && sessions.isNotEmpty()) {
-        updateBytes()
-        notifyListeners(
-          event = FLTimerEvent.PersistenceUpdate,
-          data = arrayOf(
-            configs,
-            arrayOf(
-              // sending session name read, unfortunately doesn't work with SessionSwitch event.
-              currentActiveSessionName,
-              sessions
-            )
-          ),
-          origin = this
-        )
+  override fun onInitiated() {
 
-        initiated = true
-        commitFile()
-      }
-    }
   }
 
   override fun onNotInitiated() {
+    if (configs.isNotEmpty() && sessions.isNotEmpty()) {
+      updateBytes()
+      notifyListeners(
+        event = FLTimerEvent.PersistenceUpdate,
+        data = arrayOf(
+          configs,
+          arrayOf(
+            // sending session name that was read, unfortunately
+            // doesn't work with SessionSwitch event?
+            currentActiveSessionName,
+            sessions
+          )
+        ),
+        origin = this
+      )
 
+      initiated = true
+      commitFile()
+    }
+  }
+
+  override fun onEvent(event: Any, data: Any?, origin: Any?) {
+    when (event) {
+      FLTimerEvent.ConfigsUpdate -> {
+        configs = data as MutableMap<Config, Any>
+        updateBytes()
+      }
+
+      FLTimerEvent.SessionsUpdate -> {
+        val props = data as Array<*>
+        currentActiveSessionName = props[0] as String
+        sessions = props[1] as MutableMap<String, Session>
+        updateBytes()
+      }
+
+      FLTimerEvent.SolvesUpdate -> {
+        sessions[currentActiveSessionName]!!.solves = data as Solves
+        updateBytes()
+      }
+
+      FLTimerEvent.ApplicationFinish -> {
+        updateBytes()
+        commitFile()
+      }
+
+      else -> {}
+    }
   }
 
   private fun updateBytes() {

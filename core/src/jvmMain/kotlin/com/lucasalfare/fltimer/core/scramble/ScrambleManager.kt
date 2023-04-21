@@ -11,6 +11,21 @@ class ScrambleManager : EventManageable() {
   private var lastScramble = ""
   private var currentScramble = ""
 
+  override fun onInitiated() {
+
+  }
+
+  override fun onNotInitiated() {
+    genScramble()
+    notifyListeners(
+      event = FLTimerEvent.ScrambleGenerated,
+      data = arrayOf(lastScramble, currentScramble),
+      origin = this
+    )
+
+    initiated = true
+  }
+
   override fun onEvent(event: Any, data: Any?, origin: Any?) {
     when (event) {
       FLTimerEvent.RequestScrambleGenerated -> {
@@ -41,20 +56,5 @@ class ScrambleManager : EventManageable() {
     currentScramble =
       // ALWAYS GET SEQUENCE HERE...
       getFreeRubiksCubeScramble()
-  }
-
-  override fun onInitiated() {
-    genScramble()
-    notifyListeners(
-      event = FLTimerEvent.ScrambleGenerated,
-      data = arrayOf(lastScramble, currentScramble),
-      origin = this
-    )
-
-    initiated = true
-  }
-
-  override fun onNotInitiated() {
-
   }
 }

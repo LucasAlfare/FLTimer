@@ -69,11 +69,11 @@ class TimerManager : EventManageable() {
   }
 
   override fun onInitiated() {
-    initiated = true
+
   }
 
   override fun onNotInitiated() {
-
+    initiated = true
   }
 }
 

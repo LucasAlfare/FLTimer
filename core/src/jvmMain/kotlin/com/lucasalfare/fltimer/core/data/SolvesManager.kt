@@ -15,6 +15,14 @@ class SolvesManager : EventManageable() {
   private var tmpScramble = ""
   private var tmpPenalty = Penalty.Ok
 
+  override fun onInitiated() {
+
+  }
+
+  override fun onNotInitiated() {
+    initiated = true
+  }
+
   override fun onEvent(event: Any, data: Any?, origin: Any?) {
     when (event) {
       SolvesUpdateRequest -> {
@@ -83,12 +91,5 @@ class SolvesManager : EventManageable() {
 
       else -> {}
     }
-  }
-
-  override fun onInitiated() {
-    initiated = true
-  }
-
-  override fun onNotInitiated() {
   }
 }

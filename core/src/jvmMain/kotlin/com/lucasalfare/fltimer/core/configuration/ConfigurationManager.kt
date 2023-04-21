@@ -12,6 +12,19 @@ class ConfigurationManager : EventManageable() {
     Pair(Config.AskForTimerMode, true)
   )
 
+  override fun onInitiated() {
+
+  }
+
+  override fun onNotInitiated() {
+    notifyListeners(
+      event = FLTimerEvent.ConfigsUpdate,
+      data = configurations,
+      origin = this
+    )
+    initiated = true
+  }
+
   override fun onEvent(event: Any, data: Any?, origin: Any?) {
     if (event == FLTimerEvent.ConfigSet) {
       val props = data as Array<*>
@@ -25,18 +38,5 @@ class ConfigurationManager : EventManageable() {
       configurations = props[0] as MutableMap<Config, Any>
       notifyListeners(event = FLTimerEvent.ConfigsUpdate, data = configurations, origin = this)
     }
-  }
-
-  override fun onInitiated() {
-    notifyListeners(
-      event = FLTimerEvent.ConfigsUpdate,
-      data = configurations,
-      origin = this
-    )
-    initiated = true
-  }
-
-  override fun onNotInitiated() {
-
   }
 }

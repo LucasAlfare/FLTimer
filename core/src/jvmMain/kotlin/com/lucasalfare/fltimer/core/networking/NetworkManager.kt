@@ -13,19 +13,13 @@ class NetworkManager : EventManageable() {
 
   private lateinit var users: MutableList<User>
 
-  override fun onEvent(event: Any, data: Any?, origin: Any?) {
-    when (event) {
-      TimerToggleUp -> {
-        socket.emit("TimerToggle", data as Long)
-      }
-      else -> {}
-    }
+  override fun onInitiated() {
+
   }
 
-  override fun onInitiated() {
+  override fun onNotInitiated() {
     socket.on(Socket.EVENT_CONNECT) {
       println("Connected to the server.")
-      initiated = true
     }
 
     socket.on("NetworkingUsersUpdate") {
@@ -41,9 +35,15 @@ class NetworkManager : EventManageable() {
     }
 
     socket.connect()
+    initiated = true
   }
 
-  override fun onNotInitiated() {
-
+  override fun onEvent(event: Any, data: Any?, origin: Any?) {
+    when (event) {
+      TimerToggleUp -> {
+        socket.emit("TimerToggle", data as Long)
+      }
+      else -> {}
+    }
   }
 }

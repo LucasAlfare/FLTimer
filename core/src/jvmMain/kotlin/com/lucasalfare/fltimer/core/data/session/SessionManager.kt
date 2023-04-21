@@ -12,7 +12,7 @@ const val DefaultSessionName = "Default"
 class SessionManager : EventManageable() {
 
   private var sessions = mutableMapOf<String, Session>()
-  private lateinit var currentActiveSession: Session
+  private var currentActiveSession: Session
 
   init {
     sessions[DefaultSessionName] = Session(DefaultSessionName)
@@ -32,6 +32,20 @@ class SessionManager : EventManageable() {
     }
 
     sessions[testSession.name] = testSession
+  }
+
+  override fun onInitiated() {
+
+  }
+
+  override fun onNotInitiated() {
+    notifyListeners(
+      event = FLTimerEvent.SessionsUpdate,
+      data = arrayOf(currentActiveSession.name, sessions),
+      origin = this
+    )
+
+    initiated = true
   }
 
   override fun onEvent(event: Any, data: Any?, origin: Any?) {
@@ -73,19 +87,5 @@ class SessionManager : EventManageable() {
 
       else -> {}
     }
-  }
-
-  override fun onInitiated() {
-    notifyListeners(
-      event = FLTimerEvent.SessionsUpdate,
-      data = arrayOf(currentActiveSession.name, sessions),
-      origin = this
-    )
-
-    initiated = true
-  }
-
-  override fun onNotInitiated() {
-
   }
 }
