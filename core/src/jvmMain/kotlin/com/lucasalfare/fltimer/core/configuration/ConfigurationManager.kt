@@ -2,15 +2,14 @@ package com.lucasalfare.fltimer.core.configuration
 
 import com.lucasalfare.fllistener.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
+import com.lucasalfare.fltimer.core.FLTimerStateModel
+
 
 class ConfigurationManager : EventManageable() {
 
-  private var configurations = mutableMapOf<Config, Any>(
-    Pair(Config.UseInspection, false),
-    Pair(Config.ShowScramblesInDetailsUI, false),
-    Pair(Config.NetworkingModeOn, false),
-    Pair(Config.AskForTimerMode, true)
-  )
+  private var configurations = FLTimerStateModel
+    .getFLTimerStateModel()
+    .configurations
 
   override fun onInitiated() {
 
