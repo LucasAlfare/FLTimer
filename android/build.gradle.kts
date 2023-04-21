@@ -9,18 +9,24 @@ kotlin {
   sourceSets {
     val androidMain by getting {
       dependencies {
-        implementation(project(":core"))
+        implementation("androidx.activity:activity-compose:1.7.1")
+        implementation("androidx.appcompat:appcompat:1.6.1")
+        implementation("androidx.core:core-ktx:1.10.0")
+        implementation("androidx.compose.animation:animation:1.4.2")
+        implementation("androidx.compose.material:material:1.4.2")
+
         implementation(project(":ui"))
+        implementation(project(":core"))
       }
     }
   }
 }
 
 android {
-  namespace = "lucasalfare.fltimer.android"
   compileSdk = 33
+  namespace = "com.lucasalfare.fltimer.android"
   defaultConfig {
-    applicationId = "lucasalfare.fltimer.android"
+    applicationId = "com.lucasalfare.fltimer.android"
     minSdk = 26
     targetSdk = 33
     versionCode = 1
