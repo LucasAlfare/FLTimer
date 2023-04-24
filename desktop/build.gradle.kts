@@ -12,6 +12,7 @@ kotlin {
         implementation(project(":core"))
         implementation(project(":ui"))
         implementation("com.github.LucasAlfare:FLListening:1.1")
+        implementation("com.github.LucasAlfare:FLBinary:1.4.1")
       }
     }
   }

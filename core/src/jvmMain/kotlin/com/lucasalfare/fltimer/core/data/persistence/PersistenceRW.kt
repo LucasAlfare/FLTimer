@@ -2,6 +2,7 @@
 
 package com.lucasalfare.fltimer.core.data.persistence
 
+import com.lucasalfare.flbinary.Reader
 import java.io.File
 
 fun getStartupReader(): Reader {
