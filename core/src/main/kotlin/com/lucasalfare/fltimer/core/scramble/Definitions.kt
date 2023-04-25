@@ -19,8 +19,12 @@ enum class Category(val code: Int) {
   RubiksCube(0),
   RubiksCubeOneHanded(1),
   RubiksCubeOneBlindfolded(2),
-  PocketCube(3)
+  PocketCube(3);
+
+  companion object {
+    fun getCategoryByCode(code: Int) = Category
+      .values()
+      .first { it.code == code }
+  }
 }
 
-fun getCategoryByCode(code: Int) =
-  Category.values().first { it.code == code }

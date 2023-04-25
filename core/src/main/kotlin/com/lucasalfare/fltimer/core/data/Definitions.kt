@@ -21,11 +21,13 @@ enum class Penalty(val code: Int) {
   /**
    * Flags a time as not finished.
    */
-  Dnf(2)
-}
+  Dnf(2);
 
-fun getPenaltyByCode(code: Int) = when (code) {
-  1 -> Penalty.PlusTwo; 2 -> Penalty.Dnf; else -> Penalty.Ok
+  companion object {
+    fun getPenaltyByCode(code: Int) = when (code) {
+      1 -> Penalty.PlusTwo; 2 -> Penalty.Dnf; else -> Penalty.Ok
+    }
+  }
 }
 
 /**

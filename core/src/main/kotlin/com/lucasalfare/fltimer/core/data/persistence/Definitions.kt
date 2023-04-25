@@ -3,11 +3,8 @@ package com.lucasalfare.fltimer.core.data.persistence
 import com.lucasalfare.flbinary.Reader
 import com.lucasalfare.flbinary.Writer
 import com.lucasalfare.fltimer.core.configuration.Config
-import com.lucasalfare.fltimer.core.data.FLTimerState
-import com.lucasalfare.fltimer.core.data.Session
-import com.lucasalfare.fltimer.core.data.Solve
-import com.lucasalfare.fltimer.core.data.getPenaltyByCode
-import com.lucasalfare.fltimer.core.scramble.getCategoryByCode
+import com.lucasalfare.fltimer.core.data.*
+import com.lucasalfare.fltimer.core.scramble.Category
 import java.io.File
 import java.nio.file.Files
 import kotlin.io.path.Path
@@ -45,7 +42,7 @@ fun readFLTimerStateFromFile(): FLTimerState {
     repeat(nSessions) {
       val nextSession = Session(
         name = reader.readString(reader.read1Byte())!!,
-        category = getCategoryByCode(reader.read1Byte())
+        category = Category.getCategoryByCode(reader.read1Byte())
       )
 
       val nSessionSolves = reader.read2Bytes()
@@ -54,7 +51,7 @@ fun readFLTimerStateFromFile(): FLTimerState {
         val nextSolve = Solve(
           time = reader.read4Bytes(),
           scramble = reader.readString(reader.read1Byte())!!,
-          penalty = getPenaltyByCode(reader.read1Byte()),
+          penalty = Penalty.getPenaltyByCode(reader.read1Byte()),
           comment = reader.readString(reader.read1Byte())!!
         )
 
