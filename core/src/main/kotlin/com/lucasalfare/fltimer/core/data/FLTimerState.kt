@@ -1,6 +1,7 @@
 package com.lucasalfare.fltimer.core.data
 
 import com.lucasalfare.fltimer.core.configuration.Config
+import com.lucasalfare.fltimer.core.data.session.Session
 
 data class FLTimerState(
   val configurations: MutableMap<Config, Any>,
@@ -28,5 +29,10 @@ data class FLTimerState(
 
       return flTimerState
     }
+
+    fun getCurrentActiveSession() =
+      getFLTimerState()
+      .sessions
+      .first { it.name == getFLTimerState().currentActiveSessionName }
   }
 }

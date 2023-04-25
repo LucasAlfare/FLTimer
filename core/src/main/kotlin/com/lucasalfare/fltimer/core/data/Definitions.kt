@@ -86,12 +86,3 @@ class Solves(vararg someSolves: Solve) : LinkedHashMap<UUID, Solve>() {
   }
 }
 
-/**
- * Holds a [Solves] object in order to keep easy to track
- * different data groups.
- */
-data class Session(
-  var name: String,
-  var category: Category = Category.RubiksCube,
-  var solves: Solves = Solves()
-)

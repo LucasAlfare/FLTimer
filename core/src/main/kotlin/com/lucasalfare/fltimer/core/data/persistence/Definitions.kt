@@ -4,6 +4,7 @@ import com.lucasalfare.flbinary.Reader
 import com.lucasalfare.flbinary.Writer
 import com.lucasalfare.fltimer.core.configuration.Config
 import com.lucasalfare.fltimer.core.data.*
+import com.lucasalfare.fltimer.core.data.session.Session
 import com.lucasalfare.fltimer.core.scramble.Category
 import java.io.File
 import java.nio.file.Files
@@ -17,7 +18,7 @@ const val FLTIMER_STRING_SIGNATURE = "fltimer"
 const val APPLICATION_DATABASE_FILE_NAME = "${FLTIMER_STRING_SIGNATURE}_data.fltd"
 
 @OptIn(ExperimentalUnsignedTypes::class)
-fun readFLTimerStateFromFile(): FLTimerState {
+fun readAndDefineFLTimerStateFromFile() {
   val file = File(APPLICATION_DATABASE_FILE_NAME)
   val stateRef = FLTimerState.getFLTimerState()
 
@@ -26,7 +27,7 @@ fun readFLTimerStateFromFile(): FLTimerState {
     val fltimerSignature = reader.readString(length = 7)!!
 
     if (fltimerSignature != FLTIMER_STRING_SIGNATURE) {
-      return stateRef
+      return
     }
 
     stateRef.configurations[Config.UseInspection] = reader.readBoolean()
@@ -61,8 +62,6 @@ fun readFLTimerStateFromFile(): FLTimerState {
       stateRef.sessions += nextSession
     }
   }
-
-  return stateRef
 }
 
 @OptIn(ExperimentalUnsignedTypes::class)
