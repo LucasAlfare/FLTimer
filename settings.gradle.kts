@@ -1,29 +1,15 @@
 rootProject.name = "FLTimer"
 
-include(":core")
-include(":ui")
-include(":console")
-include(":android")
-include(":desktop")
-
 pluginManagement {
   repositories {
-    gradlePluginPortal()
-    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     google()
+    mavenCentral()
   }
 
   plugins {
-    val kotlinVersion = extra["kotlin.version"] as String
-    val agpVersion = extra["agp.version"] as String
-    val composeVersion = extra["compose.version"] as String
-
-//    kotlin("jvm").version(kotlinVersion)
-    kotlin("multiplatform").version(kotlinVersion)
-    kotlin("android").version(kotlinVersion)
-    id("com.android.base").version(agpVersion)
-    id("com.android.application").version(agpVersion)
-    id("com.android.library").version(agpVersion)
-    id("org.jetbrains.compose").version(composeVersion)
+    kotlin("jvm") version "1.8.20"
   }
 }
+
+include(":core")
+include(":swing")
