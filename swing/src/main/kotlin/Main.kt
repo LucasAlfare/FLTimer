@@ -1,24 +1,9 @@
-import com.lucasalfare.fltimer.core.timer.asyncRoutine
-import com.lucasalfare.fltimer.core.toTimestamp
-import java.awt.BorderLayout
-import javax.swing.JFrame
-import javax.swing.JLabel
+import com.lucasalfare.fllistener.setupManagers
+import com.lucasalfare.fltimer.core.timer.TimerManager
 
-class Manager
-
-class Main : JFrame() {
-
-  val display = JLabel(0L.toTimestamp())
-
-  init {
-    setSize(600, 300)
-    defaultCloseOperation = EXIT_ON_CLOSE
-    layout = BorderLayout()
-  }
-
-  fun update() {
-    asyncRoutine {
-
-    }
-  }
+suspend fun main() {
+  setupManagers(
+    FrameManager(),
+    TimerManager()
+  )
 }
