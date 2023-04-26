@@ -8,6 +8,10 @@ class SolvesManager : EventManageable() {
 
   private val currSolvesRef = FLTimerState.getCurrentActiveSession().solves
 
+  /**
+   * Temprorary and auxiliary fields to hold flow values
+   * along the application executaion.
+   */
   private var tmpTime = 0L
   private var tmpScramble = ""
   private var tmpPenalty = Penalty.Ok
