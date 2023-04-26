@@ -1,6 +1,5 @@
 package com.lucasalfare.fltimer.core.data
 
-import com.lucasalfare.fltimer.core.scramble.Category
 import com.lucasalfare.fltimer.core.toTimestamp
 import java.util.*
 
@@ -25,7 +24,7 @@ enum class Penalty(val code: Int) {
 
   companion object {
     fun getPenaltyByCode(code: Int) = when (code) {
-      1 -> Penalty.PlusTwo; 2 -> Penalty.Dnf; else -> Penalty.Ok
+      1 -> PlusTwo; 2 -> Dnf; else -> Ok
     }
   }
 }
@@ -85,4 +84,3 @@ class Solves(vararg someSolves: Solve) : LinkedHashMap<UUID, Solve>() {
     return this.values.toString()
   }
 }
-

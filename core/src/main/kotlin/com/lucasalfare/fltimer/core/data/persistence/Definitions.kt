@@ -17,16 +17,24 @@ const val FLTIMER_STRING_SIGNATURE = "fltimer"
  */
 const val APPLICATION_DATABASE_FILE_NAME = "${FLTIMER_STRING_SIGNATURE}_data.fltd"
 
+/**
+ * This method reads the binary data from the application data file
+ * if it exists. Either if the data file exists or not, this method
+ * defines an initial application state, based on defaul values for
+ * all needed fiels.
+ */
 @OptIn(ExperimentalUnsignedTypes::class)
 fun readAndDefineFLTimerStateFromFile() {
   val file = File(APPLICATION_DATABASE_FILE_NAME)
   val stateRef = FLTimerState.getFLTimerState()
 
   if (file.exists()) {
-    val reader = Reader(file.readBytes().toUByteArray())
+    val fileBytes = file.readBytes()
+    val reader = Reader(fileBytes.toUByteArray())
     val fltimerSignature = reader.readString(length = 7)!!
 
     if (fltimerSignature != FLTIMER_STRING_SIGNATURE) {
+      println("file signature doesnt' match!")
       return
     }
 
@@ -41,10 +49,16 @@ fun readAndDefineFLTimerStateFromFile() {
     stateRef.currentActiveSessionName = reader.readString(currentActiveSessionNameLength)!!
 
     repeat(nSessions) {
-      val nextSession = Session(
+      val readSession = Session(
         name = reader.readString(reader.read1Byte())!!,
         category = Category.getCategoryByCode(reader.read1Byte())
       )
+
+      val sessionSearch = stateRef.sessions.firstOrNull {
+        it.name == readSession.name
+      }
+
+      val nextSession = sessionSearch ?: readSession
 
       val nSessionSolves = reader.read2Bytes()
 
@@ -59,7 +73,9 @@ fun readAndDefineFLTimerStateFromFile() {
         nextSession.solves += nextSolve
       }
 
-      stateRef.sessions += nextSession
+      if (sessionSearch == null) {
+        stateRef.sessions += nextSession
+      }
     }
   }
 }
@@ -97,11 +113,6 @@ fun writeFLTimerStateToFile() {
   }
 
   Files.deleteIfExists(Path(APPLICATION_DATABASE_FILE_NAME))
-
   val targetFile = File(APPLICATION_DATABASE_FILE_NAME)
   targetFile.writeBytes(writer.getData().toByteArray())
-}
-
-fun main() {
-  println("Hewhehehaskdjhf")
 }

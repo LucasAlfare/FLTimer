@@ -12,11 +12,11 @@ class SolvesManager : EventManageable() {
   private var tmpPenalty = Penalty.Ok
 
   override fun onInitiated() {
-
+//    println("[SolvesManager] Instance initiated.")
   }
 
   override fun onNotInitiated() {
-
+    this.initiated = true
   }
 
   override fun onEvent(event: Any, data: Any?, origin: Any?) {
