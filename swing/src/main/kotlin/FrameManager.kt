@@ -12,12 +12,30 @@ import java.awt.event.WindowEvent
 class FrameManager : EventManageable() {
 
   private val frame = Frame()
+  private var currentScramble = ""
 
   override fun onInitiated() {
 //    println("[FrameManager] Instance initiated.")
+    setupFrame()
   }
 
   override fun onNotInitiated() {
+    if (currentScramble != "") {
+      initiated = true
+    }
+  }
+
+  override fun onEvent(event: Any, data: Any?, origin: Any?) {
+    if (event == FLTimerEvent.TimerUpdate) {
+      frame.display.text = (data as Long).toTimestamp()
+    } else if (event == FLTimerEvent.ScrambleGenerated) {
+      val props = data as Array<*>
+      currentScramble = props[1] as String
+      frame.scramble.text = currentScramble
+    }
+  }
+
+  private fun setupFrame() {
     frame.addKeyListener(object : KeyAdapter() {
       override fun keyPressed(e: KeyEvent) {
         if (e.keyCode == 32) {
@@ -43,15 +61,5 @@ class FrameManager : EventManageable() {
     frame.display.isFocusable = false
     frame.isVisible = true
     frame.requestFocus()
-
-    initiated = true
-  }
-
-  override fun onEvent(event: Any, data: Any?, origin: Any?) {
-    if (event == FLTimerEvent.TimerUpdate) {
-      frame.display.text = (data as Long).toTimestamp()
-    } else if (event == FLTimerEvent.SolvesUpdate) {
-      println(data)
-    }
   }
 }

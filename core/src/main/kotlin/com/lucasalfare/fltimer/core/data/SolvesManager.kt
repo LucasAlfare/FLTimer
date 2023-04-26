@@ -33,6 +33,9 @@ class SolvesManager : EventManageable() {
 
       // TODO: should notify or UI watch the solves ref to auto-update? Only work with compose
       notifyListeners(FLTimerEvent.SolvesUpdate, currSolvesRef)
+    } else if (event == FLTimerEvent.ScrambleGenerated) {
+      val props = data as Array<*>
+      tmpScramble = props[1] as String
     }
   }
 }

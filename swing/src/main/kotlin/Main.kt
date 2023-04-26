@@ -4,6 +4,7 @@ import com.lucasalfare.fltimer.core.data.FLTimerState
 import com.lucasalfare.fltimer.core.data.SolvesManager
 import com.lucasalfare.fltimer.core.data.persistence.readAndDefineFLTimerStateFromFile
 import com.lucasalfare.fltimer.core.data.session.SessionManager
+import com.lucasalfare.fltimer.core.scramble.ScrambleManager
 import com.lucasalfare.fltimer.core.timer.TimerManager
 
 suspend fun main() {
@@ -16,6 +17,7 @@ suspend fun main() {
     TimerManager(),
     SessionManager(),
     SolvesManager(),
-    ConfigurationsManager()
+    ConfigurationsManager(),
+    ScrambleManager()
   )
 }
