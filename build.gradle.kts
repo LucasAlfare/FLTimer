@@ -14,3 +14,7 @@ allprojects {
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 }
+
+tasks.withType<Wrapper> {
+    gradleVersion = "7.6.1"
+}
