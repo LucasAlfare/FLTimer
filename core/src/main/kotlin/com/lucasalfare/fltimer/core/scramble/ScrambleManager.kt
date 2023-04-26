@@ -10,7 +10,7 @@ class ScrambleManager : EventManageable() {
   private var currentScramble = ""
 
   override fun onInitiated() {
-
+//    println("[ScrambleManager] Instance initiated.")
   }
 
   override fun onNotInitiated() {
