@@ -9,8 +9,3 @@ dependencies {
   implementation("com.github.LucasAlfare:FLListening:v1.1")
 }
 
-//compose.desktop {
-//  application {
-//
-//  }
-//}
