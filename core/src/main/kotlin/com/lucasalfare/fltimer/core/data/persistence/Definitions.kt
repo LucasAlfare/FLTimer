@@ -2,6 +2,7 @@ package com.lucasalfare.fltimer.core.data.persistence
 
 import com.lucasalfare.flbinary.Reader
 import com.lucasalfare.flbinary.Writer
+import com.lucasalfare.fltimer.core.FLTimerState
 import com.lucasalfare.fltimer.core.configuration.Config
 import com.lucasalfare.fltimer.core.data.*
 import com.lucasalfare.fltimer.core.data.session.Session

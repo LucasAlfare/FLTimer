@@ -1,6 +1,7 @@
-package com.lucasalfare.fltimer.core.data
+package com.lucasalfare.fltimer.core
 
 import com.lucasalfare.fltimer.core.configuration.Config
+import com.lucasalfare.fltimer.core.data.DefaultSessionName
 import com.lucasalfare.fltimer.core.data.session.Session
 
 data class FLTimerState(

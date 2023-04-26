@@ -1,7 +1,7 @@
 package com.lucasalfare.fltimer.core.data.session
 
 import com.lucasalfare.fllistener.EventManageable
-import com.lucasalfare.fltimer.core.data.FLTimerState
+import com.lucasalfare.fltimer.core.FLTimerState
 
 class SessionManager : EventManageable() {
 

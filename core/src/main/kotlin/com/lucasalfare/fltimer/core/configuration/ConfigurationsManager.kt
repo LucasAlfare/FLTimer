@@ -2,7 +2,7 @@ package com.lucasalfare.fltimer.core.configuration
 
 import com.lucasalfare.fllistener.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
-import com.lucasalfare.fltimer.core.data.FLTimerState
+import com.lucasalfare.fltimer.core.FLTimerState
 
 class ConfigurationsManager : EventManageable() {
 
