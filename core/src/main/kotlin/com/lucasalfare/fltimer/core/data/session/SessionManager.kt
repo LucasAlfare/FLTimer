@@ -8,7 +8,7 @@ class SessionManager : EventManageable() {
   private val sessions = FLTimerState.getFLTimerState().sessions
 
   override fun onInitiated() {
-//    println("[SessionManager] Instance initiated.")
+    println("[SessionManager] Instance initiated.")
   }
 
   override fun onNotInitiated() {

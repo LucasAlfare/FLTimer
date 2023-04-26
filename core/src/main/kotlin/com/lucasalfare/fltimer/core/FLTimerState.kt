@@ -1,12 +1,16 @@
 package com.lucasalfare.fltimer.core
 
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.snapshots.SnapshotStateMap
 import com.lucasalfare.fltimer.core.configuration.Config
 import com.lucasalfare.fltimer.core.data.DefaultSessionName
 import com.lucasalfare.fltimer.core.data.session.Session
 
 data class FLTimerState(
-  val configurations: MutableMap<Config, Any>,
-  val sessions: MutableList<Session>,
+  val configurations: SnapshotStateMap<Config, Any>,
+  val sessions: SnapshotStateList<Session>,
   var currentActiveSessionName: String
 ) {
   companion object {
@@ -15,13 +19,13 @@ data class FLTimerState(
     fun getFLTimerState(): FLTimerState {
       if (!(this::flTimerState.isInitialized)) {
         flTimerState = FLTimerState(
-          configurations = mutableMapOf(
+          configurations = mutableStateMapOf(
             Pair(Config.UseInspection, false),
             Pair(Config.ShowScramblesInDetailsUI, false),
             Pair(Config.NetworkingModeOn, false),
             Pair(Config.AskForTimerMode, true)
           ),
-          sessions = mutableListOf(
+          sessions = mutableStateListOf(
             Session(name = DefaultSessionName)
           ),
           currentActiveSessionName = DefaultSessionName

@@ -9,7 +9,7 @@ class ConfigurationsManager : EventManageable() {
   private val configsRef = FLTimerState.getFLTimerState().configurations
 
   override fun onInitiated() {
-//    println("[ConfigurationsManager] Instance inititated.")
+    println("[ConfigurationsManager] Instance inititated.")
   }
 
   override fun onNotInitiated() {

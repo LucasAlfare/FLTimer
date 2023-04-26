@@ -15,7 +15,7 @@ class FrameManager : EventManageable() {
   private var currentScramble = ""
 
   override fun onInitiated() {
-//    println("[FrameManager] Instance initiated.")
+    println("[FrameManager] Instance initiated.")
     setupFrame()
   }
 

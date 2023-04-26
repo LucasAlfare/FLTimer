@@ -17,7 +17,7 @@ class SolvesManager : EventManageable() {
   private var tmpPenalty = Penalty.Ok
 
   override fun onInitiated() {
-//    println("[SolvesManager] Instance initiated.")
+    println("[SolvesManager] Instance initiated.")
   }
 
   override fun onNotInitiated() {

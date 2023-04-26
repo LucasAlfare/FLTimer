@@ -23,7 +23,7 @@ class TimerManager : EventManageable() {
   private var networkingCanStart = true
 
   override fun onInitiated() {
-//    println("[TimerManager] Instance initiated.")
+    println("[TimerManager] Instance initiated.")
   }
 
   override fun onNotInitiated() {

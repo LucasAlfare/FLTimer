@@ -15,9 +15,9 @@ suspend fun main() {
   setupManagers(
     FrameManager(),
     TimerManager(),
-    SessionManager(),
-    SolvesManager(),
-    ConfigurationsManager(),
-    ScrambleManager()
+    SessionManager(),//
+    SolvesManager(),//
+    ConfigurationsManager(),//
+    ScrambleManager()//
   )
 }

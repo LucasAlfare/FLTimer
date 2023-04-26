@@ -9,12 +9,15 @@ class ScrambleManager : EventManageable() {
   private var lastScramble = ""
   private var currentScramble = ""
 
+  init {
+    genScramble()
+  }
+
   override fun onInitiated() {
-//    println("[ScrambleManager] Instance initiated.")
+    println("[ScrambleManager] Instance initiated.")
   }
 
   override fun onNotInitiated() {
-    genScramble()
     notifyListeners(
       event = FLTimerEvent.ScrambleGenerated,
       data = arrayOf(lastScramble, currentScramble),
