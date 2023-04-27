@@ -1,4 +1,4 @@
-package com.lucasalfare.fltimer.core.modeling
+package com.lucasalfare.fltimer.core.model
 
 import androidx.compose.runtime.*
 import com.lucasalfare.fltimer.core.configuration.Config

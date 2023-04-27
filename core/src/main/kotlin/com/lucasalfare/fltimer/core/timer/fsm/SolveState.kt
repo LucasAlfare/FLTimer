@@ -4,7 +4,7 @@ import com.lucasalfare.fllistener.EventManageable
 import kotlinx.coroutines.Job
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.getCurrentTime
-import com.lucasalfare.fltimer.core.modeling.FLTimerModel
+import com.lucasalfare.fltimer.core.model.FLTimerModel
 import com.lucasalfare.fltimer.core.timer.asyncRoutine
 
 class SolveState : TimerState {

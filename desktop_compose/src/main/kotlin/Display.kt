@@ -2,7 +2,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.unit.sp
-import com.lucasalfare.fltimer.core.modeling.FLTimerModel
+import com.lucasalfare.fltimer.core.model.FLTimerModel
 import com.lucasalfare.fltimer.core.toTimestamp
 
 @Composable

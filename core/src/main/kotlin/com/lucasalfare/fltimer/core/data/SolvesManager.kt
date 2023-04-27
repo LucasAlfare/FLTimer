@@ -2,9 +2,9 @@ package com.lucasalfare.fltimer.core.data
 
 import com.lucasalfare.fllistener.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
-import com.lucasalfare.fltimer.core.modeling.FLTimerModel
-import com.lucasalfare.fltimer.core.modeling.Penalty
-import com.lucasalfare.fltimer.core.modeling.Solve
+import com.lucasalfare.fltimer.core.model.FLTimerModel
+import com.lucasalfare.fltimer.core.model.Penalty
+import com.lucasalfare.fltimer.core.model.Solve
 
 class SolvesManager : EventManageable() {
 
