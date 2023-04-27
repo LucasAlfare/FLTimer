@@ -17,6 +17,7 @@ import com.lucasalfare.fltimer.core.data.persistence.readAndDefineFLTimerStateFr
 import com.lucasalfare.fltimer.core.data.persistence.writeFLTimerStateToFile
 import com.lucasalfare.fltimer.core.getCurrentTime
 import com.lucasalfare.fltimer.core.scramble.ScrambleManager
+import com.lucasalfare.fltimer.core.session.SessionsManager
 import com.lucasalfare.fltimer.core.timer.TimerManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -70,6 +71,7 @@ fun main() = application {
           TimerManager(),
           ScrambleManager(),
           SolvesManager(),
+          SessionsManager(),
           uiManager
         )
       }

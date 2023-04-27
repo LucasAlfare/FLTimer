@@ -8,7 +8,7 @@ import com.lucasalfare.fltimer.core.model.Solve
 
 class SolvesManager : EventManageable() {
 
-  private val solvesRef = FLTimerModel.getCurrentActiveSession().solves
+  private var solvesRef = FLTimerModel.getCurrentActiveSession().solves
 
   private var tmpTime = 0L
   private var tmpScramble = ""
@@ -48,6 +48,14 @@ class SolvesManager : EventManageable() {
     if (event == FLTimerEvent.ScrambleGenerated) {
       val props = data as Array<*>
       tmpScramble = props[1] as String
+    }
+
+    if (event == FLTimerEvent.SessionsUpdate) {
+      solvesRef = FLTimerModel.getCurrentActiveSession().solves
+    }
+
+    if (event == FLTimerEvent.SolvesClear) {
+      solvesRef.clear()
     }
   }
 }

@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.lucasalfare.fltimer.ui.Display
 import com.lucasalfare.fltimer.ui.Scramble
+import com.lucasalfare.fltimer.ui.SessionController
 import com.lucasalfare.fltimer.ui.TimesList
 
 @Composable
@@ -12,15 +13,15 @@ fun App() {
   Row {
     Box(
       modifier = Modifier
-        .weight(0.75f)
         .padding(bottom = 8.dp)
     ) {
       Column {
+        SessionController()
         TimesList()
       }
     }
 
-    Box(modifier = Modifier.weight(2f)) {
+    Box() {
       Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Box(modifier = Modifier.weight(1f)) {
           Scramble()

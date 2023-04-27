@@ -66,13 +66,16 @@ class FLTimerModel {
   companion object {
     private const val DEFAULT_SESSION_NAME = "Default"
 
-    var currentActiveSessionName by mutableStateOf(DEFAULT_SESSION_NAME)
+    var currentActiveSessionName = mutableStateOf(DEFAULT_SESSION_NAME)
 
     var currentScramble = mutableStateOf("loading...")
 
     var currentDisplayValue = mutableStateOf("ready")
 
-    val sessions = mutableStateListOf(Session(name = DEFAULT_SESSION_NAME))
+    val sessions = mutableStateListOf(
+      Session(name = DEFAULT_SESSION_NAME),
+      Session(name = "Bilú teteia.")
+    )
 
     val configurations = mutableStateMapOf<Config, Any>(
       Pair(Config.UseInspection, false),
@@ -81,6 +84,6 @@ class FLTimerModel {
       Pair(Config.AskForTimerMode, false)
     )
 
-    fun getCurrentActiveSession() = sessions.first { it.name == currentActiveSessionName }
+    fun getCurrentActiveSession() = sessions.first { it.name == currentActiveSessionName.value }
   }
 }

@@ -1,5 +1,6 @@
 package com.lucasalfare.fltimer.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -28,13 +29,12 @@ import uiManager
 
 @Composable
 fun TimesList() {
-  val solves = remember { FLTimerModel.getCurrentActiveSession().solves }
-
   // list scrolling management
   val lazyListState = rememberLazyListState()
 
   Column(
     modifier = Modifier
+      .width(200.dp)
       .shadow(4.dp)
       .padding(8.dp)
       .fillMaxWidth()
@@ -42,7 +42,7 @@ fun TimesList() {
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
     Column(modifier = Modifier.padding(8.dp)) {
-      Text(text = "Number of solves: ${solves.size}", fontSize = 12.sp)
+      Text(text = "Number of solves: ${FLTimerModel.getCurrentActiveSession().solves.size}", fontSize = 12.sp)
 
       TextButton(onClick = {
         uiManager.notifyListeners(event = FLTimerEvent.SolvesClear, origin = this)
@@ -54,10 +54,10 @@ fun TimesList() {
           .border(
             width = 1.dp,
             shape = RoundedCornerShape(5.dp),
-            color = Color.LightGray
+            color = Color.DarkGray
           ), state = lazyListState
       ) {
-        solves.forEachIndexed { index, solve ->
+        FLTimerModel.getCurrentActiveSession().solves.forEachIndexed { index, solve ->
           item {
             TimesListItem(
               index = index,

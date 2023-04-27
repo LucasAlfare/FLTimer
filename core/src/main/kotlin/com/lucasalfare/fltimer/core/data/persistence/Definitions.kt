@@ -47,7 +47,7 @@ fun readAndDefineFLTimerStateFromFile() {
     val nSessions = reader.read2Bytes()
 
     val currentActiveSessionNameLength = reader.read1Byte()
-    FLTimerModel.currentActiveSessionName = reader.readString(currentActiveSessionNameLength)!!
+    FLTimerModel.currentActiveSessionName.value = reader.readString(currentActiveSessionNameLength)!!
 
     repeat(nSessions) {
       val readSession = Session(
@@ -93,8 +93,8 @@ fun writeFLTimerStateToFile() {
 
   writer.write2Bytes(FLTimerModel.sessions.size)
 
-  writer.write1Byte(FLTimerModel.currentActiveSessionName.length)
-  writer.writeString(FLTimerModel.currentActiveSessionName)
+  writer.write1Byte(FLTimerModel.currentActiveSessionName.value.length)
+  writer.writeString(FLTimerModel.currentActiveSessionName.value)
 
   FLTimerModel.sessions.forEach { session ->
     writer.write1Byte(session.name.length)
