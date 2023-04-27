@@ -3,6 +3,7 @@ package com.lucasalfare.fltimer.core.model
 import androidx.compose.runtime.*
 import com.lucasalfare.fltimer.core.configuration.Config
 import com.lucasalfare.fltimer.core.scramble.Category
+import com.lucasalfare.fltimer.core.toTimestamp
 import java.util.UUID
 
 
@@ -41,6 +42,12 @@ class Solve(
   var scramble by mutableStateOf(scramble)
   var penalty by mutableStateOf(penalty)
   var comment by mutableStateOf(comment)
+
+  fun getDisplayableRepresentation() = when (penalty) {
+    Penalty.PlusTwo -> "+${(time + 2000).toTimestamp()}"
+    Penalty.Dnf -> "DNF"
+    else -> time.toTimestamp()
+  }
 }
 
 

@@ -76,6 +76,11 @@ enum class FLTimerEvent {
   SolvesItemUpdate,
 
   /**
+   * TODO
+   */
+  SolveItemPenaltyUpdate,
+
+  /**
    * Comes with a UUID id representing the item to be removed from main data.
    */
   SolvesItemRemove,

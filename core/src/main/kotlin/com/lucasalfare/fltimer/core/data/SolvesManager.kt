@@ -35,6 +35,18 @@ class SolvesManager : EventManageable() {
       notifyListeners(FLTimerEvent.SolvesUpdate, solvesRef)
     }
 
+    if (event == FLTimerEvent.SolveItemPenaltyUpdate) {
+      val props = data as Array<*>
+      val targetSolve = props[0] as Solve
+      val nextPenalty = props[1] as Penalty
+      targetSolve.penalty = nextPenalty
+    }
+
+    if (event == FLTimerEvent.SolvesItemRemove) {
+      val solveTOBeRemoved = data as Solve
+      solvesRef.remove(solveTOBeRemoved)
+    }
+
     if (event == FLTimerEvent.ScrambleGenerated) {
       val props = data as Array<*>
       tmpScramble = props[1] as String
