@@ -10,6 +10,7 @@ class Frame : JFrame() {
 
   init {
     setSize(600, 300)
+    setLocationRelativeTo(null)
     defaultCloseOperation = EXIT_ON_CLOSE
     layout = BorderLayout()
 

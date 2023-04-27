@@ -3,6 +3,8 @@ plugins {
 }
 
 dependencies {
-  implementation("com.github.LucasAlfare:FLListening:v1.1")
+  val flListeningVersion = findProperty("lucasalfare.fllistening.version") ?: ""
+
+  implementation("com.github.LucasAlfare:FLListening:$flListeningVersion")
   implementation(project(":core"))
 }

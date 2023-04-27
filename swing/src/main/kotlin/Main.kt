@@ -10,14 +10,15 @@ import com.lucasalfare.fltimer.core.timer.TimerManager
 suspend fun main() {
   readAndDefineFLTimerStateFromFile()
 
-  println(FLTimerState.getFLTimerState())
+  FLTimerState.getCurrentActiveSession().solves.forEach { println(it) }
 
+  // TODO: slower computers may not properly init the managers assynchrnously
   setupManagers(
     FrameManager(),
     TimerManager(),
-    SessionManager(),//
-    SolvesManager(),//
-    ConfigurationsManager(),//
-    ScrambleManager()//
+    SessionManager(),
+    SolvesManager(),
+    ConfigurationsManager(),
+    ScrambleManager()
   )
 }

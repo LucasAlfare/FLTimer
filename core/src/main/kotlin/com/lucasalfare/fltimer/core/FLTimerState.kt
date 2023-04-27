@@ -2,6 +2,7 @@ package com.lucasalfare.fltimer.core
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import com.lucasalfare.fltimer.core.configuration.Config
@@ -41,3 +42,5 @@ data class FLTimerState(
       .first { it.name == getFLTimerState().currentActiveSessionName }
   }
 }
+
+fun getN() = mutableStateOf(0)

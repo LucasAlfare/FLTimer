@@ -15,6 +15,9 @@ allprojects {
     }
 }
 
+/**
+ * Task used to re-generate wrappers, if needed.
+ */
 tasks.withType<Wrapper> {
     gradleVersion = "7.6.1"
 }

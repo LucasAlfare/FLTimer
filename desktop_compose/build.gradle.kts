@@ -4,8 +4,10 @@ plugins {
 }
 
 dependencies {
+  val flListeningVersion = findProperty("lucasalfare.fllistening.version") ?: ""
+  val flBinaryVersion = findProperty("lucasalfare.flbinary.version") ?: ""
+
   implementation(project(":core"))
   implementation(compose.desktop.currentOs)
-  implementation("com.github.LucasAlfare:FLListening:v1.1")
+  implementation("com.github.LucasAlfare:FLListening:$flListeningVersion")
 }
-
