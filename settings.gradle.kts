@@ -18,4 +18,4 @@ pluginManagement {
 }
 
 include(":core")
-include(":desktop_compose")
+include(":ui")

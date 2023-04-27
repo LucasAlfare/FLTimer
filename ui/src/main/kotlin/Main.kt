@@ -12,7 +12,6 @@ import androidx.compose.ui.window.application
 import com.lucasalfare.fllistener.CallbacksManager
 import com.lucasalfare.fllistener.setupManagers
 import com.lucasalfare.fltimer.core.FLTimerEvent
-import com.lucasalfare.fltimer.core.configuration.ConfigurationsManager
 import com.lucasalfare.fltimer.core.data.SolvesManager
 import com.lucasalfare.fltimer.core.data.persistence.readAndDefineFLTimerStateFromFile
 import com.lucasalfare.fltimer.core.data.persistence.writeFLTimerStateToFile

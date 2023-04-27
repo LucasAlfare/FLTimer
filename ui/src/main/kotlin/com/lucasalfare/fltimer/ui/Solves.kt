@@ -1,3 +1,5 @@
+package com.lucasalfare.fltimer.ui
+
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
