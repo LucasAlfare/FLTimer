@@ -42,6 +42,7 @@ class Solve(
   var comment by mutableStateOf(comment)
 }
 
+
 class Session(
   name: String = ""
 ) {
@@ -49,9 +50,11 @@ class Session(
   val solves = mutableStateListOf<Solve>()
 }
 
+
+@Suppress("MemberVisibilityCanBePrivate")
 class FLTimerModel {
   companion object {
-    const val DEFAULT_SESSION_NAME = "Default"
+    private const val DEFAULT_SESSION_NAME = "Default"
 
     val sessions = mutableStateListOf(
       Session(name = DEFAULT_SESSION_NAME)
@@ -63,4 +66,3 @@ class FLTimerModel {
     fun getCurrentActiveSession() = sessions.first { it.name == currentActiveSessionName }
   }
 }
-
