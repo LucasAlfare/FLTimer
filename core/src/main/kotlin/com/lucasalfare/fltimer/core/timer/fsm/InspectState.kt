@@ -2,6 +2,7 @@ package com.lucasalfare.fltimer.core.timer.fsm
 
 import com.lucasalfare.fllistener.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
+import com.lucasalfare.fltimer.core.model.FLTimerModel
 import com.lucasalfare.fltimer.core.model.Penalty
 import com.lucasalfare.fltimer.core.timer.asyncRoutine
 import kotlinx.coroutines.Job
@@ -34,6 +35,8 @@ class InspectState : TimerState {
         data = arrayOf(countdown, currentPenalty),
         origin = this
       )
+
+      FLTimerModel.currentDisplayValue.value = "$countdown"
 
       countdown--
     }

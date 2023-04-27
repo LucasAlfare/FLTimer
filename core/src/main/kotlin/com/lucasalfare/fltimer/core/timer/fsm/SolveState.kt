@@ -6,6 +6,7 @@ import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.getCurrentTime
 import com.lucasalfare.fltimer.core.model.FLTimerModel
 import com.lucasalfare.fltimer.core.timer.asyncRoutine
+import com.lucasalfare.fltimer.core.toTimestamp
 
 class SolveState : TimerState {
 
@@ -38,7 +39,8 @@ class SolveState : TimerState {
         data = elapsed,
         origin = this
       )
-      FLTimerModel.currentDisplayValue.value = elapsed
+
+      FLTimerModel.currentDisplayValue.value = elapsed.toTimestamp()
     }
   }
 
