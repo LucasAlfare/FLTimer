@@ -31,8 +31,6 @@ class SolvesManager : EventManageable() {
         scramble = tmpScramble,
         penalty = tmpPenalty
       )
-
-      notifyListeners(FLTimerEvent.SolvesUpdate, solvesRef)
     }
 
     if (event == FLTimerEvent.SolveItemPenaltyUpdate) {
