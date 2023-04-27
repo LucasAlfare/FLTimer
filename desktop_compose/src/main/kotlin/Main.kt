@@ -44,7 +44,6 @@ fun main() = application {
           }
 
           KeyEventType.KeyUp -> {
-            println("keyUp")
             uiManager.notifyListeners(
               event = FLTimerEvent.TimerToggleUp,
               data = getCurrentTime(),

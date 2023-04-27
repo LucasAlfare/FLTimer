@@ -6,8 +6,7 @@ dependencies {
   val flListeningVersion =
     findProperty("lucasalfare.fllistening.version") ?: ""
 
-  runtimeOnly("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-
+  implementation("org.jetbrains.compose.runtime:runtime-desktop:1.4.0")
   implementation("com.github.LucasAlfare:FLListening:$flListeningVersion")
   implementation(project(":core"))
 }

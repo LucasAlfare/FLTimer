@@ -2,6 +2,7 @@ import com.lucasalfare.fllistener.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.data.persistence.writeFLTimerStateToFile
 import com.lucasalfare.fltimer.core.getCurrentTime
+import com.lucasalfare.fltimer.core.modeling.FLTimerModel
 import com.lucasalfare.fltimer.core.toTimestamp
 import java.awt.event.KeyAdapter
 import java.awt.event.KeyEvent
@@ -28,7 +29,9 @@ class FrameManager : EventManageable() {
   override fun onEvent(event: Any, data: Any?, origin: Any?) {
     if (event == FLTimerEvent.TimerUpdate) {
       frame.display.text = (data as Long).toTimestamp()
-    } else if (event == FLTimerEvent.ScrambleGenerated) {
+    }
+
+    if (event == FLTimerEvent.ScrambleGenerated) {
       val props = data as Array<*>
       currentScramble = props[1] as String
       frame.scramble.text = currentScramble

@@ -24,7 +24,6 @@ class SolvesManager : EventManageable() {
 
   override fun onEvent(event: Any, data: Any?, origin: Any?) {
     if (event == FLTimerEvent.TimerFinished) {
-      println("Timer finished, creating a new solve...")
       tmpTime = data as Long
 
       solvesRef += Solve(
@@ -32,6 +31,8 @@ class SolvesManager : EventManageable() {
         scramble = tmpScramble,
         penalty = tmpPenalty
       )
+
+      notifyListeners(FLTimerEvent.SolvesUpdate, solvesRef)
     }
 
     if (event == FLTimerEvent.ScrambleGenerated) {

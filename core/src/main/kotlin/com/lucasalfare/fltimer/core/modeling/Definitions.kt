@@ -63,6 +63,9 @@ class FLTimerModel {
     var currentActiveSessionName by mutableStateOf(DEFAULT_SESSION_NAME)
     val configurations = mutableStateMapOf<Config, Any>()
 
+    var currentScramble = mutableStateOf("loading...")
+    var currentDisplayValue = mutableStateOf(0L)
+
     fun getCurrentActiveSession() = sessions.first { it.name == currentActiveSessionName }
   }
 }

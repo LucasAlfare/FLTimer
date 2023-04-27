@@ -4,6 +4,7 @@ import com.lucasalfare.fllistener.EventManageable
 import kotlinx.coroutines.Job
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.getCurrentTime
+import com.lucasalfare.fltimer.core.modeling.FLTimerModel
 import com.lucasalfare.fltimer.core.timer.asyncRoutine
 
 class SolveState : TimerState {
@@ -29,8 +30,6 @@ class SolveState : TimerState {
       origin = this
     )
 
-    println("Started.")
-
     start = t
     repeater = asyncRoutine {
       elapsed = getCurrentTime() - start
@@ -39,6 +38,7 @@ class SolveState : TimerState {
         data = elapsed,
         origin = this
       )
+      FLTimerModel.currentDisplayValue.value = elapsed
     }
   }
 

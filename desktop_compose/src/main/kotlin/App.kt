@@ -1,6 +1,11 @@
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 
 @Composable
 fun App() {
-  Solves()
+  Column {
+    Scramble()
+    Display()
+    Solves()
+  }
 }

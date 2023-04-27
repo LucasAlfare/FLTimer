@@ -1,5 +1,6 @@
 import com.lucasalfare.fllistener.setupManagers
 import com.lucasalfare.fltimer.core.configuration.ConfigurationsManager
+import com.lucasalfare.fltimer.core.data.SolvesManager
 import com.lucasalfare.fltimer.core.data.persistence.readAndDefineFLTimerStateFromFile
 import com.lucasalfare.fltimer.core.scramble.ScrambleManager
 import com.lucasalfare.fltimer.core.timer.TimerManager
@@ -11,7 +12,7 @@ suspend fun main() {
   setupManagers(
     FrameManager(),
     TimerManager(),
-    ConfigurationsManager(),
+    SolvesManager(),
     ScrambleManager()
   )
 }

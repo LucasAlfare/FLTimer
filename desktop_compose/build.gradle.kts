@@ -10,7 +10,5 @@ dependencies {
   implementation(project(":core"))
   implementation(compose.desktop.currentOs)
 
-  runtimeOnly("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-
   implementation("com.github.LucasAlfare:FLListening:$flListeningVersion")
 }
