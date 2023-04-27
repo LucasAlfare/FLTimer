@@ -1,9 +1,8 @@
-package com.lucasalfare.fltimer.core.session
+package com.lucasalfare.fltimer.core.model.session
 
 import com.lucasalfare.fllistener.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.model.FLTimerModel
-import com.lucasalfare.fltimer.core.model.Session
 
 class SessionsManager : EventManageable() {
 

@@ -8,7 +8,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.model.FLTimerModel
-import com.lucasalfare.fltimer.core.model.Session
+import com.lucasalfare.fltimer.core.model.session.Session
 import uiManager
 
 @Composable

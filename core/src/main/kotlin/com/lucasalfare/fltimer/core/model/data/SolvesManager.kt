@@ -1,4 +1,4 @@
-package com.lucasalfare.fltimer.core.data
+package com.lucasalfare.fltimer.core.model.data
 
 import com.lucasalfare.fllistener.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent

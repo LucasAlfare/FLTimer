@@ -1,12 +1,12 @@
-package com.lucasalfare.fltimer.core.data.persistence
+package com.lucasalfare.fltimer.core.model.data.persistence
 
 import com.lucasalfare.flbinary.Reader
 import com.lucasalfare.flbinary.Writer
 import com.lucasalfare.fltimer.core.configuration.Config
 import com.lucasalfare.fltimer.core.model.FLTimerModel
 import com.lucasalfare.fltimer.core.model.Penalty
-import com.lucasalfare.fltimer.core.model.Session
 import com.lucasalfare.fltimer.core.model.Solve
+import com.lucasalfare.fltimer.core.model.session.Session
 import com.lucasalfare.fltimer.core.scramble.Category
 import java.io.File
 import java.nio.file.Files
