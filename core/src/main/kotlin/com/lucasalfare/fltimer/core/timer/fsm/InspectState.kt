@@ -2,7 +2,7 @@ package com.lucasalfare.fltimer.core.timer.fsm
 
 import com.lucasalfare.fllistener.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
-import com.lucasalfare.fltimer.core.data.Penalty
+import com.lucasalfare.fltimer.core.modeling.Penalty
 import com.lucasalfare.fltimer.core.timer.asyncRoutine
 import kotlinx.coroutines.Job
 

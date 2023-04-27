@@ -2,8 +2,32 @@ package com.lucasalfare.fltimer.core.modeling
 
 import androidx.compose.runtime.*
 import com.lucasalfare.fltimer.core.configuration.Config
-import com.lucasalfare.fltimer.core.data.Penalty
 import java.util.UUID
+
+
+enum class Penalty(val code: Int) {
+  /**
+   * Flags a time as valid.
+   */
+  Ok(0),
+
+  /**
+   * Flags a time to be sum with 2_000 milliseconds in statistics.
+   */
+  PlusTwo(1),
+
+  /**
+   * Flags a time as not finished.
+   */
+  Dnf(2);
+
+  companion object {
+    fun getPenaltyByCode(code: Int) = when (code) {
+      1 -> PlusTwo; 2 -> Dnf; else -> Ok
+    }
+  }
+}
+
 
 class Solve(
   val id: UUID = UUID.randomUUID(),
