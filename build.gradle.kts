@@ -2,22 +2,22 @@ group = "com.lucasalfare.fltimer"
 version = "1.0-SNAPSHOT"
 
 plugins {
-    kotlin("jvm") apply false
-    id("org.jetbrains.compose") apply false
+  kotlin("jvm") apply false
+  id("org.jetbrains.compose") apply false
 }
 
 allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven("https://jitpack.io")
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    }
+  repositories {
+    google()
+    mavenCentral()
+    maven("https://jitpack.io")
+    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+  }
 }
 
 /**
  * Task used to re-generate wrappers, if needed.
  */
 tasks.withType<Wrapper> {
-    gradleVersion = "7.6.1"
+  gradleVersion = "7.6.1"
 }

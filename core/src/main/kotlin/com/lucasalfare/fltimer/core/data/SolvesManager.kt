@@ -2,16 +2,13 @@ package com.lucasalfare.fltimer.core.data
 
 import com.lucasalfare.fllistener.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
-import com.lucasalfare.fltimer.core.FLTimerState
+import com.lucasalfare.fltimer.core.modeling.FLTimerModel
+import com.lucasalfare.fltimer.core.modeling.Solve
 
 class SolvesManager : EventManageable() {
 
-  private val currSolvesRef = FLTimerState.getCurrentActiveSession().solves
+  private val solvesRef = FLTimerModel.getCurrentActiveSession().solves
 
-  /**
-   * Temprorary and auxiliary fields to hold flow values
-   * along the application executaion.
-   */
   private var tmpTime = 0L
   private var tmpScramble = ""
   private var tmpPenalty = Penalty.Ok
@@ -26,19 +23,17 @@ class SolvesManager : EventManageable() {
 
   override fun onEvent(event: Any, data: Any?, origin: Any?) {
     if (event == FLTimerEvent.TimerFinished) {
+      println("Timer finished, creating a new solve...")
       tmpTime = data as Long
 
-      val nextSolve = Solve(
+      solvesRef += Solve(
         time = tmpTime,
         scramble = tmpScramble,
         penalty = tmpPenalty
       )
+    }
 
-      currSolvesRef += nextSolve
-
-      // TODO: should notify or UI watch the solves ref to auto-update? Only work with compose
-      notifyListeners(FLTimerEvent.SolvesUpdate, currSolvesRef)
-    } else if (event == FLTimerEvent.ScrambleGenerated) {
+    if (event == FLTimerEvent.ScrambleGenerated) {
       val props = data as Array<*>
       tmpScramble = props[1] as String
     }

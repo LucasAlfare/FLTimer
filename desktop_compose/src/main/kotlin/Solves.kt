@@ -2,17 +2,21 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import com.lucasalfare.fltimer.core.FLTimerState
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.remember
+import com.lucasalfare.fltimer.core.FLTimerEvent
+import com.lucasalfare.fltimer.core.modeling.FLTimerModel
 
 @Composable
 fun Solves() {
-  FLTimerState.getCurrentActiveSession().solves.values.forEach { println(it) }
-//  LazyColumn {
-//    FLTimerState.getCurrentActiveSession().solves.values.forEach {
-//      item {
-//        Text("${it.getDisplayableRepresentation()}. ${it.scramble}")
-//        Divider()
-//      }
-//    }
-//  }
+  val solves = remember { FLTimerModel.getCurrentActiveSession().solves }
+
+  LazyColumn {
+    solves.forEach {
+      item {
+        Text("${it.time}.  ${it.scramble}")
+        Divider()
+      }
+    }
+  }
 }

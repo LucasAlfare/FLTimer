@@ -29,6 +29,8 @@ class SolveState : TimerState {
       origin = this
     )
 
+    println("Started.")
+
     start = t
     repeater = asyncRoutine {
       elapsed = getCurrentTime() - start

@@ -1,10 +1,13 @@
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowPosition
+import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import com.lucasalfare.fllistener.CallbacksManager
 import com.lucasalfare.fllistener.setupManagers
@@ -12,30 +15,19 @@ import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.configuration.ConfigurationsManager
 import com.lucasalfare.fltimer.core.data.SolvesManager
 import com.lucasalfare.fltimer.core.data.persistence.writeFLTimerStateToFile
-import com.lucasalfare.fltimer.core.data.session.SessionManager
 import com.lucasalfare.fltimer.core.getCurrentTime
 import com.lucasalfare.fltimer.core.scramble.ScrambleManager
 import com.lucasalfare.fltimer.core.timer.TimerManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 val uiManager = CallbacksManager()
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
-  // TODO: slower computers may not properly init the managers assynchrnously
-  LaunchedEffect(Unit) {
-    launch {
-      setupManagers(
-        TimerManager(),
-        SessionManager(),
-        SolvesManager(),
-        ConfigurationsManager(),
-        ScrambleManager()
-      )
-    }
-  }
-
   Window(
+    state = WindowState(position = WindowPosition(Alignment.CenterEnd)),
     onCloseRequest = {
       writeFLTimerStateToFile()
       exitApplication()
@@ -52,7 +44,7 @@ fun main() = application {
           }
 
           KeyEventType.KeyUp -> {
-            println("hehehe")
+            println("keyUp")
             uiManager.notifyListeners(
               event = FLTimerEvent.TimerToggleUp,
               data = getCurrentTime(),
@@ -66,10 +58,22 @@ fun main() = application {
           origin = "[MainClass]"
         )
       }
+
       false
     }
   ) {
+    // TODO: slower computers may not properly init the managers assynchrnously
+    LaunchedEffect(Unit) {
+      CoroutineScope(Job()).launch {
+        setupManagers(
+          TimerManager(),
+          ScrambleManager(),
+          SolvesManager(),
+          uiManager
+        )
+      }
+    }
 
-    Solves()
+    App()
   }
 }

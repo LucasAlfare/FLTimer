@@ -27,9 +27,7 @@ class TimerManager : EventManageable() {
   }
 
   override fun onNotInitiated() {
-    if (configsInitiated) {
-      this.initiated = true
-    }
+    this.initiated = true
   }
 
   override fun onEvent(event: Any, data: Any?, origin: Any?) {

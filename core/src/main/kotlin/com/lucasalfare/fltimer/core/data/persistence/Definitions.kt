@@ -1,16 +1,5 @@
 package com.lucasalfare.fltimer.core.data.persistence
 
-import com.lucasalfare.flbinary.Reader
-import com.lucasalfare.flbinary.Writer
-import com.lucasalfare.fltimer.core.FLTimerState
-import com.lucasalfare.fltimer.core.configuration.Config
-import com.lucasalfare.fltimer.core.data.*
-import com.lucasalfare.fltimer.core.data.session.Session
-import com.lucasalfare.fltimer.core.scramble.Category
-import java.io.File
-import java.nio.file.Files
-import kotlin.io.path.Path
-
 const val FLTIMER_STRING_SIGNATURE = "fltimer"
 
 /**
@@ -26,6 +15,7 @@ const val APPLICATION_DATABASE_FILE_NAME = "${FLTIMER_STRING_SIGNATURE}_data.flt
  */
 @OptIn(ExperimentalUnsignedTypes::class)
 fun readAndDefineFLTimerStateFromFile() {
+  /*
   val file = File(APPLICATION_DATABASE_FILE_NAME)
   val stateRef = FLTimerState.getFLTimerState()
 
@@ -79,10 +69,12 @@ fun readAndDefineFLTimerStateFromFile() {
       }
     }
   }
+   */
 }
 
 @OptIn(ExperimentalUnsignedTypes::class)
 fun writeFLTimerStateToFile() {
+  /*
   val stateRef = FLTimerState.getFLTimerState()
   val writer = Writer()
 
@@ -116,4 +108,5 @@ fun writeFLTimerStateToFile() {
   Files.deleteIfExists(Path(APPLICATION_DATABASE_FILE_NAME))
   val targetFile = File(APPLICATION_DATABASE_FILE_NAME)
   targetFile.writeBytes(writer.getData().toByteArray())
+   */
 }
