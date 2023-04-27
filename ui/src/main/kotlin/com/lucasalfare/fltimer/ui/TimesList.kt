@@ -32,7 +32,6 @@ fun TimesList() {
 
   // list scrolling management
   val lazyListState = rememberLazyListState()
-  val coroutineScope = rememberCoroutineScope()
 
   Column(
     modifier = Modifier
@@ -42,28 +41,30 @@ fun TimesList() {
       .fillMaxHeight(),
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
-    Text(text = "Number of solves: ${solves.size}", fontSize = 12.sp)
+    Column(modifier = Modifier.padding(8.dp)) {
+      Text(text = "Number of solves: ${solves.size}", fontSize = 12.sp)
 
-    TextButton(onClick = {
-      uiManager.notifyListeners(event = FLTimerEvent.SolvesClear, origin = this)
-    }) {
-      Text("Clear")
-    }
-    LazyColumn(
-      modifier = Modifier
-        .border(
-          width = 1.dp,
-          shape = RoundedCornerShape(5.dp),
-          color = Color.LightGray
-        ), state = lazyListState
-    ) {
-      solves.forEachIndexed { index, solve ->
-        item {
-          TimesListItem(
-            index = index,
-            solve = solve
-          )
-          Divider(startIndent = 5.dp, modifier = Modifier.padding(end = 5.dp))
+      TextButton(onClick = {
+        uiManager.notifyListeners(event = FLTimerEvent.SolvesClear, origin = this)
+      }) {
+        Text("Clear")
+      }
+      LazyColumn(
+        modifier = Modifier
+          .border(
+            width = 1.dp,
+            shape = RoundedCornerShape(5.dp),
+            color = Color.LightGray
+          ), state = lazyListState
+      ) {
+        solves.forEachIndexed { index, solve ->
+          item {
+            TimesListItem(
+              index = index,
+              solve = solve
+            )
+            Divider(startIndent = 5.dp, modifier = Modifier.padding(end = 5.dp))
+          }
         }
       }
     }

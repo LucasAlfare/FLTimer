@@ -9,16 +9,9 @@ import com.lucasalfare.fltimer.ui.TimesList
 
 @Composable
 fun App() {
-//  Column {
-//    Scramble()
-//    Display()
-//    Solves()
-//  }
-
   Row {
     Box(
       modifier = Modifier
-        //.width(120.dp)
         .weight(0.75f)
         .padding(bottom = 8.dp)
     ) {
