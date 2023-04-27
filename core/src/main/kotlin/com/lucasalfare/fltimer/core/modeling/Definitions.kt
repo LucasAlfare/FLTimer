@@ -2,6 +2,7 @@ package com.lucasalfare.fltimer.core.modeling
 
 import androidx.compose.runtime.*
 import com.lucasalfare.fltimer.core.configuration.Config
+import com.lucasalfare.fltimer.core.scramble.Category
 import java.util.UUID
 
 
@@ -44,9 +45,11 @@ class Solve(
 
 
 class Session(
-  name: String = ""
+  name: String = "",
+  category: Category = Category.RubiksCube
 ) {
   var name by mutableStateOf(name)
+  var category by mutableStateOf(category)
   val solves = mutableStateListOf<Solve>()
 }
 
@@ -61,7 +64,12 @@ class FLTimerModel {
     )
 
     var currentActiveSessionName by mutableStateOf(DEFAULT_SESSION_NAME)
-    val configurations = mutableStateMapOf<Config, Any>()
+    val configurations = mutableStateMapOf<Config, Any>(
+      Pair(Config.UseInspection, false),
+      Pair(Config.ShowScramblesInDetailsUI, false),
+      Pair(Config.NetworkingModeOn, false),
+      Pair(Config.AskForTimerMode, false)
+    )
 
     var currentScramble = mutableStateOf("loading...")
     var currentDisplayValue = mutableStateOf(0L)

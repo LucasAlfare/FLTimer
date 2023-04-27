@@ -18,5 +18,4 @@ pluginManagement {
 }
 
 include(":core")
-include(":swing")
 include(":desktop_compose")

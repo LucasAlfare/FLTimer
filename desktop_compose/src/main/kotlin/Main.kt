@@ -14,6 +14,7 @@ import com.lucasalfare.fllistener.setupManagers
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.configuration.ConfigurationsManager
 import com.lucasalfare.fltimer.core.data.SolvesManager
+import com.lucasalfare.fltimer.core.data.persistence.readAndDefineFLTimerStateFromFile
 import com.lucasalfare.fltimer.core.data.persistence.writeFLTimerStateToFile
 import com.lucasalfare.fltimer.core.getCurrentTime
 import com.lucasalfare.fltimer.core.scramble.ScrambleManager
@@ -26,6 +27,8 @@ val uiManager = CallbacksManager()
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
+  readAndDefineFLTimerStateFromFile()
+
   Window(
     state = WindowState(position = WindowPosition(Alignment.CenterEnd)),
     onCloseRequest = {

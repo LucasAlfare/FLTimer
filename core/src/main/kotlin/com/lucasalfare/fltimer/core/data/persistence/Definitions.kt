@@ -1,5 +1,17 @@
 package com.lucasalfare.fltimer.core.data.persistence
 
+import com.lucasalfare.flbinary.Reader
+import com.lucasalfare.flbinary.Writer
+import com.lucasalfare.fltimer.core.configuration.Config
+import com.lucasalfare.fltimer.core.modeling.FLTimerModel
+import com.lucasalfare.fltimer.core.modeling.Penalty
+import com.lucasalfare.fltimer.core.modeling.Session
+import com.lucasalfare.fltimer.core.modeling.Solve
+import com.lucasalfare.fltimer.core.scramble.Category
+import java.io.File
+import java.nio.file.Files
+import kotlin.io.path.Path
+
 const val FLTIMER_STRING_SIGNATURE = "fltimer"
 
 /**
@@ -15,9 +27,7 @@ const val APPLICATION_DATABASE_FILE_NAME = "${FLTIMER_STRING_SIGNATURE}_data.flt
  */
 @OptIn(ExperimentalUnsignedTypes::class)
 fun readAndDefineFLTimerStateFromFile() {
-  /*
   val file = File(APPLICATION_DATABASE_FILE_NAME)
-  val stateRef = FLTimerState.getFLTimerState()
 
   if (file.exists()) {
     val fileBytes = file.readBytes()
@@ -29,15 +39,15 @@ fun readAndDefineFLTimerStateFromFile() {
       return
     }
 
-    stateRef.configurations[Config.UseInspection] = reader.readBoolean()
-    stateRef.configurations[Config.ShowScramblesInDetailsUI] = reader.readBoolean()
-    stateRef.configurations[Config.NetworkingModeOn] = reader.readBoolean()
-    stateRef.configurations[Config.AskForTimerMode] = reader.readBoolean()
+    FLTimerModel.configurations[Config.UseInspection] = reader.readBoolean()
+    FLTimerModel.configurations[Config.ShowScramblesInDetailsUI] = reader.readBoolean()
+    FLTimerModel.configurations[Config.NetworkingModeOn] = reader.readBoolean()
+    FLTimerModel.configurations[Config.AskForTimerMode] = reader.readBoolean()
 
     val nSessions = reader.read2Bytes()
 
     val currentActiveSessionNameLength = reader.read1Byte()
-    stateRef.currentActiveSessionName = reader.readString(currentActiveSessionNameLength)!!
+    FLTimerModel.currentActiveSessionName = reader.readString(currentActiveSessionNameLength)!!
 
     repeat(nSessions) {
       val readSession = Session(
@@ -45,7 +55,7 @@ fun readAndDefineFLTimerStateFromFile() {
         category = Category.getCategoryByCode(reader.read1Byte())
       )
 
-      val sessionSearch = stateRef.sessions.firstOrNull {
+      val sessionSearch = FLTimerModel.sessions.firstOrNull {
         it.name == readSession.name
       }
 
@@ -65,37 +75,34 @@ fun readAndDefineFLTimerStateFromFile() {
       }
 
       if (sessionSearch == null) {
-        stateRef.sessions += nextSession
+        FLTimerModel.sessions += nextSession
       }
     }
   }
-   */
 }
 
 @OptIn(ExperimentalUnsignedTypes::class)
 fun writeFLTimerStateToFile() {
-  /*
-  val stateRef = FLTimerState.getFLTimerState()
   val writer = Writer()
 
   writer.writeString(FLTIMER_STRING_SIGNATURE)
-  writer.writeBoolean(stateRef.configurations[Config.UseInspection] as Boolean)
-  writer.writeBoolean(stateRef.configurations[Config.ShowScramblesInDetailsUI] as Boolean)
-  writer.writeBoolean(stateRef.configurations[Config.NetworkingModeOn] as Boolean)
-  writer.writeBoolean(stateRef.configurations[Config.AskForTimerMode] as Boolean)
+  writer.writeBoolean(FLTimerModel.configurations[Config.UseInspection] as Boolean)
+  writer.writeBoolean(FLTimerModel.configurations[Config.ShowScramblesInDetailsUI] as Boolean)
+  writer.writeBoolean(FLTimerModel.configurations[Config.NetworkingModeOn] as Boolean)
+  writer.writeBoolean(FLTimerModel.configurations[Config.AskForTimerMode] as Boolean)
 
-  writer.write2Bytes(stateRef.sessions.size)
+  writer.write2Bytes(FLTimerModel.sessions.size)
 
-  writer.write1Byte(stateRef.currentActiveSessionName.length)
-  writer.writeString(stateRef.currentActiveSessionName)
+  writer.write1Byte(FLTimerModel.currentActiveSessionName.length)
+  writer.writeString(FLTimerModel.currentActiveSessionName)
 
-  stateRef.sessions.forEach { session ->
+  FLTimerModel.sessions.forEach { session ->
     writer.write1Byte(session.name.length)
     writer.writeString(session.name)
     writer.write1Byte(session.category.code)
     writer.write2Bytes(session.solves.size)
 
-    session.solves.values.forEach { solve ->
+    session.solves.forEach { solve ->
       writer.write4Bytes(solve.time)
       writer.write1Byte(solve.scramble.length)
       writer.writeString(solve.scramble)
@@ -108,5 +115,4 @@ fun writeFLTimerStateToFile() {
   Files.deleteIfExists(Path(APPLICATION_DATABASE_FILE_NAME))
   val targetFile = File(APPLICATION_DATABASE_FILE_NAME)
   targetFile.writeBytes(writer.getData().toByteArray())
-   */
 }
