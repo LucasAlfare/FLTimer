@@ -1,11 +1,13 @@
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.lucasalfare.fltimer.ui.Display
 import com.lucasalfare.fltimer.ui.Scramble
-import com.lucasalfare.fltimer.ui.SessionController
 import com.lucasalfare.fltimer.ui.TimesList
 
 @Composable
@@ -16,7 +18,6 @@ fun App() {
         .padding(bottom = 8.dp)
     ) {
       Column {
-        //SessionController()
         TimesList()
       }
     }
