@@ -16,7 +16,7 @@ fun App() {
         .padding(bottom = 8.dp)
     ) {
       Column {
-        SessionController()
+        //SessionController()
         TimesList()
       }
     }

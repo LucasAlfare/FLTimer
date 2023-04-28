@@ -42,11 +42,21 @@ fun TimesList() {
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
     Column(modifier = Modifier.padding(8.dp)) {
-      Text(text = "Number of solves: ${FLTimerModel.getCurrentActiveSession().solves.size}", fontSize = 12.sp)
+      Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
+        SessionController()
+      }
 
-      TextButton(onClick = {
-        uiManager.notifyListeners(event = FLTimerEvent.SolvesClear, origin = this)
-      }) {
+      Text(
+        text = "Number of solves: ${FLTimerModel.getCurrentActiveSession().solves.size}",
+        fontSize = 12.sp
+      )
+
+      TextButton(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = {
+          uiManager.notifyListeners(event = FLTimerEvent.SolvesClear, origin = this)
+        }
+      ) {
         Text("Clear")
       }
       LazyColumn(
