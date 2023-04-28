@@ -3,6 +3,7 @@ version = "1.0-SNAPSHOT"
 
 plugins {
   kotlin("jvm")
+  id("org.jetbrains.compose")
 }
 
 dependencies {
@@ -11,9 +12,8 @@ dependencies {
   val flBinaryVersion =
     findProperty("lucasalfare.flbinary.version") ?: ""
 
+  implementation(compose.runtime)
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-  implementation("org.jetbrains.compose.runtime:runtime-desktop:1.4.0")
-
   implementation("com.github.LucasAlfare:FLListening:$flListeningVersion")
   implementation("com.github.LucasAlfare:FLBinary:$flBinaryVersion")
 }
