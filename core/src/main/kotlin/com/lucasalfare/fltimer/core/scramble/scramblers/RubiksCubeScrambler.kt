@@ -15,7 +15,7 @@ fun getFreeRubiksCubeScramble(): String {
 
   var moveA = "  "
   var moveB = "  "
-  var moveC = "  "
+  var moveC: String
 
   var scramble = ""
 
