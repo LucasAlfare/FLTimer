@@ -25,7 +25,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 
-
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
   readAndDefineFLTimerStateFromFile()
