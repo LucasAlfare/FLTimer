@@ -26,7 +26,3 @@ allprojects {
 tasks.withType<Wrapper> {
   gradleVersion = "7.6.1"
 }
-
-tasks.withType<Jar> {
-  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
