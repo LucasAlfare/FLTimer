@@ -2,13 +2,13 @@ package com.lucasalfare.fltimer.core.model.data
 
 import com.lucasalfare.fllistener.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
-import com.lucasalfare.fltimer.core.model.FLTimerModel
+import com.lucasalfare.fltimer.core.model.FLTimerState
 import com.lucasalfare.fltimer.core.model.Penalty
 import com.lucasalfare.fltimer.core.model.Solve
 
 class SolvesManager : EventManageable() {
 
-  private var solvesRef = FLTimerModel.getCurrentActiveSession().solves
+  private var solvesRef = FLTimerState.getCurrentActiveSession().solves
 
   private var tmpTime = 0L
   private var tmpScramble = ""
@@ -51,7 +51,7 @@ class SolvesManager : EventManageable() {
     }
 
     if (event == FLTimerEvent.SessionsUpdate) {
-      solvesRef = FLTimerModel.getCurrentActiveSession().solves
+      solvesRef = FLTimerState.getCurrentActiveSession().solves
     }
 
     if (event == FLTimerEvent.SolvesClear) {

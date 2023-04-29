@@ -2,7 +2,7 @@ package com.lucasalfare.fltimer.core.scramble
 
 import com.lucasalfare.fllistener.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
-import com.lucasalfare.fltimer.core.model.FLTimerModel
+import com.lucasalfare.fltimer.core.model.FLTimerState
 import com.lucasalfare.fltimer.core.scramble.scramblers.getFreeRubiksCubeScramble
 
 class ScrambleManager : EventManageable() {
@@ -25,7 +25,7 @@ class ScrambleManager : EventManageable() {
       origin = this
     )
 
-    FLTimerModel.currentScramble.value = this.currentScramble
+    FLTimerState.currentScramble.value = this.currentScramble
 
     initiated = true
   }
@@ -51,7 +51,7 @@ class ScrambleManager : EventManageable() {
           origin = this
         )
 
-        FLTimerModel.currentScramble.value = this.currentScramble
+        FLTimerState.currentScramble.value = this.currentScramble
       }
 
       else -> {}

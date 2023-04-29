@@ -10,13 +10,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.lucasalfare.fltimer.core.FLTimerEvent
-import com.lucasalfare.fltimer.core.model.FLTimerModel
+import com.lucasalfare.fltimer.core.model.FLTimerState
 import com.lucasalfare.fltimer.core.model.session.Session
 
 @Composable
 fun SessionController() {
-  val sessions = remember { FLTimerModel.sessions }
-  val currentActiveSessionName = remember { FLTimerModel.currentActiveSessionName }
+  val sessions = remember { FLTimerState.sessions }
+  val currentActiveSessionName = remember { FLTimerState.currentActiveSessionName }
 
   Row(verticalAlignment = Alignment.CenterVertically) {
     TextButton(

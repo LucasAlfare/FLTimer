@@ -14,11 +14,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.lucasalfare.fltimer.core.model.FLTimerModel
+import com.lucasalfare.fltimer.core.model.FLTimerState
 
 @Composable
 fun Scramble() {
-  val scramble = remember { FLTimerModel.currentScramble }
+  val scramble = remember { FLTimerState.currentScramble }
 
   Box(
     modifier = Modifier

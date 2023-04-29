@@ -4,7 +4,7 @@ import com.lucasalfare.fllistener.EventManageable
 import kotlinx.coroutines.Job
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.getCurrentTime
-import com.lucasalfare.fltimer.core.model.FLTimerModel
+import com.lucasalfare.fltimer.core.model.FLTimerState
 import com.lucasalfare.fltimer.core.timer.asyncRoutine
 import com.lucasalfare.fltimer.core.toTimestamp
 
@@ -40,7 +40,7 @@ class SolveState : TimerState {
         origin = this
       )
 
-      FLTimerModel.currentDisplayValue.value = elapsed.toTimestamp()
+      FLTimerState.currentDisplayValue.value = elapsed.toTimestamp()
     }
   }
 

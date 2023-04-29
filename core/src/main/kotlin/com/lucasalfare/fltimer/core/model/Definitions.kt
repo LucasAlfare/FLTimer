@@ -55,7 +55,7 @@ class Solve(
 
 
 @Suppress("MemberVisibilityCanBePrivate")
-class FLTimerModel {
+class FLTimerState {
   companion object {
     private const val DEFAULT_SESSION_NAME = "Default"
 

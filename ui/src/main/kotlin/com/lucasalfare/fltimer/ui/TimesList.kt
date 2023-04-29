@@ -21,7 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lucasalfare.fltimer.core.FLTimerEvent
-import com.lucasalfare.fltimer.core.model.FLTimerModel
+import com.lucasalfare.fltimer.core.model.FLTimerState
 import com.lucasalfare.fltimer.core.model.Penalty
 import com.lucasalfare.fltimer.core.model.Solve
 
@@ -45,7 +45,7 @@ fun TimesList() {
       }
 
       Text(
-        text = "Number of solves: ${FLTimerModel.getCurrentActiveSession().solves.size}",
+        text = "Number of solves: ${FLTimerState.getCurrentActiveSession().solves.size}",
         fontSize = 12.sp
       )
 
@@ -65,7 +65,7 @@ fun TimesList() {
             color = Color.DarkGray
           ), state = lazyListState
       ) {
-        FLTimerModel.getCurrentActiveSession().solves.forEachIndexed { index, solve ->
+        FLTimerState.getCurrentActiveSession().solves.forEachIndexed { index, solve ->
           item {
             TimesListItem(
               index = index,
