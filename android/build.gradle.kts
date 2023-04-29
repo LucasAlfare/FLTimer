@@ -5,13 +5,16 @@ plugins {
 }
 
 dependencies {
+  val flListeningVersion =
+    findProperty("lucasalfare.fllistening.version") ?: ""
+
   implementation("androidx.activity:activity-compose:1.7.1")
   implementation("androidx.appcompat:appcompat:1.6.1")
   implementation("androidx.core:core-ktx:1.10.0")
   implementation("androidx.compose.animation:animation:1.4.2")
   implementation("androidx.compose.material:material:1.4.2")
 
-  implementation("com.github.LucasAlfare:FLListening:1.1")
+  implementation("com.github.LucasAlfare:FLListening:$flListeningVersion")
 
   implementation(project(":core"))
   implementation(project(":ui"))

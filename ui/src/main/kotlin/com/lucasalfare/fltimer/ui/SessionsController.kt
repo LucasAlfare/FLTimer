@@ -12,7 +12,6 @@ import androidx.compose.ui.unit.dp
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.model.FLTimerModel
 import com.lucasalfare.fltimer.core.model.session.Session
-import uiManager
 
 @Composable
 fun SessionController() {

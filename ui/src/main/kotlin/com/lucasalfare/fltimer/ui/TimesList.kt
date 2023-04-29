@@ -24,7 +24,6 @@ import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.model.FLTimerModel
 import com.lucasalfare.fltimer.core.model.Penalty
 import com.lucasalfare.fltimer.core.model.Solve
-import uiManager
 
 @Composable
 fun TimesList() {

@@ -19,11 +19,12 @@ import com.lucasalfare.fltimer.core.getCurrentTime
 import com.lucasalfare.fltimer.core.scramble.ScrambleManager
 import com.lucasalfare.fltimer.core.model.session.SessionsManager
 import com.lucasalfare.fltimer.core.timer.TimerManager
+import com.lucasalfare.fltimer.ui.uiManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-val uiManager = CallbacksManager()
+
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {

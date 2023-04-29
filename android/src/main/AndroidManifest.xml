@@ -2,8 +2,8 @@
 
     <application
             android:label="FLTimer"
-            android:icon="@android:drawable/ic_delete"
-            android:theme="@style/Theme.AppCompat.Light">
+            android:icon="@android:drawable/ic_lock_idle_alarm"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
                 android:name=".MainActivity"
                 android:exported="true">
