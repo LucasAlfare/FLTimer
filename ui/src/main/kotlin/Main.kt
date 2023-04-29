@@ -16,6 +16,7 @@ import com.lucasalfare.fltimer.core.model.data.SolvesManager
 import com.lucasalfare.fltimer.core.model.data.persistence.readAndDefineFLTimerStateFromFile
 import com.lucasalfare.fltimer.core.model.data.persistence.writeFLTimerStateToFile
 import com.lucasalfare.fltimer.core.getCurrentTime
+import com.lucasalfare.fltimer.core.model.data.persistence.APPLICATION_DATABASE_FILE_NAME
 import com.lucasalfare.fltimer.core.scramble.ScrambleManager
 import com.lucasalfare.fltimer.core.model.session.SessionsManager
 import com.lucasalfare.fltimer.core.timer.TimerManager
@@ -23,16 +24,25 @@ import com.lucasalfare.fltimer.ui.uiManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.io.File
+import java.nio.file.Files
+import kotlin.io.path.Path
 
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalUnsignedTypes::class)
 fun main() = application {
-  readAndDefineFLTimerStateFromFile()
+  readAndDefineFLTimerStateFromFile {
+    File(APPLICATION_DATABASE_FILE_NAME)
+  }
 
   Window(
     state = WindowState(position = WindowPosition(Alignment.CenterEnd)),
     onCloseRequest = {
-      writeFLTimerStateToFile()
+      writeFLTimerStateToFile {
+        Files.deleteIfExists(Path(APPLICATION_DATABASE_FILE_NAME))
+        val targetFile = File(APPLICATION_DATABASE_FILE_NAME)
+        targetFile.writeBytes(it.getData().toByteArray())
+      }
       exitApplication()
     },
     onKeyEvent = {

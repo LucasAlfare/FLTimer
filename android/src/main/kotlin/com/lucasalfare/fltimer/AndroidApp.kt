@@ -15,28 +15,28 @@ import com.lucasalfare.fltimer.ui.TimesList
 @Composable
 fun AndroidApp() {
   Row {
-//    Box(
-//      modifier = Modifier
-//        .padding(bottom = 8.dp)
-//    ) {
-//      Column {
-//        TimesList()
-//      }
-//    }
-
-    Box {
-      Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Box(modifier = Modifier.weight(1f)) {
-          Scramble()
-        }
-
-        Box(
-          modifier = Modifier.weight(2f),
-          contentAlignment = Alignment.TopCenter
-        ) {
-          Display()
-        }
+    Box(
+      modifier = Modifier
+        .padding(bottom = 8.dp)
+    ) {
+      Column {
+        TimesList()
       }
     }
+
+//    Box {
+//      Column(horizontalAlignment = Alignment.CenterHorizontally) {
+//        Box(modifier = Modifier.weight(1f)) {
+//          Scramble()
+//        }
+//
+//        Box(
+//          modifier = Modifier.weight(2f),
+//          contentAlignment = Alignment.TopCenter
+//        ) {
+//          Display()
+//        }
+//      }
+//    }
   }
 }

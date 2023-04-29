@@ -13,8 +13,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import com.lucasalfare.fllistener.setupManagers
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.getCurrentTime
-import com.lucasalfare.fltimer.core.model.FLTimerModel
 import com.lucasalfare.fltimer.core.model.data.SolvesManager
+import com.lucasalfare.fltimer.core.model.data.persistence.APPLICATION_DATABASE_FILE_NAME
 import com.lucasalfare.fltimer.core.model.data.persistence.readAndDefineFLTimerStateFromFile
 import com.lucasalfare.fltimer.core.model.data.persistence.writeFLTimerStateToFile
 import com.lucasalfare.fltimer.core.scramble.ScrambleManager
@@ -23,17 +23,21 @@ import com.lucasalfare.fltimer.ui.uiManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
+import java.nio.file.Files
 
 class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    // TODO: add custom callback function to load files here in android
-    readAndDefineFLTimerStateFromFile()
-
-    FLTimerModel.sessions.first().solves.forEach {
-//      println(it)
-     Log.d("TRISTEZA", it.toString())
+    readAndDefineFLTimerStateFromFile {
+      val path = applicationContext.filesDir
+      Log.d("FLTimer", "Timer data file is properly loaded from internal storage.")
+      return@readAndDefineFLTimerStateFromFile File(
+        path,
+        APPLICATION_DATABASE_FILE_NAME
+      )
     }
 
     setContent {
@@ -73,15 +77,17 @@ class MainActivity : AppCompatActivity() {
     }
   }
 
-  override fun onDestroy() {
-    super.onDestroy()
-    writeFLTimerStateToFile()
-  }
-
-  override fun onDetachedFromWindow() {
-    super.onDetachedFromWindow()
-
-    // TODO: add custom callback function to write files here in android
-    writeFLTimerStateToFile()
+  @OptIn(ExperimentalUnsignedTypes::class)
+  override fun onPause() {
+    super.onPause()
+    writeFLTimerStateToFile {
+      val path = applicationContext.filesDir
+      var file = File(path, APPLICATION_DATABASE_FILE_NAME)
+      Files.deleteIfExists(file.toPath())
+      file = File(path, APPLICATION_DATABASE_FILE_NAME)
+      val stream = FileOutputStream(file)
+      stream.write(it.getData().toByteArray())
+      Log.d("FLTimer", "Timer data file properly saved on internal storage.")
+    }
   }
 }

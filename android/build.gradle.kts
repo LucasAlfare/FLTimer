@@ -8,6 +8,9 @@ dependencies {
   val flListeningVersion =
     findProperty("lucasalfare.fllistening.version") ?: ""
 
+  val flBinary =
+    findProperty("lucasalfare.flbinary.version") ?: ""
+
   implementation("androidx.activity:activity-compose:1.7.1")
   implementation("androidx.appcompat:appcompat:1.6.1")
   implementation("androidx.core:core-ktx:1.10.0")
@@ -15,6 +18,7 @@ dependencies {
   implementation("androidx.compose.material:material:1.4.2")
 
   implementation("com.github.LucasAlfare:FLListening:$flListeningVersion")
+  implementation("com.github.LucasAlfare:FLBinary:$flBinary")
 
   implementation(project(":core"))
   implementation(project(":ui"))
