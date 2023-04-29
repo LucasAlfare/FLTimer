@@ -17,6 +17,7 @@ import com.lucasalfare.fltimer.core.model.data.SolvesManager
 import com.lucasalfare.fltimer.core.model.data.persistence.APPLICATION_DATABASE_FILE_NAME
 import com.lucasalfare.fltimer.core.model.data.persistence.readAndDefineFLTimerStateFromFile
 import com.lucasalfare.fltimer.core.model.data.persistence.writeFLTimerStateToFile
+import com.lucasalfare.fltimer.core.model.session.SessionsManager
 import com.lucasalfare.fltimer.core.scramble.ScrambleManager
 import com.lucasalfare.fltimer.core.timer.TimerManager
 import com.lucasalfare.fltimer.ui.uiManager
@@ -67,7 +68,8 @@ class MainActivity : AppCompatActivity() {
               uiManager,
               ScrambleManager(),
               SolvesManager(),
-              TimerManager()
+              TimerManager(),
+              SessionsManager()
             )
           }
         }
