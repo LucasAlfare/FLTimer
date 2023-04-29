@@ -39,6 +39,9 @@ fun readAndDefineFLTimerStateFromFile(onLoadDatabaseFile: () -> File) {
       return
     }
 
+//    FLTimerModel.sessions.clear()
+//    FLTimerModel.configurations.clear()
+
     FLTimerModel.configurations[Config.UseInspection] = reader.readBoolean()
     FLTimerModel.configurations[Config.ShowScramblesInDetailsUI] = reader.readBoolean()
     FLTimerModel.configurations[Config.NetworkingModeOn] = reader.readBoolean()

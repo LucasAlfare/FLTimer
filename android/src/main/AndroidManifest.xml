@@ -2,7 +2,7 @@
 
     <application
             android:label="FLTimer"
-            android:icon="@android:drawable/ic_lock_idle_alarm"
+            android:icon="@android:drawable/ic_dialog_alert"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
                 android:name=".MainActivity"
