@@ -1,7 +1,6 @@
 package com.lucasalfare.fltimer.ui
 
 import androidx.compose.foundation.text.selection.SelectionContainer
-import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
