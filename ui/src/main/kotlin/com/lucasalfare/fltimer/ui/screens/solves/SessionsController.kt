@@ -1,24 +1,30 @@
-package com.lucasalfare.fltimer.ui
+package com.lucasalfare.fltimer.ui.screens.solves
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.model.FLTimerState
 import com.lucasalfare.fltimer.core.model.session.Session
+import com.lucasalfare.fltimer.ui.uiManager
 
 @Composable
-fun SessionController() {
+fun SessionsController() {
   val sessions = remember { FLTimerState.sessions }
   val currentActiveSessionName = remember { FLTimerState.currentActiveSessionName }
 
-  Row(verticalAlignment = Alignment.CenterVertically) {
+  Row(
+    modifier = Modifier
+      .padding(12.dp),
+    verticalAlignment = Alignment.CenterVertically,
+    horizontalArrangement = Arrangement.Center
+  ) {
     TextButton(
       modifier = Modifier.width(45.dp),
       onClick = {
@@ -31,7 +37,11 @@ fun SessionController() {
       Text("<<")
     }
 
-    Text(currentActiveSessionName.value)
+    Text(
+      text = currentActiveSessionName.value,
+      textAlign = TextAlign.Center,
+      modifier = Modifier.width(150.dp)
+    )
 
     TextButton(
       modifier = Modifier.width(45.dp),

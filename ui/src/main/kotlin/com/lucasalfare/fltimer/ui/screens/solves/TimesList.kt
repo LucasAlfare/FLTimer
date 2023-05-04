@@ -1,4 +1,4 @@
-package com.lucasalfare.fltimer.ui
+package com.lucasalfare.fltimer.ui.screens.solves
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -14,7 +14,6 @@ import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -24,6 +23,7 @@ import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.model.FLTimerState
 import com.lucasalfare.fltimer.core.model.Penalty
 import com.lucasalfare.fltimer.core.model.Solve
+import com.lucasalfare.fltimer.ui.uiManager
 
 @Composable
 fun TimesList() {
@@ -32,38 +32,25 @@ fun TimesList() {
 
   Column(
     modifier = Modifier
-      .width(200.dp)
-      .shadow(4.dp)
-      .padding(8.dp)
-      .fillMaxWidth()
-      .fillMaxHeight(),
+      .fillMaxSize()
+      .padding(12.dp),
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
     Column(modifier = Modifier.padding(8.dp)) {
-      Box(modifier = Modifier.align(Alignment.CenterHorizontally)) {
-        SessionController()
-      }
-
       Text(
         text = "Number of solves: ${FLTimerState.getCurrentActiveSession().solves.size}",
         fontSize = 12.sp
       )
 
-      TextButton(
-        modifier = Modifier.fillMaxWidth(),
-        onClick = {
-          uiManager.notifyListeners(event = FLTimerEvent.SolvesClear, origin = this)
-        }
-      ) {
-        Text("Clear")
-      }
       LazyColumn(
         modifier = Modifier
+          .weight(0.8f)
           .border(
             width = 1.dp,
             shape = RoundedCornerShape(5.dp),
-            color = Color.DarkGray
-          ), state = lazyListState
+            color = Color.LightGray
+          ),
+        state = lazyListState
       ) {
         FLTimerState.getCurrentActiveSession().solves.forEachIndexed { index, solve ->
           item {
@@ -76,6 +63,15 @@ fun TimesList() {
         }
       }
     }
+
+    TextButton(
+      modifier = Modifier.weight(0.2f),
+      onClick = {
+        uiManager.notifyListeners(event = FLTimerEvent.SolvesClear, origin = this)
+      }
+    ) {
+      Text("Clear")
+    }
   }
 }
 
@@ -86,6 +82,7 @@ fun TimesListItem(index: Int, solve: Solve) {
   Column(
     modifier = Modifier
       .fillMaxWidth()
+      .padding(4.dp)
       .clickable(
         interactionSource = remember { MutableInteractionSource() },
         indication = rememberRipple()

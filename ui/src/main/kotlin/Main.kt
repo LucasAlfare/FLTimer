@@ -9,17 +9,18 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
-import com.lucasalfare.fllistener.CallbacksManager
 import com.lucasalfare.fllistener.setupManagers
 import com.lucasalfare.fltimer.core.FLTimerEvent
+import com.lucasalfare.fltimer.core.getCurrentTime
 import com.lucasalfare.fltimer.core.model.data.SolvesManager
+import com.lucasalfare.fltimer.core.model.data.persistence.APPLICATION_DATABASE_FILE_NAME
 import com.lucasalfare.fltimer.core.model.data.persistence.readAndDefineFLTimerStateFromFile
 import com.lucasalfare.fltimer.core.model.data.persistence.writeFLTimerStateToFile
-import com.lucasalfare.fltimer.core.getCurrentTime
-import com.lucasalfare.fltimer.core.model.data.persistence.APPLICATION_DATABASE_FILE_NAME
-import com.lucasalfare.fltimer.core.scramble.ScrambleManager
 import com.lucasalfare.fltimer.core.model.session.SessionsManager
+import com.lucasalfare.fltimer.core.scramble.ScrambleManager
 import com.lucasalfare.fltimer.core.timer.TimerManager
+import com.lucasalfare.fltimer.ui.FLTimerUiState.Companion.canListenToggling
+import com.lucasalfare.fltimer.ui.FLTimerUiState.Companion.timerPressingDown
 import com.lucasalfare.fltimer.ui.uiManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -31,9 +32,7 @@ import kotlin.io.path.Path
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalUnsignedTypes::class)
 fun main() = application {
-  readAndDefineFLTimerStateFromFile {
-    File(APPLICATION_DATABASE_FILE_NAME)
-  }
+  readAndDefineFLTimerStateFromFile { File(APPLICATION_DATABASE_FILE_NAME) }
 
   Window(
     state = WindowState(position = WindowPosition(Alignment.CenterEnd)),
@@ -49,19 +48,27 @@ fun main() = application {
       if (it.key == Key.Spacebar) {
         when (it.type) {
           KeyEventType.KeyDown -> {
-            uiManager.notifyListeners(
-              event = FLTimerEvent.TimerToggleDown,
-              data = getCurrentTime(),
-              origin = "[MainClass]"
-            )
+            if (canListenToggling.value) {
+              uiManager.notifyListeners(
+                event = FLTimerEvent.TimerToggleDown,
+                data = getCurrentTime(),
+                origin = "[MainClass]"
+              )
+            }
+
+            timerPressingDown.value = true
           }
 
           KeyEventType.KeyUp -> {
-            uiManager.notifyListeners(
-              event = FLTimerEvent.TimerToggleUp,
-              data = getCurrentTime(),
-              origin = "[MainClass]"
-            )
+            if (canListenToggling.value) {
+              uiManager.notifyListeners(
+                event = FLTimerEvent.TimerToggleUp,
+                data = getCurrentTime(),
+                origin = "[MainClass]"
+              )
+            }
+
+            timerPressingDown.value = false
           }
         }
       } else if (it.key == Key.Escape) {
@@ -87,6 +94,6 @@ fun main() = application {
       }
     }
 
-    App()
+    App2()
   }
 }

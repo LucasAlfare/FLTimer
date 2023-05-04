@@ -20,6 +20,7 @@ import com.lucasalfare.fltimer.core.model.data.persistence.writeFLTimerStateToFi
 import com.lucasalfare.fltimer.core.model.session.SessionsManager
 import com.lucasalfare.fltimer.core.scramble.ScrambleManager
 import com.lucasalfare.fltimer.core.timer.TimerManager
+import com.lucasalfare.fltimer.ui.FLTimerUiState
 import com.lucasalfare.fltimer.ui.uiManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -47,17 +48,19 @@ class MainActivity : AppCompatActivity() {
           .fillMaxSize()
           .pointerInput(true) {
             detectTapGestures(onPress = {
-              uiManager.notifyListeners(
-                event = FLTimerEvent.TimerToggleDown,
-                data = getCurrentTime(),
-                origin = this
-              )
-              if (tryAwaitRelease()) {
+              if (FLTimerUiState.canListenToggling.value) {
                 uiManager.notifyListeners(
-                  event = FLTimerEvent.TimerToggleUp,
+                  event = FLTimerEvent.TimerToggleDown,
                   data = getCurrentTime(),
                   origin = this
                 )
+                if (tryAwaitRelease()) {
+                  uiManager.notifyListeners(
+                    event = FLTimerEvent.TimerToggleUp,
+                    data = getCurrentTime(),
+                    origin = this
+                  )
+                }
               }
             })
           }
