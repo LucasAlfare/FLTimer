@@ -11,6 +11,7 @@ import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import com.lucasalfare.fllistener.setupManagers
 import com.lucasalfare.fltimer.core.FLTimerEvent
+import com.lucasalfare.fltimer.core.configuration.ConfigurationsManager
 import com.lucasalfare.fltimer.core.getCurrentTime
 import com.lucasalfare.fltimer.core.model.data.SolvesManager
 import com.lucasalfare.fltimer.core.model.data.persistence.APPLICATION_DATABASE_FILE_NAME
@@ -89,6 +90,7 @@ fun main() = application {
           ScrambleManager(),
           SolvesManager(),
           SessionsManager(),
+          ConfigurationsManager(),
           uiManager
         )
       }

@@ -60,10 +60,11 @@ class TimerManager : EventManageable() {
       }
 
       FLTimerEvent.ConfigsUpdate -> {
-        val configs = data as MutableMap<*, *>
-        useInspection = configs[Config.UseInspection]!! as Boolean
-        networkingModeOn = configs[Config.NetworkingModeOn]!! as Boolean
+        useInspection = FLTimerState.configurations[Config.UseInspection]!! as Boolean
+        networkingModeOn = FLTimerState.configurations[Config.NetworkingModeOn]!! as Boolean
         configsInitiated = true
+
+        println("useInspection=$useInspection")
       }
 
       FLTimerEvent.NetworkingAllUsersFinished -> {

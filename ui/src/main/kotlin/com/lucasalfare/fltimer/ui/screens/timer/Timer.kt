@@ -1,6 +1,7 @@
 package com.lucasalfare.fltimer.ui.screens.timer
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,7 +17,10 @@ fun Timer() {
     }
     Box(modifier = Modifier.align(Alignment.Center)) {
       Box {
-        Display()
+        Column {
+          Display()
+          ToggleInspection()
+        }
       }
     }
   }
