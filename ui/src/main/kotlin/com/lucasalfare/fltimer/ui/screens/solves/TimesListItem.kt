@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.model.Penalty
 import com.lucasalfare.fltimer.core.model.Solve
+import com.lucasalfare.fltimer.ui.BasicSelectableText
 import com.lucasalfare.fltimer.ui.uiManager
 
 @Composable
@@ -65,10 +66,12 @@ fun TimesListItem(index: Int, solve: Solve) {
 
         Spacer(Modifier.width(8.dp))
 
-        TextField(
-          value = solve.scramble,
-          textStyle = TextStyle(textAlign = TextAlign.Center),
-          onValueChange = { /*pass*/ }
+        BasicSelectableText(
+          text = solve.scramble,
+          textStyle = TextStyle(
+            textAlign = TextAlign.Center,
+            fontFamily = FontFamily.Monospace
+          )
         )
       }
     }
