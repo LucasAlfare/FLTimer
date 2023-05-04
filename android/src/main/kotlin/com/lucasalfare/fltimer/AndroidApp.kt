@@ -7,6 +7,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.lucasalfare.fltimer.ui.FLTimerUiState
+import com.lucasalfare.fltimer.ui.TabName
 import com.lucasalfare.fltimer.ui.Tabs
 import com.lucasalfare.fltimer.ui.screens.solves.Solves
 import com.lucasalfare.fltimer.ui.screens.timer.Timer
@@ -16,15 +17,15 @@ fun AndroidApp() {
   Column(modifier = Modifier.fillMaxSize()) {
     Box(modifier = Modifier.weight(1f)) {
       when (FLTimerUiState.currentTabName.value) {
-        "Timer" -> {
+        TabName.Timer.name -> {
           Timer()
         }
 
-        "Solves" -> {
+        TabName.Solves.name -> {
           Solves()
         }
 
-        "Stats" -> {
+        TabName.Stats.name -> {
           Text(FLTimerUiState.currentTabName.value)
         }
 

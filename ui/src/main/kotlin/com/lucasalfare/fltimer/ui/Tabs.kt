@@ -12,22 +12,22 @@ import com.lucasalfare.fltimer.ui.FLTimerUiState.Companion.currentTabName
 @Composable
 fun Tabs() {
   Row(modifier = Modifier.fillMaxWidth().height(80.dp)) {
-    TabItem(Modifier.weight(1f), "Timer", true)
-    TabItem(Modifier.weight(1f), "Solves", false)
-    TabItem(Modifier.weight(1f), "Stats", false)
-    TabItem(Modifier.weight(1f), "Configs", false)
+    TabItem(Modifier.weight(1f), TabName.Timer.name, true)
+    TabItem(Modifier.weight(1f), TabName.Solves.name, false)
+    TabItem(Modifier.weight(1f), TabName.Stats.name, false)
+    TabItem(Modifier.weight(1f), TabName.Configs.name, false)
   }
 }
 
 @Composable
-fun TabItem(modifier: Modifier, tabName: String, toggleValue: Boolean) {
+fun TabItem(modifier: Modifier, tabName: String, initialTogglingPermission: Boolean) {
   Button(
     modifier = modifier
       .fillMaxHeight()
       .padding(4.dp),
     onClick = {
       currentTabName.value = tabName
-      canListenToggling.value = toggleValue
+      canListenToggling.value = initialTogglingPermission
     },
     enabled = currentTabName.value != tabName
   ) {
