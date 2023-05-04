@@ -59,47 +59,12 @@ fun TimesListItem(index: Int, solve: Solve) {
       PenaltyButton(solve, Penalty.Ok)
       PenaltyButton(solve, Penalty.PlusTwo)
       PenaltyButton(solve, Penalty.Dnf)
-
-      /*
-      TextButton(
-        modifier = Modifier.size(width = 40.dp, height = 30.dp),
-        onClick = {
-          uiManager.notifyListeners(FLTimerEvent.SolveItemPenaltyUpdate, arrayOf(solve, Penalty.Ok))
-        }
-      ) {
-        Text(text = "OK", fontSize = 12.sp)
-      }
-
-      TextButton(
-        modifier = Modifier.size(width = 40.dp, height = 30.dp),
-        onClick = {
-          uiManager.notifyListeners(FLTimerEvent.SolveItemPenaltyUpdate, arrayOf(solve, Penalty.PlusTwo))
-        }
-      ) {
-        Text(text = "+2", fontSize = 12.sp)
-      }
-
-      TextButton(
-        modifier = Modifier.size(width = 50.dp, height = 30.dp),
-        onClick = {
-          uiManager.notifyListeners(FLTimerEvent.SolveItemPenaltyUpdate, arrayOf(solve, Penalty.Dnf))
-        }
-      ) {
-        Text(text = "DNF", fontSize = 12.sp)
-      }
-       */
     }
   }
 }
 
 @Composable
 private fun PenaltyButton(targetSolve: Solve, nextPenalty: Penalty) {
-//  val nextPenalty = when (nextPenaltyCode) {
-//    Penalty.Dnf.code -> Penalty.Dnf
-//    Penalty.PlusTwo.code -> Penalty.PlusTwo
-//    else -> Penalty.Ok
-//  }
-
   TextButton(
     modifier = Modifier.size(width = 50.dp, height = 30.dp),
     onClick = {
