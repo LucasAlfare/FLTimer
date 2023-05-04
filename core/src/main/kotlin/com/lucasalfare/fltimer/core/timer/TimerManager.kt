@@ -45,12 +45,14 @@ class TimerManager : EventManageable() {
           )
         )
 
+        val toggleTime = data as Long
+
         if (nextState != null) {
           currentState = nextState
           currentState.update(
             eventManageable = this,
             data = arrayOf(
-              data as Long,
+              toggleTime,
               fun() { networkingCanStart = false }
             )
           )

@@ -24,14 +24,14 @@ class SolveState : TimerState {
 
   override fun update(eventManageable: EventManageable, data: Any?) {
     val props = data as Array<*>
-    val t = props[0] as Long
+    val toggleTime = props[0] as Long
 
     eventManageable.notifyListeners(
       event = FLTimerEvent.TimerStarted,
       origin = this
     )
 
-    start = t
+    start = toggleTime
     repeater = asyncRoutine {
       elapsed = getCurrentTime() - start
       eventManageable.notifyListeners(
