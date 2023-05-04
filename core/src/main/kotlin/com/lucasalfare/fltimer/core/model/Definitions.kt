@@ -28,6 +28,12 @@ enum class Penalty(val code: Int) {
       1 -> PlusTwo; 2 -> Dnf; else -> Ok
     }
   }
+
+  override fun toString() = when (this) {
+    Ok -> "Ok"
+    PlusTwo -> "+2"
+    else -> "DNF"
+  }
 }
 
 
@@ -49,9 +55,6 @@ class Solve(
     else -> time.toTimestamp()
   }
 }
-
-
-
 
 
 @Suppress("MemberVisibilityCanBePrivate")
