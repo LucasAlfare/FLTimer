@@ -15,10 +15,21 @@ class SessionsManager : EventManageable() {
   }
 
   override fun onEvent(event: Any, data: Any?, origin: Any?) {
+    if (event == FLTimerEvent.SessionCreate) {
+      val newSession = data as String
+      FLTimerState.sessions += Session(name = newSession)
+    }
+
     if (event == FLTimerEvent.SessionSwitch) {
-      val targetNextSession = data as Session
-      FLTimerState.currentActiveSessionName.value = targetNextSession.name
-      notifyListeners(FLTimerEvent.SessionsUpdate)
+      if (data is Session) {
+        val targetNextSession = data
+        FLTimerState.currentActiveSessionName.value = targetNextSession.name
+        notifyListeners(FLTimerEvent.SessionsUpdate)
+      } else {
+        val targetNextSessionName = data as String
+        FLTimerState.currentActiveSessionName.value = targetNextSessionName
+        notifyListeners(FLTimerEvent.SessionsUpdate)
+      }
     }
   }
 }

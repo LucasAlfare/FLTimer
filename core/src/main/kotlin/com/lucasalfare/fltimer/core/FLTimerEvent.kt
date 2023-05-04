@@ -92,6 +92,11 @@ enum class FLTimerEvent {
   SolvesClear,
 
   /**
+   * TODO
+   */
+  SessionCreate,
+
+  /**
    * Comes with a [String] representing the name of the session to
    * switch to.
    *

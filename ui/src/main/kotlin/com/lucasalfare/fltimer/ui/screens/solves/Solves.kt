@@ -11,11 +11,16 @@ import androidx.compose.ui.Modifier
 fun Solves() {
   Box(modifier = Modifier.fillMaxSize()) {
     Column {
-      Box(Modifier.weight(.2f).fillMaxWidth()) {
+      Box(
+        Modifier
+          .fillMaxWidth()
+      ) {
         SessionsController()
       }
 
-      Box(Modifier.weight(1f)) {
+      Box(
+        Modifier
+      ) {
         TimesList()
       }
     }
