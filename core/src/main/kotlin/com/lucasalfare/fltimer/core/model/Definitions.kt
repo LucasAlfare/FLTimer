@@ -60,7 +60,7 @@ class Solve(
 @Suppress("MemberVisibilityCanBePrivate")
 class FLTimerState {
   companion object {
-    private const val DEFAULT_SESSION_NAME = "Default"
+    const val DEFAULT_SESSION_NAME = "Default"
 
     var currentActiveSessionName = mutableStateOf(DEFAULT_SESSION_NAME)
 

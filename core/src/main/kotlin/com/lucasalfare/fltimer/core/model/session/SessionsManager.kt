@@ -20,16 +20,24 @@ class SessionsManager : EventManageable() {
       FLTimerState.sessions += Session(name = newSession)
     }
 
+    if (event == FLTimerEvent.SessionRemove) {
+      val targetDeletingSession = data as String
+      if (targetDeletingSession != FLTimerState.DEFAULT_SESSION_NAME) {
+        FLTimerState.sessions.removeIf { it.name == targetDeletingSession }
+        notifyListeners(FLTimerEvent.SessionsUpdate)
+      }
+    }
+
     if (event == FLTimerEvent.SessionSwitch) {
       if (data is Session) {
         val targetNextSession = data
         FLTimerState.currentActiveSessionName.value = targetNextSession.name
-        notifyListeners(FLTimerEvent.SessionsUpdate)
       } else {
         val targetNextSessionName = data as String
         FLTimerState.currentActiveSessionName.value = targetNextSessionName
-        notifyListeners(FLTimerEvent.SessionsUpdate)
       }
+
+      notifyListeners(FLTimerEvent.SessionsUpdate)
     }
   }
 }

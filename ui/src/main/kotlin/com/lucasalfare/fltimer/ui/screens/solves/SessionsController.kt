@@ -57,7 +57,10 @@ fun SessionsController() {
         Text(">>")
       }
 
-      Button(onClick = { }, enabled = false) {
+      Button(onClick = {
+        uiManager.notifyListeners(FLTimerEvent.SessionRemove, currentActiveSessionName.value)
+        uiManager.notifyListeners(FLTimerEvent.SessionSwitch, FLTimerState.DEFAULT_SESSION_NAME)
+      }) {
         Text("-")
       }
 
