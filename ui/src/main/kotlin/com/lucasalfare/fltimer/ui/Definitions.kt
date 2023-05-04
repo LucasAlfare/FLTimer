@@ -5,11 +5,11 @@ import com.lucasalfare.fllistener.CallbacksManager
 
 val uiManager = CallbacksManager()
 
-enum class TabName(name: String) {
-  Timer("Timer"),
-  Solves("Solves"),
-  Stats("Stats"),
-  Configs("Configs")
+enum class TabName {
+  Timer,
+  Solves,
+  Stats,
+  Configs
 }
 
 class FLTimerUiState {
