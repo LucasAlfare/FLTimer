@@ -37,9 +37,6 @@ fun readAndDefineFLTimerStateFromFile(onLoadDatabaseFile: () -> File) {
       return
     }
 
-//    FLTimerModel.sessions.clear()
-//    FLTimerModel.configurations.clear()
-
     FLTimerState.configurations[Config.UseInspection] = reader.readBoolean()
     FLTimerState.configurations[Config.ShowScramblesInDetailsUI] = reader.readBoolean()
     FLTimerState.configurations[Config.NetworkingModeOn] = reader.readBoolean()
@@ -80,62 +77,8 @@ fun readAndDefineFLTimerStateFromFile(onLoadDatabaseFile: () -> File) {
       }
     }
   }
-
-//  val file = File(APPLICATION_DATABASE_FILE_NAME)
-//
-//  if (file.exists()) {
-//    val fileBytes = file.readBytes()
-//    val reader = Reader(fileBytes.toUByteArray())
-//    val fltimerSignature = reader.readString(length = 7)!!
-//
-//    if (fltimerSignature != FLTIMER_STRING_SIGNATURE) {
-//      println("file signature doesnt' match!")
-//      return
-//    }
-//
-//    FLTimerModel.configurations[Config.UseInspection] = reader.readBoolean()
-//    FLTimerModel.configurations[Config.ShowScramblesInDetailsUI] = reader.readBoolean()
-//    FLTimerModel.configurations[Config.NetworkingModeOn] = reader.readBoolean()
-//    FLTimerModel.configurations[Config.AskForTimerMode] = reader.readBoolean()
-//
-//    val nSessions = reader.read2Bytes()
-//
-//    val currentActiveSessionNameLength = reader.read1Byte()
-//    FLTimerModel.currentActiveSessionName.value = reader.readString(currentActiveSessionNameLength)!!
-//
-//    repeat(nSessions) {
-//      val readSession = Session(
-//        name = reader.readString(reader.read1Byte())!!,
-//        category = Category.getCategoryByCode(reader.read1Byte())
-//      )
-//
-//      val sessionSearch = FLTimerModel.sessions.firstOrNull {
-//        it.name == readSession.name
-//      }
-//
-//      val nextSession = sessionSearch ?: readSession
-//
-//      val nSessionSolves = reader.read2Bytes()
-//
-//      repeat(nSessionSolves) {
-//        val nextSolve = Solve(
-//          time = reader.read4Bytes(),
-//          scramble = reader.readString(reader.read1Byte())!!,
-//          penalty = Penalty.getPenaltyByCode(reader.read1Byte()),
-//          comment = reader.readString(reader.read1Byte())!!
-//        )
-//
-//        nextSession.solves += nextSolve
-//      }
-//
-//      if (sessionSearch == null) {
-//        FLTimerModel.sessions += nextSession
-//      }
-//    }
-//  }
 }
 
-@OptIn(ExperimentalUnsignedTypes::class)
 fun writeFLTimerStateToFile(onWriteDatabaseFile: (Writer) -> Unit) {
   val writer = Writer()
 
@@ -165,10 +108,6 @@ fun writeFLTimerStateToFile(onWriteDatabaseFile: (Writer) -> Unit) {
       writer.writeString(solve.comment)
     }
   }
-
-//  Files.deleteIfExists(Path(APPLICATION_DATABASE_FILE_NAME))
-//  val targetFile = File(APPLICATION_DATABASE_FILE_NAME)
-//  targetFile.writeBytes(writer.getData().toByteArray())
 
   onWriteDatabaseFile(writer)
 }
