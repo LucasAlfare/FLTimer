@@ -11,13 +11,12 @@ import androidx.compose.ui.Modifier
 fun Timer() {
   Box(modifier = Modifier.fillMaxSize()) {
     Box(modifier = Modifier.align(Alignment.TopCenter)) {
-      Box {
-        Scramble()
-      }
+      Scramble()
     }
+
     Box(modifier = Modifier.align(Alignment.Center)) {
       Box {
-        Column {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
           Display()
           ToggleInspection()
         }
