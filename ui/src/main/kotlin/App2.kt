@@ -10,6 +10,7 @@ import com.lucasalfare.fltimer.ui.FLTimerUiState.Companion.currentTabName
 import com.lucasalfare.fltimer.ui.TabName
 import com.lucasalfare.fltimer.ui.Tabs
 import com.lucasalfare.fltimer.ui.screens.solves.Solves
+import com.lucasalfare.fltimer.ui.screens.stats.StatsScreen
 import com.lucasalfare.fltimer.ui.screens.timer.Timer
 
 @Composable
@@ -19,7 +20,7 @@ fun App2() {
       when (currentTabName.value) {
         TabName.Timer.name -> Timer()
         TabName.Solves.name -> Solves()
-        TabName.Stats.name -> Text(currentTabName.value)
+        TabName.Stats.name -> StatsScreen()
         else -> Text(currentTabName.value)
       }
     }
