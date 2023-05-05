@@ -42,16 +42,6 @@ fun StatsScreen() {
     item {
       SelectionContainer(
         modifier = Modifier
-          .pointerInput(Unit) {
-            awaitEachGesture {
-              awaitFirstDown(requireUnconsumed = false)
-              val result = waitForUpOrCancellation()
-              if (result != null) {
-                println("asdkjfhaslkdfh!!! RISOS")
-              }
-            }
-          }
-          .background(Color.Yellow)
           .fillMaxSize()
       ) {
 
@@ -71,7 +61,6 @@ fun StatsScreen() {
                   }
                 }
               }
-              .background(Color.Blue)
           )
         }
       }
