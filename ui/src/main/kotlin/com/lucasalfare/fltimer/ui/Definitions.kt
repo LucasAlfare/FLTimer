@@ -14,8 +14,8 @@ enum class TabName {
 
 class FLTimerUiState {
   companion object {
-//    var currentTabName = mutableStateOf(TabName.Timer.name)
-    var currentTabName = mutableStateOf(TabName.Stats.name)
+    var currentTabName = mutableStateOf(TabName.Timer.name)
+//    var currentTabName = mutableStateOf(TabName.Stats.name)
 
     var showingSolves = mutableStateOf(false)
 

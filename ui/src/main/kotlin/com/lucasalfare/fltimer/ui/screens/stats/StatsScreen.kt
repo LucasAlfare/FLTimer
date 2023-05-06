@@ -16,7 +16,7 @@ fun StatsScreen() {
         BasicSelectableAndClickableText(
           text = getStatisticsAnnotatedString(),
           onAnnotationItemClick = {
-            println(it.item)
+            println(StatisticsTemplateProvider.lookUpVariableValue(it.item))
           }
         )
       }
