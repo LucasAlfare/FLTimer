@@ -96,6 +96,6 @@ fun main() = application {
       }
     }
 
-    App2()
+    App()
   }
 }

@@ -13,8 +13,9 @@ import com.lucasalfare.fltimer.ui.FLTimerUiState.Companion.currentTabName
 fun Tabs() {
   Row(modifier = Modifier.fillMaxWidth().height(80.dp)) {
     TabItem(Modifier.weight(1f), TabName.Timer.name, true)
-    TabItem(Modifier.weight(1f), TabName.Solves.name, false)
-    TabItem(Modifier.weight(1f), TabName.Stats.name, false)
+    TabItem(Modifier.weight(1f), TabName.Details.name, false)
+//    TabItem(Modifier.weight(1f), TabName.Solves.name, false)
+//    TabItem(Modifier.weight(1f), TabName.Stats.name, false)
     TabItem(Modifier.weight(1f), TabName.Configs.name, false)
   }
 }

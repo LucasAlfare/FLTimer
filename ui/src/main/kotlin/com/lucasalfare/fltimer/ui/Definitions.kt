@@ -9,7 +9,8 @@ enum class TabName {
   Timer,
   Solves,
   Stats,
-  Configs
+  Configs,
+  Details
 }
 
 class FLTimerUiState {
