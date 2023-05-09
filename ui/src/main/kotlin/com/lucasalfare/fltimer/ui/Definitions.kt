@@ -24,6 +24,6 @@ class FLTimerUiState {
 
     val canTimerToggle = mutableStateOf(true)
 
-    val creatingSessionMode = mutableStateOf(false)
+    val inCreatingSessionMode = mutableStateOf(false)
   }
 }

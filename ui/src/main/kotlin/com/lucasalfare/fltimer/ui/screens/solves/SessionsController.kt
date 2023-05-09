@@ -74,16 +74,16 @@ fun SessionsController() {
       Button(
         modifier = Modifier.weight(1f),
         onClick = {
-          FLTimerUiState.creatingSessionMode.value = !FLTimerUiState.creatingSessionMode.value
+          FLTimerUiState.inCreatingSessionMode.value = !FLTimerUiState.inCreatingSessionMode.value
         },
-        enabled = !FLTimerUiState.creatingSessionMode.value,
+        enabled = !FLTimerUiState.inCreatingSessionMode.value,
         contentPadding = PaddingValues(4.dp)
       ) {
         Text("+")
       }
     }
 
-    if (FLTimerUiState.creatingSessionMode.value) {
+    if (FLTimerUiState.inCreatingSessionMode.value) {
       SessionInsertionForm()
     }
   }
@@ -116,7 +116,7 @@ fun SessionInsertionForm() {
           tmpNewSessionName.value = ""
         }
 
-        FLTimerUiState.creatingSessionMode.value = false
+        FLTimerUiState.inCreatingSessionMode.value = false
       }
     ) {
       Text(text = if (tmpNewSessionName.value.isEmpty()) "Cancel" else "Create")
