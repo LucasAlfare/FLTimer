@@ -6,6 +6,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
+// TODO create custom font families based on downloaded font files
+
 data class FLTimerTypography(
   val h1: TextStyle = TextStyle(
     fontFamily = FontFamily.Monospace,
