@@ -103,37 +103,40 @@ class StatisticsTemplateProvider {
 
     fun lookUpVariableValue(key: String): StatisticResult {
       val solves = FLTimerState.getCurrentActiveSession().solves
-      when (key) {
-        TemplateVariable.BestSingle.id -> return solves.best()
-        TemplateVariable.WorstSingle.id -> return solves.worst()
 
-        TemplateVariable.GlobalMean.id -> return solves.mean()
-        TemplateVariable.GlobalAverage.id -> return solves.globalAverage()
+      if (solves.isNotEmpty()) {
+        when (key) {
+          TemplateVariable.BestSingle.id -> return solves.best()
+          TemplateVariable.WorstSingle.id -> return solves.worst()
 
-        TemplateVariable.BestAverageOf5.id -> return solves.bestAverageOf(5)
-        TemplateVariable.WorstAverageOf5.id -> return solves.worstAverageOf(5)
+          TemplateVariable.GlobalMean.id -> return solves.mean()
+          TemplateVariable.GlobalAverage.id -> return solves.globalAverage()
 
-        TemplateVariable.BestAverageOf12.id -> return solves.bestAverageOf(12)
-        TemplateVariable.WorstAverageOf12.id -> return solves.worstAverageOf(12)
+          TemplateVariable.BestAverageOf5.id -> return solves.bestAverageOf(5)
+          TemplateVariable.WorstAverageOf5.id -> return solves.worstAverageOf(5)
 
-        TemplateVariable.BestAverageOf50.id -> return solves.bestAverageOf(50)
-        TemplateVariable.WorstAverageOf50.id -> return solves.worstAverageOf(50)
+          TemplateVariable.BestAverageOf12.id -> return solves.bestAverageOf(12)
+          TemplateVariable.WorstAverageOf12.id -> return solves.worstAverageOf(12)
 
-        TemplateVariable.BestAverageOf100.id -> return solves.bestAverageOf(100)
-        TemplateVariable.WorstAverageOf100.id -> return solves.worstAverageOf(100)
+          TemplateVariable.BestAverageOf50.id -> return solves.bestAverageOf(50)
+          TemplateVariable.WorstAverageOf50.id -> return solves.worstAverageOf(50)
 
-        TemplateVariable.CurrentAverageOf5.id -> return solves.rollingAverage(5)
-        TemplateVariable.CurrentAverageOf12.id -> return solves.rollingAverage(12)
-        TemplateVariable.CurrentAverageOf50.id -> return solves.rollingAverage(50)
-        TemplateVariable.CurrentAverageOf100.id -> return solves.rollingAverage(100)
+          TemplateVariable.BestAverageOf100.id -> return solves.bestAverageOf(100)
+          TemplateVariable.WorstAverageOf100.id -> return solves.worstAverageOf(100)
 
-        TemplateVariable.CurrentSingle.id -> {
-          val lastSolve = solves.last()
-          return StatisticResult(
-            name = "currentSingle",
-            result = lastSolve.time,
-            related = mutableListOf(lastSolve)
-          )
+          TemplateVariable.CurrentAverageOf5.id -> return solves.rollingAverage(5)
+          TemplateVariable.CurrentAverageOf12.id -> return solves.rollingAverage(12)
+          TemplateVariable.CurrentAverageOf50.id -> return solves.rollingAverage(50)
+          TemplateVariable.CurrentAverageOf100.id -> return solves.rollingAverage(100)
+
+          TemplateVariable.CurrentSingle.id -> {
+            val lastSolve = solves.last()
+            return StatisticResult(
+              name = "currentSingle",
+              result = lastSolve.time,
+              related = mutableListOf(lastSolve)
+            )
+          }
         }
       }
 
