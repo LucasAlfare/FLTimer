@@ -7,16 +7,19 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.lucasalfare.fltimer.core.statistics.StatisticResult
 
 @Composable
-fun StatsScreen() {
+fun StatsScreen(onStatisticResultDetailRequest: (StatisticResult) -> Unit = {}) {
   LazyColumn(Modifier.fillMaxSize()) {
     item {
       Box(modifier = Modifier.padding(12.dp)) {
         BasicSelectableAndClickableText(
           text = getStatisticsAnnotatedString(),
           onAnnotationItemClick = {
-            println(StatisticsTemplateProvider.lookUpVariableValue(it.item))
+            val clickedResult = StatisticsTemplateProvider.lookUpVariableValue(it.item)
+            println(clickedResult)
+            onStatisticResultDetailRequest(clickedResult)
           }
         )
       }
