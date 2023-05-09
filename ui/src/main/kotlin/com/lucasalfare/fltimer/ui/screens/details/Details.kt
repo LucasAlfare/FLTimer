@@ -12,7 +12,7 @@ import com.lucasalfare.fltimer.ui.screens.stats.StatsScreen
 @Composable
 fun Details() {
   Row {
-    Box(Modifier.weight(1f)) {
+    Box(Modifier.weight(0.5f)) {
       Solves()
     }
 

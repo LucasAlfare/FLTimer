@@ -22,9 +22,8 @@ fun SessionsController() {
   val sessions = remember { FLTimerState.sessions }
   val currentActiveSessionName = remember { FLTimerState.currentActiveSessionName }
 
-  Column {
+  Column(modifier = Modifier.padding(12.dp)) {
     Row(
-      modifier = Modifier.padding(12.dp),
       verticalAlignment = Alignment.CenterVertically,
       horizontalArrangement = Arrangement.Center
     ) {
@@ -36,14 +35,16 @@ fun SessionsController() {
             getSession(sessions.first { it.name == currentActiveSessionName.value }, sessions, false)
           )
         }
-      ) {
-        Text("<<")
-      }
+      ) { Text("<<") }
+
+      Spacer(Modifier.width(4.dp))
 
       Text(
         text = currentActiveSessionName.value,
         textAlign = TextAlign.Center,
       )
+
+      Spacer(Modifier.width(4.dp))
 
       TextButton(
         modifier = Modifier.width(45.dp),
@@ -53,49 +54,72 @@ fun SessionsController() {
             getSession(sessions.first { it.name == currentActiveSessionName.value }, sessions, true)
           )
         }
-      ) {
-        Text(">>")
-      }
+      ) { Text(">>") }
 
-      Button(onClick = {
-        uiManager.notifyListeners(FLTimerEvent.SessionRemove, currentActiveSessionName.value)
-        uiManager.notifyListeners(FLTimerEvent.SessionSwitch, FLTimerState.DEFAULT_SESSION_NAME)
-      }) {
+      Spacer(Modifier.width(4.dp))
+
+      Button(
+        modifier = Modifier.weight(1f),
+        onClick = {
+//          uiManager.notifyListeners(FLTimerEvent.SessionRemove, currentActiveSessionName.value)
+//          uiManager.notifyListeners(FLTimerEvent.SessionSwitch, FLTimerState.DEFAULT_SESSION_NAME)
+        },
+        contentPadding = PaddingValues(4.dp)
+      ) {
         Text("-")
       }
 
+      Spacer(Modifier.width(4.dp))
+
       Button(
+        modifier = Modifier.weight(1f),
         onClick = {
           FLTimerUiState.creatingSessionMode.value = !FLTimerUiState.creatingSessionMode.value
         },
-        enabled = !FLTimerUiState.creatingSessionMode.value
+        enabled = !FLTimerUiState.creatingSessionMode.value,
+        contentPadding = PaddingValues(4.dp)
       ) {
         Text("+")
       }
     }
 
     if (FLTimerUiState.creatingSessionMode.value) {
-      Row(verticalAlignment = Alignment.CenterVertically) {
-        val tmpNewSessionName = remember { mutableStateOf("") }
+      SessionInsertionForm()
+    }
+  }
+}
 
-        Spacer(Modifier.width(24.dp))
-        Text("New session name:")
-        TextField(value = tmpNewSessionName.value, onValueChange = {
+@Composable
+fun SessionInsertionForm() {
+  val tmpNewSessionName = remember { mutableStateOf("") }
+
+  Column {
+    Row(
+      verticalAlignment = Alignment.CenterVertically
+    ) {
+      Text("New session name:")
+      TextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = tmpNewSessionName.value,
+        onValueChange = {
           tmpNewSessionName.value = it
-        })
-        Button(onClick = {
-          if (tmpNewSessionName.value.isNotEmpty()) {
-            // TODO event notification here
-            uiManager.notifyListeners(FLTimerEvent.SessionCreate, tmpNewSessionName.value)
-            uiManager.notifyListeners(FLTimerEvent.SessionSwitch, tmpNewSessionName.value)
-            tmpNewSessionName.value = ""
-          }
-
-          FLTimerUiState.creatingSessionMode.value = false
-        }) {
-          Text(text = if (tmpNewSessionName.value.isEmpty()) "Cancel" else "Create")
         }
+      )
+    }
+
+    Button(
+      modifier = Modifier.fillMaxWidth(),
+      onClick = {
+        if (tmpNewSessionName.value.isNotEmpty()) {
+          uiManager.notifyListeners(FLTimerEvent.SessionCreate, tmpNewSessionName.value)
+          uiManager.notifyListeners(FLTimerEvent.SessionSwitch, tmpNewSessionName.value)
+          tmpNewSessionName.value = ""
+        }
+
+        FLTimerUiState.creatingSessionMode.value = false
       }
+    ) {
+      Text(text = if (tmpNewSessionName.value.isEmpty()) "Cancel" else "Create")
     }
   }
 }
