@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
           .fillMaxSize()
           .pointerInput(true) {
             detectTapGestures(onPress = {
-              if (FLTimerUiState.canListenToggling.value) {
+              if (FLTimerUiState.canTimerToggle.value) {
                 uiManager.notifyListeners(
                   event = FLTimerEvent.TimerToggleDown,
                   data = getCurrentTime(),

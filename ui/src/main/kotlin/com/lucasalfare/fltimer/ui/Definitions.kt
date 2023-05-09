@@ -22,7 +22,7 @@ class FLTimerUiState {
 
     var timerPressingDown = mutableStateOf(false)
 
-    val canListenToggling = mutableStateOf(true)
+    val canTimerToggle = mutableStateOf(true)
 
     val creatingSessionMode = mutableStateOf(false)
   }

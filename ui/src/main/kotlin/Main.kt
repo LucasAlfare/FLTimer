@@ -20,7 +20,7 @@ import com.lucasalfare.fltimer.core.model.data.persistence.writeFLTimerStateToFi
 import com.lucasalfare.fltimer.core.model.session.SessionsManager
 import com.lucasalfare.fltimer.core.scramble.ScrambleManager
 import com.lucasalfare.fltimer.core.timer.TimerManager
-import com.lucasalfare.fltimer.ui.FLTimerUiState.Companion.canListenToggling
+import com.lucasalfare.fltimer.ui.FLTimerUiState.Companion.canTimerToggle
 import com.lucasalfare.fltimer.ui.FLTimerUiState.Companion.timerPressingDown
 import com.lucasalfare.fltimer.ui.uiManager
 import kotlinx.coroutines.CoroutineScope
@@ -49,7 +49,7 @@ fun main() = application {
       if (it.key == Key.Spacebar) {
         when (it.type) {
           KeyEventType.KeyDown -> {
-            if (canListenToggling.value) {
+            if (canTimerToggle.value) {
               uiManager.notifyListeners(
                 event = FLTimerEvent.TimerToggleDown,
                 data = getCurrentTime(),
@@ -61,7 +61,7 @@ fun main() = application {
           }
 
           KeyEventType.KeyUp -> {
-            if (canListenToggling.value) {
+            if (canTimerToggle.value) {
               uiManager.notifyListeners(
                 event = FLTimerEvent.TimerToggleUp,
                 data = getCurrentTime(),

@@ -6,7 +6,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.lucasalfare.fltimer.ui.FLTimerUiState.Companion.canListenToggling
+import com.lucasalfare.fltimer.ui.FLTimerUiState.Companion.canTimerToggle
 import com.lucasalfare.fltimer.ui.FLTimerUiState.Companion.currentTabName
 
 @Composable
@@ -21,14 +21,14 @@ fun Tabs() {
 }
 
 @Composable
-fun TabItem(modifier: Modifier, tabName: String, initialTogglingPermission: Boolean) {
+fun TabItem(modifier: Modifier, tabName: String, initialTimerTigglingPermission: Boolean) {
   Button(
     modifier = modifier
       .fillMaxHeight()
       .padding(4.dp),
     onClick = {
       currentTabName.value = tabName
-      canListenToggling.value = initialTogglingPermission
+      canTimerToggle.value = initialTimerTigglingPermission
     },
     enabled = currentTabName.value != tabName
   ) {
