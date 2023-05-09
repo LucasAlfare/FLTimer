@@ -58,7 +58,7 @@ fun SessionsController() {
 
       Spacer(Modifier.width(4.dp))
 
-      Button(
+      TextButton(
         modifier = Modifier.weight(1f),
         onClick = {
 //          uiManager.notifyListeners(FLTimerEvent.SessionRemove, currentActiveSessionName.value)
@@ -71,7 +71,7 @@ fun SessionsController() {
 
       Spacer(Modifier.width(4.dp))
 
-      Button(
+      TextButton(
         modifier = Modifier.weight(1f),
         onClick = {
           FLTimerUiState.inCreatingSessionMode.value = !FLTimerUiState.inCreatingSessionMode.value
