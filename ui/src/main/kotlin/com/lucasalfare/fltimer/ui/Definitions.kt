@@ -13,6 +13,7 @@ enum class TabName {
   Details
 }
 
+// TODO: consider persist UI State as well?
 class FLTimerUiState {
   companion object {
     var currentTabName = mutableStateOf(TabName.Timer.name)
