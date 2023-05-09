@@ -50,6 +50,14 @@ There are other features in mind being planned to be implemented after the basic
 
 All of these features I plan to implement by myself as good as I can, using only my own knowledge. Reinventing the wheel today is not a good thing to do, but when it comes to studying it is one of the most powerful weapons. :)
 
+# Some images
+Below we have some images presenting some aspects of the current stage of the application UI. Note that this is a heavy rough version and will hardly be changed over the application development.
+
+- Main timer screen view:
+  ![main screen view](img/ss1.png)
+- Details (solves list/statistics) view:
+  ![stats screen view](img/ss2.png)
+
 # Tasks to finish
 
 The following items are the items that are being developed at this moment.
