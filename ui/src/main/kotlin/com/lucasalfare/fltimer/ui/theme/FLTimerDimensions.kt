@@ -11,4 +11,4 @@ data class FLTimerDimensions(
   val paddingLarge: Dp = 24.dp
 )
 
-internal val LocalFLTimerDimensions = staticCompositionLocalOf { FLTimerDimensions() }
+val LocalFLTimerDimensions = staticCompositionLocalOf { FLTimerDimensions() }

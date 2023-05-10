@@ -63,4 +63,4 @@ data class FLTimerTypography(
   )
 )
 
-internal val LocalFLTimerTypographies = staticCompositionLocalOf { FLTimerTypography() }
+val LocalFLTimerTypographies = staticCompositionLocalOf { FLTimerTypography() }

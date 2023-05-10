@@ -53,7 +53,7 @@ private val colorLightTextSecondary = Color(0xFF6C727A)
 private val colorLightBackground = Color(0xFFFFFFFF)
 private val colorLightError = Color(0xFFD62222)
 
-internal val LocalFLTimerColors = staticCompositionLocalOf { lightColors() }
+val LocalFLTimerColors = staticCompositionLocalOf { lightColors() }
 
 fun lightColors(
   primary: Color = colorLightPrimary,
