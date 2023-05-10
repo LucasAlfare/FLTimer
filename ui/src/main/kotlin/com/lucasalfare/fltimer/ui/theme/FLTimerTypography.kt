@@ -4,33 +4,60 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.platform.Font
 import androidx.compose.ui.unit.sp
 
-// TODO create custom font families based on downloaded font files
+private val regularFontFamily = FontFamily(
+  Font(
+    resource = "JetBrainsMono-Regular.ttf"
+  )
+)
+
+private val boldFontFamily = FontFamily(
+  Font(
+    resource = "JetBrainsMono-Bold.ttf"
+  )
+)
+
+private val italicFontFamily = FontFamily(
+  Font(
+    resource = "JetBrainsMono-Italic.ttf"
+  )
+)
 
 data class FLTimerTypography(
+  val extraBig: TextStyle = TextStyle(
+    fontFamily = boldFontFamily,
+    fontWeight = FontWeight.Normal,
+    fontSize = 65.sp
+  ),
+  val semiBig: TextStyle = TextStyle(
+    fontFamily = boldFontFamily,
+    fontWeight = FontWeight.Normal,
+    fontSize = 45.sp
+  ),
   val h1: TextStyle = TextStyle(
-    fontFamily = FontFamily.Monospace,
+    fontFamily = boldFontFamily,
     fontWeight = FontWeight.Normal,
     fontSize = 24.sp
   ),
   val subtitle: TextStyle = TextStyle(
-    fontFamily = FontFamily.Monospace,
+    fontFamily = regularFontFamily,
     fontWeight = FontWeight.Normal,
     fontSize = 16.sp
   ),
   val body: TextStyle = TextStyle(
-    fontFamily = FontFamily.Monospace,
+    fontFamily = regularFontFamily,
     fontWeight = FontWeight.Normal,
     fontSize = 16.sp
   ),
   val button: TextStyle = TextStyle(
-    fontFamily = FontFamily.Monospace,
+    fontFamily = regularFontFamily,
     fontWeight = FontWeight.Normal,
     fontSize = 16.sp
   ),
   val caption: TextStyle = TextStyle(
-    fontFamily = FontFamily.Monospace,
+    fontFamily = italicFontFamily,
     fontWeight = FontWeight.Normal,
     fontSize = 12.sp
   )

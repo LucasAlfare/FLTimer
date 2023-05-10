@@ -5,21 +5,17 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
-import androidx.compose.material.TextField
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.model.Penalty
 import com.lucasalfare.fltimer.core.model.Solve
 import com.lucasalfare.fltimer.ui.BasicSelectableText
+import com.lucasalfare.fltimer.ui.theme.FLTimerTheme
 import com.lucasalfare.fltimer.ui.uiManager
 
 @Composable
@@ -37,13 +33,16 @@ fun TimesListItem(index: Int, solve: Solve) {
       .padding(12.dp)
   ) {
     Box(modifier = Modifier.fillMaxWidth()) {
-      Text(modifier = Modifier.align(Alignment.CenterStart), text = "${index + 1})")
+      Text(
+        text = "${index + 1})",
+        modifier = Modifier.align(Alignment.CenterStart),
+        style = FLTimerTheme.typography.caption
+      )
 
       Text(
         modifier = Modifier.align(Alignment.Center),
         text = solve.getDisplayableRepresentation(),
-        fontWeight = FontWeight.Bold,
-        fontFamily = FontFamily.Monospace
+        style = FLTimerTheme.typography.body
       )
 
       TextButton(
@@ -51,7 +50,12 @@ fun TimesListItem(index: Int, solve: Solve) {
         onClick = {
           uiManager.notifyListeners(FLTimerEvent.SolvesItemRemove, solve)
         }
-      ) { Text(text = "x") }
+      ) {
+        Text(
+          text = "x",
+          style = FLTimerTheme.typography.button
+        )
+      }
     }
 
     Row(horizontalArrangement = Arrangement.Start) {
@@ -62,16 +66,16 @@ fun TimesListItem(index: Int, solve: Solve) {
 
     if (expanded) {
       Row(verticalAlignment = Alignment.CenterVertically) {
-        Text("Scramble:")
+        Text(
+          text = "Scramble:",
+          style = FLTimerTheme.typography.subtitle
+        )
 
         Spacer(Modifier.width(8.dp))
 
         BasicSelectableText(
           text = solve.scramble,
-          textStyle = TextStyle(
-            textAlign = TextAlign.Center,
-            fontFamily = FontFamily.Monospace
-          )
+          textStyle = FLTimerTheme.typography.body
         )
       }
     }
@@ -86,6 +90,9 @@ private fun PenaltyButton(targetSolve: Solve, nextPenalty: Penalty) {
       uiManager.notifyListeners(FLTimerEvent.SolveItemPenaltyUpdate, arrayOf(targetSolve, nextPenalty))
     }
   ) {
-    Text(text = nextPenalty.toString(), fontSize = 12.sp)
+    Text(
+      text = nextPenalty.toString(),
+      style = FLTimerTheme.typography.button.copy(fontSize = 12.sp)
+    )
   }
 }

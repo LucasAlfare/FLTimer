@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.configuration.Config
 import com.lucasalfare.fltimer.core.model.FLTimerState
+import com.lucasalfare.fltimer.ui.theme.FLTimerTheme
 import com.lucasalfare.fltimer.ui.uiManager
 
 @Composable
@@ -45,6 +46,9 @@ fun ToggleInspection() {
         focusManager.clearFocus()
       }
     )
-    Text("Use inspection")
+    Text(
+      text = "Use inspection",
+      style = FLTimerTheme.typography.body
+    )
   }
 }

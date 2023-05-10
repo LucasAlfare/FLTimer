@@ -15,6 +15,7 @@ import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.model.FLTimerState
 import com.lucasalfare.fltimer.core.model.session.Session
 import com.lucasalfare.fltimer.ui.FLTimerUiState
+import com.lucasalfare.fltimer.ui.theme.FLTimerTheme
 import com.lucasalfare.fltimer.ui.uiManager
 
 @Composable
@@ -35,12 +36,18 @@ fun SessionsController() {
             getSession(sessions.first { it.name == currentActiveSessionName.value }, sessions, false)
           )
         }
-      ) { Text("<<") }
+      ) {
+        Text(
+          text = "<<",
+          style = FLTimerTheme.typography.button
+        )
+      }
 
       Spacer(Modifier.width(4.dp))
 
       Text(
         text = currentActiveSessionName.value,
+        style = FLTimerTheme.typography.body,
         textAlign = TextAlign.Center,
       )
 
@@ -54,7 +61,12 @@ fun SessionsController() {
             getSession(sessions.first { it.name == currentActiveSessionName.value }, sessions, true)
           )
         }
-      ) { Text(">>") }
+      ) {
+        Text(
+          text = ">>",
+          style = FLTimerTheme.typography.button
+        )
+      }
 
       Spacer(Modifier.width(4.dp))
 
@@ -66,7 +78,10 @@ fun SessionsController() {
         },
         contentPadding = PaddingValues(4.dp)
       ) {
-        Text("-")
+        Text(
+          text = "-",
+          style = FLTimerTheme.typography.button
+        )
       }
 
       Spacer(Modifier.width(4.dp))
@@ -79,7 +94,10 @@ fun SessionsController() {
         enabled = !FLTimerUiState.inCreatingSessionMode.value,
         contentPadding = PaddingValues(4.dp)
       ) {
-        Text("+")
+        Text(
+          text = "+",
+          style = FLTimerTheme.typography.button
+        )
       }
     }
 
@@ -97,10 +115,14 @@ fun SessionInsertionForm() {
     Row(
       verticalAlignment = Alignment.CenterVertically
     ) {
-      Text("New session name:")
+      Text(
+        text = "New session name:",
+        style = FLTimerTheme.typography.body
+      )
       TextField(
         modifier = Modifier.fillMaxWidth(),
         value = tmpNewSessionName.value,
+        textStyle = FLTimerTheme.typography.body,
         onValueChange = {
           tmpNewSessionName.value = it
         }
@@ -119,7 +141,10 @@ fun SessionInsertionForm() {
         FLTimerUiState.inCreatingSessionMode.value = false
       }
     ) {
-      Text(text = if (tmpNewSessionName.value.isEmpty()) "Cancel" else "Create")
+      Text(
+        text = if (tmpNewSessionName.value.isEmpty()) "Cancel" else "Create",
+        style = FLTimerTheme.typography.button
+      )
     }
   }
 }

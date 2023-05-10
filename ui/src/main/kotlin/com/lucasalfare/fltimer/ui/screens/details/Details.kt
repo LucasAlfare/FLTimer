@@ -2,7 +2,6 @@ package com.lucasalfare.fltimer.ui.screens.details
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.lucasalfare.fltimer.ui.VerticalDivider

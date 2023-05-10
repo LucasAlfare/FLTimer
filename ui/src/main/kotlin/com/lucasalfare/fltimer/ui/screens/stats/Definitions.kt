@@ -1,13 +1,14 @@
 package com.lucasalfare.fltimer.ui.screens.stats
 
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextDecoration
 import com.lucasalfare.fltimer.core.model.FLTimerState
 import com.lucasalfare.fltimer.core.statistics.*
 import com.lucasalfare.fltimer.core.toTimestamp
+import com.lucasalfare.fltimer.ui.theme.FLTimerTheme
 
 class StatisticsTemplateProvider {
   companion object {
@@ -145,8 +146,10 @@ class StatisticsTemplateProvider {
   }
 }
 
+@Composable
 fun getStatisticsAnnotatedString() = buildAnnotatedString {
   var currentCharacterCursorPosition = 0
+
   StatisticsTemplateProvider.templateModel.forEach {
     if (it == "\n") {
       appendLine()
@@ -158,11 +161,10 @@ fun getStatisticsAnnotatedString() = buildAnnotatedString {
         if (currStatResult != StatisticResult.notCalculatedResult && currStatResult != StatisticResult.dnfResult) {
           append(currStatResult.result.toTimestamp())
 
-          // this simulates "link" style. TODO: other style
           addStyle(
             style = SpanStyle(
               color = Color.Blue,
-              fontFamily = FontFamily.Monospace,
+              fontFamily = FLTimerTheme.typography.body.fontFamily,
               textDecoration = TextDecoration.Underline
             ),
             start = currentCharacterCursorPosition,
@@ -197,4 +199,12 @@ fun getStatisticsAnnotatedString() = buildAnnotatedString {
       }
     }
   }
+
+  addStyle(
+    style = SpanStyle(
+      fontFamily = FLTimerTheme.typography.body.fontFamily,
+    ),
+    start = 0,
+    end = currentCharacterCursorPosition
+  )
 }

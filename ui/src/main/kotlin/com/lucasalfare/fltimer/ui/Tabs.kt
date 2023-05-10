@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.lucasalfare.fltimer.ui.FLTimerUiState.Companion.canTimerToggle
 import com.lucasalfare.fltimer.ui.FLTimerUiState.Companion.currentTabName
+import com.lucasalfare.fltimer.ui.theme.FLTimerTheme
 
 @Composable
 fun Tabs() {
@@ -32,6 +33,9 @@ fun TabItem(modifier: Modifier, tabName: String, initialTimerTigglingPermission:
     },
     enabled = currentTabName.value != tabName
   ) {
-    Text(tabName)
+    Text(
+      text = tabName,
+      style = FLTimerTheme.typography.button
+    )
   }
 }
