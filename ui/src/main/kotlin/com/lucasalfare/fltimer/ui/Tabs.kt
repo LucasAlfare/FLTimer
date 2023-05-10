@@ -22,14 +22,14 @@ fun Tabs() {
 }
 
 @Composable
-fun TabItem(modifier: Modifier, tabName: String, initialTimerTigglingPermission: Boolean) {
+fun TabItem(modifier: Modifier, tabName: String, initialTimerTogglingPermission: Boolean) {
   Button(
     modifier = modifier
       .fillMaxHeight()
       .padding(4.dp),
     onClick = {
       currentTabName.value = tabName
-      canTimerToggle.value = initialTimerTigglingPermission
+      canTimerToggle.value = initialTimerTogglingPermission
     },
     enabled = currentTabName.value != tabName
   ) {
