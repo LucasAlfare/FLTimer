@@ -11,23 +11,26 @@ import com.lucasalfare.fltimer.ui.screens.details.Details
 import com.lucasalfare.fltimer.ui.screens.solves.Solves
 import com.lucasalfare.fltimer.ui.screens.stats.StatsScreen
 import com.lucasalfare.fltimer.ui.screens.timer.Timer
+import com.lucasalfare.fltimer.ui.theme.FLTimerTheme
 
 
 @Composable
 fun App() {
-  Column(modifier = Modifier.fillMaxSize()) {
-    Box(modifier = Modifier.weight(1f)) {
-      when (currentTabName.value) {
-        TabName.Timer.name -> Timer()
-        TabName.Solves.name -> Solves()
-        TabName.Stats.name -> StatsScreen()
-        TabName.Details.name -> Details()
-        else -> Text(currentTabName.value)
+  FLTimerTheme {
+    Column(modifier = Modifier.fillMaxSize()) {
+      Box(modifier = Modifier.weight(1f)) {
+        when (currentTabName.value) {
+          TabName.Timer.name -> Timer()
+          TabName.Solves.name -> Solves()
+          TabName.Stats.name -> StatsScreen()
+          TabName.Details.name -> Details()
+          else -> Text(currentTabName.value)
+        }
       }
-    }
 
-    Box(modifier = Modifier.weight(1f / 6)) {
-      Tabs()
+      Box(modifier = Modifier.weight(1f / 6)) {
+        Tabs()
+      }
     }
   }
 }
