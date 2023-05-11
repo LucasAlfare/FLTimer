@@ -18,6 +18,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.model.FLTimerState
+import com.lucasalfare.fltimer.ui.raw.FLTimerText
+import com.lucasalfare.fltimer.ui.raw.FLTimerTextButton
 import com.lucasalfare.fltimer.ui.theme.FLTimerTheme
 import com.lucasalfare.fltimer.ui.uiManager
 
@@ -33,23 +35,19 @@ fun TimesList() {
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
     Column(modifier = Modifier.padding(8.dp)) {
-      Text(
+      FLTimerText(
         text = "Number of solves: ${FLTimerState.getCurrentActiveSession().solves.size}",
         style = FLTimerTheme.typography.caption
       )
 
       // TODO: move this button to bottom of the lazy list
-      TextButton(
+      FLTimerTextButton(
+        text = "Clear",
         modifier = Modifier.weight(0.2f).fillMaxWidth(),
         onClick = {
           uiManager.notifyListeners(event = FLTimerEvent.SolvesClear, origin = this)
         }
-      ) {
-        Text(
-          text = "Clear",
-          style = FLTimerTheme.typography.button
-        )
-      }
+      )
 
       LazyColumn(
         modifier = Modifier
@@ -57,7 +55,7 @@ fun TimesList() {
           .border(
             width = 1.dp,
             shape = RoundedCornerShape(5.dp),
-            color = Color.LightGray
+            color = FLTimerTheme.colors.primary
           ),
         state = lazyListState
       ) {

@@ -163,7 +163,7 @@ fun getStatisticsAnnotatedString() = buildAnnotatedString {
 
           addStyle(
             style = SpanStyle(
-              color = Color.Blue,
+              color = FLTimerTheme.colors.error,
               fontFamily = FLTimerTheme.typography.body.fontFamily,
               textDecoration = TextDecoration.Underline
             ),
@@ -203,6 +203,7 @@ fun getStatisticsAnnotatedString() = buildAnnotatedString {
   addStyle(
     style = SpanStyle(
       fontFamily = FLTimerTheme.typography.body.fontFamily,
+      color = FLTimerTheme.colors.textOnPrimary
     ),
     start = 0,
     end = currentCharacterCursorPosition

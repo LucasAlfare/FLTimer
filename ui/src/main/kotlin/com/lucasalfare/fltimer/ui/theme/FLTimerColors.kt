@@ -8,16 +8,22 @@ import androidx.compose.ui.graphics.Color
 
 class FLTimerColors(
   primary: Color,
-  textPrimary: Color,
-  textSecondary: Color,
+  secondary: Color,
+  background: Color,
+  textOnPrimary: Color,
+  textoOnSecondary: Color,
   error: Color,
   isLight: Boolean
 ) {
   var primary by mutableStateOf(primary)
     private set
-  var textPrimary by mutableStateOf(textPrimary)
+  var secondary by mutableStateOf(secondary)
     private set
-  var textSecondary by mutableStateOf(textSecondary)
+  var background by mutableStateOf(background)
+    private set
+  var textOnPrimary by mutableStateOf(textOnPrimary)
+    private set
+  var textOnSecondary by mutableStateOf(textoOnSecondary)
     private set
   var error by mutableStateOf(error)
     private set
@@ -26,61 +32,64 @@ class FLTimerColors(
 
   fun copy(
     primary: Color = this.primary,
-    textPrimary: Color = this.textPrimary,
-    textSecondary: Color = this.textSecondary,
+    secondary: Color = this.secondary,
+    background: Color = this.background,
+    textOnPrimary: Color = this.textOnPrimary,
+    textOnSecondary: Color = this.textOnSecondary,
     error: Color = this.error,
     isLight: Boolean = this.isLight
   ): FLTimerColors = FLTimerColors(
     primary,
-    textPrimary,
-    textSecondary,
+    secondary,
+    background,
+    textOnPrimary,
+    textOnSecondary,
     error,
     isLight
   )
 
   fun updateColorsFrom(other: FLTimerColors) {
     primary = other.primary
-    textPrimary = other.textPrimary
-    textSecondary = other.textSecondary
-//    background = other.background
+    secondary = other.secondary
+    background = other.background
+    textOnPrimary = other.textOnPrimary
+    textOnSecondary = other.textOnSecondary
     error = other.error
   }
 }
 
-private val colorLightPrimary = Color(0xFFFFB400)
-private val colorLightTextPrimary = Color(0xFF000000)
-private val colorLightTextSecondary = Color(0xFF6C727A)
-private val colorLightBackground = Color(0xFFFFFFFF)
-private val colorLightError = Color(0xFFD62222)
-
 val LocalFLTimerColors = staticCompositionLocalOf { lightColors() }
 
 fun lightColors(
-  primary: Color = colorLightPrimary,
-  textPrimary: Color = colorLightTextPrimary,
-  textSecondary: Color = colorLightTextSecondary,
-  background: Color = colorLightBackground,
-  error: Color = colorLightError
+  primary: Color = Color(0xFFFFB400),
+  secondary: Color = Color(0xFF8B2635),
+  background: Color = Color(0xFF2E3532),
+  textOnPrimary: Color = Color(0xFFD2D4C8),
+  textOnSecondary: Color = Color(0xFFE0E2DB),
+  error: Color = Color(0xFFC36F09)
 ): FLTimerColors = FLTimerColors(
   primary = primary,
-  textPrimary = textPrimary,
-  textSecondary = textSecondary,
-//  background = background,
+  secondary = secondary,
+  background = background,
+  textOnPrimary = textOnPrimary,
+  textoOnSecondary = textOnSecondary,
   error = error,
   isLight = true
 )
 
 fun darkColors(
-  primary: Color = colorLightPrimary,
-  textPrimary: Color = colorLightTextPrimary,
-  textSecondary: Color = colorLightTextSecondary,
-  background: Color = colorLightBackground,
-  error: Color = colorLightError
+  primary: Color = Color(0xFFFFB400),
+  secondary: Color = Color(0xFF8B2635),
+  background: Color = Color(0xFF2E3532),
+  textOnPrimary: Color = Color(0xFFD2D4C8),
+  textOnSecondary: Color = Color(0xFFE0E2DB),
+  error: Color = Color(0xFFC36F09)
 ): FLTimerColors = FLTimerColors(
   primary = primary,
-  textPrimary = textPrimary,
-  textSecondary = textSecondary,
-//  background = background,
+  secondary = secondary,
+  background = background,
+  textOnPrimary = textOnPrimary,
+  textoOnSecondary = textOnSecondary,
   error = error,
   isLight = false
 )

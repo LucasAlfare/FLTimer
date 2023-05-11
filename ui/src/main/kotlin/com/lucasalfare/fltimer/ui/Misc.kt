@@ -19,6 +19,8 @@ import androidx.compose.ui.input.pointer.PointerInputScope
 import androidx.compose.ui.text.*
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.lucasalfare.fltimer.ui.raw.FLTimerText
+import com.lucasalfare.fltimer.ui.theme.FLTimerTheme
 
 
 private const val DividerAlpha = 0.12f
@@ -26,15 +28,20 @@ private const val DividerAlpha = 0.12f
 @Composable
 fun BasicSelectableText(
   text: String,
-  textStyle: TextStyle = TextStyle(),
-  modifier: Modifier = Modifier
+  textStyle: TextStyle = TextStyle()
 ) {
   SelectionContainer {
-    Text(
+    FLTimerText(
       text = text,
-      style = textStyle,
-      modifier = modifier
+      style = textStyle
     )
+
+//    Text(
+//      text = text,
+//      style = textStyle,
+//      color = FLTimerTheme.colors.textOnPrimary,
+//      modifier = modifier
+//    )
   }
 }
 

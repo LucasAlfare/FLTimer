@@ -11,6 +11,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import com.lucasalfare.fltimer.ui.customTapDetect
+import com.lucasalfare.fltimer.ui.raw.FLTimerText
 
 @Composable
 fun BasicSelectableAndClickableText(
@@ -23,7 +24,8 @@ fun BasicSelectableAndClickableText(
   ) {
     Box {
       val layoutResult = remember { mutableStateOf<TextLayoutResult?>(null) }
-      Text(
+
+      FLTimerText(
         text = text,
         onTextLayout = { layoutResult.value = it },
         modifier = Modifier
@@ -46,6 +48,30 @@ fun BasicSelectableAndClickableText(
             }
           }
       )
+
+//      Text(
+//        text = text,
+//        onTextLayout = { layoutResult.value = it },
+//        modifier = Modifier
+//          .pointerInput(Unit) {
+//            customTapDetect { offsetPosition ->
+//              val annotation = layoutResult.value?.getOffsetForPosition(offsetPosition)?.let { offset ->
+//                text.getStringAnnotations(
+//                  start = offset,
+//                  end = offset,
+//                  tag = StatisticsTemplateProvider.STATISTIC_TAG_LABEL,
+//                ).firstOrNull()
+//              }
+//
+//              if (annotation != null) {
+//                onAnnotationItemClick(annotation)
+//                true
+//              } else {
+//                false
+//              }
+//            }
+//          }
+//      )
     }
   }
 }

@@ -15,6 +15,9 @@ import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.model.FLTimerState
 import com.lucasalfare.fltimer.core.model.session.Session
 import com.lucasalfare.fltimer.ui.FLTimerUiState
+import com.lucasalfare.fltimer.ui.raw.FLTimerButton
+import com.lucasalfare.fltimer.ui.raw.FLTimerText
+import com.lucasalfare.fltimer.ui.raw.FLTimerTextButton
 import com.lucasalfare.fltimer.ui.theme.FLTimerTheme
 import com.lucasalfare.fltimer.ui.uiManager
 
@@ -28,7 +31,8 @@ fun SessionsController() {
       verticalAlignment = Alignment.CenterVertically,
       horizontalArrangement = Arrangement.Center
     ) {
-      TextButton(
+      FLTimerTextButton(
+        text = "<<",
         modifier = Modifier.width(45.dp),
         onClick = {
           uiManager.notifyListeners(
@@ -36,24 +40,19 @@ fun SessionsController() {
             getSession(sessions.first { it.name == currentActiveSessionName.value }, sessions, false)
           )
         }
-      ) {
-        Text(
-          text = "<<",
-          style = FLTimerTheme.typography.button
-        )
-      }
-
-      Spacer(Modifier.width(4.dp))
-
-      Text(
-        text = currentActiveSessionName.value,
-        style = FLTimerTheme.typography.body,
-        textAlign = TextAlign.Center,
       )
 
       Spacer(Modifier.width(4.dp))
 
-      TextButton(
+      FLTimerText(
+        text = currentActiveSessionName.value,
+        textAlign = TextAlign.Center
+      )
+
+      Spacer(Modifier.width(4.dp))
+
+      FLTimerTextButton(
+        text = ">>",
         modifier = Modifier.width(45.dp),
         onClick = {
           uiManager.notifyListeners(
@@ -61,44 +60,25 @@ fun SessionsController() {
             getSession(sessions.first { it.name == currentActiveSessionName.value }, sessions, true)
           )
         }
-      ) {
-        Text(
-          text = ">>",
-          style = FLTimerTheme.typography.button
-        )
-      }
+      )
 
       Spacer(Modifier.width(4.dp))
 
-      TextButton(
+      FLTimerTextButton(
+        text = "-",
         modifier = Modifier.weight(1f),
-        onClick = {
-//          uiManager.notifyListeners(FLTimerEvent.SessionRemove, currentActiveSessionName.value)
-//          uiManager.notifyListeners(FLTimerEvent.SessionSwitch, FLTimerState.DEFAULT_SESSION_NAME)
-        },
-        contentPadding = PaddingValues(4.dp)
-      ) {
-        Text(
-          text = "-",
-          style = FLTimerTheme.typography.button
-        )
-      }
+        onClick = { }
+      )
 
       Spacer(Modifier.width(4.dp))
 
-      TextButton(
+      FLTimerTextButton(
+        text = "+",
         modifier = Modifier.weight(1f),
         onClick = {
           FLTimerUiState.inCreatingSessionMode.value = !FLTimerUiState.inCreatingSessionMode.value
-        },
-        enabled = !FLTimerUiState.inCreatingSessionMode.value,
-        contentPadding = PaddingValues(4.dp)
-      ) {
-        Text(
-          text = "+",
-          style = FLTimerTheme.typography.button
-        )
-      }
+        }
+      )
     }
 
     if (FLTimerUiState.inCreatingSessionMode.value) {
@@ -115,10 +95,8 @@ fun SessionInsertionForm() {
     Row(
       verticalAlignment = Alignment.CenterVertically
     ) {
-      Text(
-        text = "New session name:",
-        style = FLTimerTheme.typography.body
-      )
+      FLTimerText(text = "New session name:")
+
       TextField(
         modifier = Modifier.fillMaxWidth(),
         value = tmpNewSessionName.value,
@@ -129,7 +107,8 @@ fun SessionInsertionForm() {
       )
     }
 
-    Button(
+    FLTimerButton(
+      text = if (tmpNewSessionName.value.isEmpty()) "Cancel" else "Create",
       modifier = Modifier.fillMaxWidth(),
       onClick = {
         if (tmpNewSessionName.value.isNotEmpty()) {
@@ -140,12 +119,7 @@ fun SessionInsertionForm() {
 
         FLTimerUiState.inCreatingSessionMode.value = false
       }
-    ) {
-      Text(
-        text = if (tmpNewSessionName.value.isEmpty()) "Cancel" else "Create",
-        style = FLTimerTheme.typography.button
-      )
-    }
+    )
   }
 }
 
