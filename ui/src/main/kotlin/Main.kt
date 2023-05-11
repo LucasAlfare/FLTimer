@@ -5,6 +5,8 @@ import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.platform.Font
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowState
@@ -22,6 +24,7 @@ import com.lucasalfare.fltimer.core.scramble.ScrambleManager
 import com.lucasalfare.fltimer.core.timer.TimerManager
 import com.lucasalfare.fltimer.ui.FLTimerUiState.Companion.canTimerToggle
 import com.lucasalfare.fltimer.ui.FLTimerUiState.Companion.timerPressingDown
+import com.lucasalfare.fltimer.ui.theme.MyFontFamilies
 import com.lucasalfare.fltimer.ui.uiManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -34,6 +37,7 @@ import kotlin.io.path.Path
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalUnsignedTypes::class)
 fun main() = application {
   readAndDefineFLTimerStateFromFile { File(APPLICATION_DATABASE_FILE_NAME) }
+  defineMyFontFamilies()
 
   Window(
     state = WindowState(position = WindowPosition(Alignment.CenterEnd)),
@@ -97,5 +101,35 @@ fun main() = application {
     }
 
     App()
+  }
+}
+
+/**
+ * Method used to supply font families to the theme,
+ * using files of the current module.
+ */
+private fun defineMyFontFamilies() {
+  MyFontFamilies.defineRegular {
+    FontFamily(
+      Font(
+        resource = "JetBrainsMono-Regular.ttf"
+      )
+    )
+  }
+
+  MyFontFamilies.defineBold {
+    FontFamily(
+      Font(
+        resource = "JetBrainsMono-Bold.ttf"
+      )
+    )
+  }
+
+  MyFontFamilies.defineItalic {
+    FontFamily(
+      Font(
+        resource = "JetBrainsMono-Italic.ttf"
+      )
+    )
   }
 }

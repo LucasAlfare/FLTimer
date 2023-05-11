@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.font.FontFamily
 import com.lucasalfare.fllistener.setupManagers
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.getCurrentTime
@@ -21,6 +22,7 @@ import com.lucasalfare.fltimer.core.model.session.SessionsManager
 import com.lucasalfare.fltimer.core.scramble.ScrambleManager
 import com.lucasalfare.fltimer.core.timer.TimerManager
 import com.lucasalfare.fltimer.ui.FLTimerUiState
+import com.lucasalfare.fltimer.ui.theme.MyFontFamilies
 import com.lucasalfare.fltimer.ui.uiManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -33,14 +35,7 @@ class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    readAndDefineFLTimerStateFromFile {
-      val path = applicationContext.filesDir
-      Log.d("FLTimer", "Timer data file is properly loaded from internal storage.")
-      return@readAndDefineFLTimerStateFromFile File(
-        path,
-        APPLICATION_DATABASE_FILE_NAME
-      )
-    }
+    initialSetup()
 
     setContent {
       Box(
@@ -93,6 +88,43 @@ class MainActivity : AppCompatActivity() {
       val stream = FileOutputStream(file)
       stream.write(it.getData().toByteArray())
       Log.d("FLTimer", "Timer data file properly saved on internal storage.")
+    }
+  }
+
+  private fun initialSetup() {
+    readAndDefineFLTimerStateFromFile {
+      val path = applicationContext.filesDir
+      Log.d("FLTimer", "Timer data file is properly loaded from internal storage.")
+      return@readAndDefineFLTimerStateFromFile File(
+        path,
+        APPLICATION_DATABASE_FILE_NAME
+      )
+    }
+
+    defineMyFontFamilies()
+  }
+
+  /**
+   * Method used to supply font families to the theme,
+   * using files of the current module.
+   */
+  private fun defineMyFontFamilies() {
+    MyFontFamilies.defineRegular {
+      FontFamily(
+        resources.getFont(R.font.jetbrains_mono_regular)
+      )
+    }
+
+    MyFontFamilies.defineItalic {
+      FontFamily(
+        resources.getFont(R.font.jetbrains_mono_italic)
+      )
+    }
+
+    MyFontFamilies.defineBold {
+      FontFamily(
+        resources.getFont(R.font.jetbrains_mono_bold)
+      )
     }
   }
 }
