@@ -60,6 +60,7 @@ class FLTimerColors(
 
 val LocalFLTimerColors = staticCompositionLocalOf { lightColors() }
 
+// TODO: look for a good and beauty combination of colors
 fun lightColors(
   primary: Color = Color(0xFFFFB400),
   secondary: Color = Color(0xFF8B2635),
