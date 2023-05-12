@@ -1,3 +1,5 @@
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+
 group = "com.lucasalfare.fltimer"
 version = "1.0-SNAPSHOT"
 
@@ -18,4 +20,16 @@ dependencies {
 
   implementation("com.github.LucasAlfare:FLListening:$flListeningVersion")
   implementation("com.github.LucasAlfare:FLBinary:$flBinary")
+}
+
+compose.desktop {
+  application {
+    mainClass = "MainKt"
+
+    nativeDistributions {
+      targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+      packageName = "ComposeDesktopFLTimer"
+      packageVersion = "1.0.0"
+    }
+  }
 }
