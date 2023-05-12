@@ -58,29 +58,12 @@ class FLTimerColors(
   }
 }
 
-val LocalFLTimerColors = staticCompositionLocalOf { lightColors() }
+val LocalFLTimerColors = staticCompositionLocalOf { defaultColors() }
 
 // TODO: look for a good and beauty combination of colors
-fun lightColors(
+fun defaultColors(
   primary: Color = Color(0xFFFFB400),
   secondary: Color = Color(0xFF0A415C),
-  background: Color = Color(0xFF2E3532),
-  textOnPrimary: Color = Color(0xFFD2D4C8),
-  textOnSecondary: Color = Color(0xFFE0E2DB),
-  error: Color = Color(0xFFC36F09)
-): FLTimerColors = FLTimerColors(
-  primary = primary,
-  secondary = secondary,
-  background = background,
-  textOnPrimary = textOnPrimary,
-  textoOnSecondary = textOnSecondary,
-  error = error,
-  isLight = true
-)
-
-fun darkColors(
-  primary: Color = Color(0xFFFFB400),
-  secondary: Color = Color(0xFF8B2635),
   background: Color = Color(0xFF2E3532),
   textOnPrimary: Color = Color(0xFFD2D4C8),
   textOnSecondary: Color = Color(0xFFE0E2DB),
