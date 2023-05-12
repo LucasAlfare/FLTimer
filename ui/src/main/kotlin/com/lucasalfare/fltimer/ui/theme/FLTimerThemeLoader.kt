@@ -21,20 +21,16 @@ class MyFontFamilies {
       }
     }
 
-    fun defineBold(initializationCallback: () -> FontFamily): FontFamily {
+    fun defineBold(initializationCallback: () -> FontFamily) {
       if (!(this::bold.isInitialized)) {
         bold = initializationCallback()
       }
-
-      return bold
     }
 
-    fun defineItalic(initializationCallback: () -> FontFamily): FontFamily {
+    fun defineItalic(initializationCallback: () -> FontFamily) {
       if (!(this::italic.isInitialized)) {
         italic = initializationCallback()
       }
-
-      return italic
     }
   }
 }
