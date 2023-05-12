@@ -66,6 +66,7 @@ Finishing then should lead the application to the first alpha version.
 ### Core
 Most urgent core tasks needed:
 
+- Implement "`wait_for_ready`" state in timer management to avoid instant starting solves after finish one;
 - Clean up events listening;
 - Implement all _WCA_ scrambles generators;
 - Please, add tests!
@@ -75,6 +76,7 @@ Most urgent core tasks needed:
 ### UI
 Most urgent UI tasks needed:
 
+- Make UI fire `TOGGLE_DOWN` event based on any key code to avoid restrict user to stop only using `spacebar`; 
 - Check layout consistence of the root composables between mobile and desktop;
 - Try better styles in the solves list items composables;
 - Stabilize custom application ~~fonts~~, ~~colors~~, spacing and sizing;
