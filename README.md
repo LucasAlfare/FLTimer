@@ -51,7 +51,7 @@ There are other features in mind being planned to be implemented after the basic
 All of these features I plan to implement by myself as good as I can, using only my own knowledge. Reinventing the wheel today is not a good thing to do, but when it comes to studying it is one of the most powerful weapons. :)
 
 # Some images
-Below we have some images presenting some aspects of the current stage of the application UI. Note that this is a heavy rough version and will hardly be changed over the application development.
+Below, we have some images presenting some aspects of the current stage of the application UI. Note that this is a heavy rough version and will hardly be changed over the application development.
 
 - Main timer screen view:
   ![main screen view](img/ss1.png)
@@ -77,7 +77,7 @@ Most urgent UI tasks needed:
 
 - Check layout consistence of the root composables between mobile and desktop;
 - Try better styles in the solves list items composables;
-- Stabilize custom application fonts, spacing and sizing;
+- Stabilize custom application ~~fonts~~, ~~colors~~, spacing and sizing;
 - Get feeback about layout usability:
     - What relevant items should be in the main screen;
     - Is spliting details screen with solves and statistics useful/good?
