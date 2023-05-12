@@ -28,9 +28,10 @@ private const val DividerAlpha = 0.12f
 @Composable
 fun BasicSelectableText(
   text: String,
+  modifier: Modifier = Modifier,
   textStyle: TextStyle = TextStyle()
 ) {
-  SelectionContainer {
+  SelectionContainer(modifier = modifier) {
     FLTimerText(
       text = text,
       style = textStyle

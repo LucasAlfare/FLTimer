@@ -55,7 +55,7 @@ fun TimesList() {
           .border(
             width = 1.dp,
             shape = RoundedCornerShape(5.dp),
-            color = FLTimerTheme.colors.primary
+            color = FLTimerTheme.colors.secondary.copy(alpha = 0.8f)
           ),
         state = lazyListState
       ) {

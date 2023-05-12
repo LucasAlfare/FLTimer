@@ -1,5 +1,6 @@
 package com.lucasalfare.fltimer.ui.raw
 
+import androidx.compose.material.ButtonColors
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
@@ -15,16 +16,17 @@ fun FLTimerTextButton(
   onClick: () -> Unit,
   modifier: Modifier = Modifier,
   textStyle: TextStyle = FLTimerTheme.typography.button,
-  buttonColor: Color = FLTimerTheme.colors.secondary,
-  textColor: Color = FLTimerTheme.colors.textOnSecondary
+  textColor: Color = FLTimerTheme.colors.error
 ) {
   TextButton(
     onClick = { onClick() },
-    modifier = modifier
+    modifier = modifier,
+    colors = ButtonDefaults.textButtonColors(
+      contentColor = textColor
+    )
   ) {
     Text(
       text = text,
-      color = textColor,
       style = textStyle
     )
   }

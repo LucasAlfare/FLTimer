@@ -19,7 +19,7 @@ class FLTimerColors(
     private set
   var secondary by mutableStateOf(secondary)
     private set
-  var background by mutableStateOf(background)
+  var surface by mutableStateOf(background)
     private set
   var textOnPrimary by mutableStateOf(textOnPrimary)
     private set
@@ -33,7 +33,7 @@ class FLTimerColors(
   fun copy(
     primary: Color = this.primary,
     secondary: Color = this.secondary,
-    background: Color = this.background,
+    background: Color = this.surface,
     textOnPrimary: Color = this.textOnPrimary,
     textOnSecondary: Color = this.textOnSecondary,
     error: Color = this.error,
@@ -51,7 +51,7 @@ class FLTimerColors(
   fun updateColorsFrom(other: FLTimerColors) {
     primary = other.primary
     secondary = other.secondary
-    background = other.background
+    surface = other.surface
     textOnPrimary = other.textOnPrimary
     textOnSecondary = other.textOnSecondary
     error = other.error

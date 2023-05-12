@@ -60,7 +60,7 @@ fun TimesListItem(index: Int, solve: Solve) {
 
     if (expanded) {
       Row(verticalAlignment = Alignment.CenterVertically) {
-        FLTimerText(text = "Scramble", style = FLTimerTheme.typography.subtitle)
+        FLTimerText(text = "Scramble: ", style = FLTimerTheme.typography.subtitle)
 
         Spacer(Modifier.width(8.dp))
 

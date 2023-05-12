@@ -7,6 +7,8 @@ import androidx.compose.ui.Modifier
 import com.lucasalfare.fltimer.ui.FLTimerUiState.Companion.currentTabName
 import com.lucasalfare.fltimer.ui.TabName
 import com.lucasalfare.fltimer.ui.Tabs
+import com.lucasalfare.fltimer.ui.raw.FLTimerBox
+import com.lucasalfare.fltimer.ui.raw.FLTimerColumn
 import com.lucasalfare.fltimer.ui.screens.details.Details
 import com.lucasalfare.fltimer.ui.screens.solves.Solves
 import com.lucasalfare.fltimer.ui.screens.stats.StatsScreen
@@ -17,8 +19,8 @@ import com.lucasalfare.fltimer.ui.theme.FLTimerTheme
 @Composable
 fun App() {
   FLTimerTheme {
-    Column(modifier = Modifier.fillMaxSize()) {
-      Box(modifier = Modifier.weight(1f)) {
+    FLTimerColumn(modifier = Modifier.fillMaxSize()) {
+      FLTimerBox(modifier = Modifier.weight(1f)) {
         when (currentTabName.value) {
           TabName.Timer.name -> Timer()
           TabName.Solves.name -> Solves()
@@ -28,7 +30,7 @@ fun App() {
         }
       }
 
-      Box(modifier = Modifier.weight(1f / 6)) {
+      FLTimerBox(modifier = Modifier.weight(1f / 6)) {
         Tabs()
       }
     }
