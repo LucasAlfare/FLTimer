@@ -36,13 +36,6 @@ fun BasicSelectableText(
       text = text,
       style = textStyle
     )
-
-//    Text(
-//      text = text,
-//      style = textStyle,
-//      color = FLTimerTheme.colors.textOnPrimary,
-//      modifier = modifier
-//    )
   }
 }
 
