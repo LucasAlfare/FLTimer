@@ -11,22 +11,33 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.model.FLTimerState
+import com.lucasalfare.fltimer.ui.FLTimerUiState
+import com.lucasalfare.fltimer.ui.TabName
 import com.lucasalfare.fltimer.ui.raw.FLTimerText
 import com.lucasalfare.fltimer.ui.raw.FLTimerTextButton
 import com.lucasalfare.fltimer.ui.theme.FLTimerTheme
 import com.lucasalfare.fltimer.ui.uiManager
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun TimesList() {
+  val allSolves = FLTimerState.getCurrentActiveSession().solves
+
   // list scrolling management
   val lazyListState = rememberLazyListState()
+  val coroutineScope = rememberCoroutineScope()
+
+  LaunchedEffect(allSolves.size) {
+    lazyListState.animateScrollToItem(allSolves.size)
+  }
 
   Column(
     modifier = Modifier
@@ -36,7 +47,7 @@ fun TimesList() {
   ) {
     Column(modifier = Modifier.padding(8.dp)) {
       FLTimerText(
-        text = "Number of solves: ${FLTimerState.getCurrentActiveSession().solves.size}",
+        text = "Number of solves: ${allSolves.size}",
         style = FLTimerTheme.typography.caption
       )
 
@@ -59,7 +70,7 @@ fun TimesList() {
           ),
         state = lazyListState
       ) {
-        FLTimerState.getCurrentActiveSession().solves.forEachIndexed { index, solve ->
+        allSolves.forEachIndexed { index, solve ->
           item {
             TimesListItem(
               index = index,
