@@ -1,5 +1,9 @@
 package com.lucasalfare.fltimer.ui.theme
 
+/**
+ * This file defines all stuff relate to custom coloring of the FLTimer application,
+ * specially stuff related to raw values definitions.
+ */
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue

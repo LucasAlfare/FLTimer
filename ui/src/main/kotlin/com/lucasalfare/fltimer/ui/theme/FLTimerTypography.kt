@@ -5,6 +5,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
+/**
+ * This data class holds the main and predefined font styles of the application.
+ * Note that this only works if the fields from the companion object of the class
+ * [MyFontFamilies] was properly initiated, what should happen through its callbacks
+ * functions on the desired platforms.
+ */
 data class FLTimerTypography(
   val extraBig: TextStyle = TextStyle(
     fontFamily = MyFontFamilies.regular,
