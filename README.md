@@ -99,6 +99,4 @@ English fixes are appreciated. :)
 
 If you are interested in talk me about this project or even another programming stuff, for now, I can answer on my email _god-lucas@hotmail.com_ and/or, if you have an Instagram account, find me there using my address _@lucas.alfare_
 
-# License
-
-I'm not interested in creating a restricted use of this or even of part of this. Feel free to use as you need! That's said, I may update this README with an appropriated license text in the future, based on the above decision.
+# [License](https://github.com/LucasAlfare/FLTimer/blob/view_modeling/LICENSE)
