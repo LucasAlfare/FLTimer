@@ -1,5 +1,6 @@
 package com.lucasalfare.fltimer
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.compose.setContent
@@ -111,19 +112,22 @@ class MainActivity : AppCompatActivity() {
   private fun defineMyFontFamilies() {
     MyFontFamilies.defineRegular {
       FontFamily(
-        resources.getFont(R.font.jetbrains_mono_regular)
+        //resources.getFont(R.font.jetbrains_mono_regular)
+        Typeface.createFromAsset(assets, "fonts/JetBrainsMono-Regular.ttf")
       )
     }
 
     MyFontFamilies.defineItalic {
       FontFamily(
-        resources.getFont(R.font.jetbrains_mono_italic)
+        //resources.getFont(R.font.jetbrains_mono_italic)
+        Typeface.createFromAsset(assets, "fonts/JetBrainsMono-Italic.ttf")
       )
     }
 
     MyFontFamilies.defineBold {
       FontFamily(
-        resources.getFont(R.font.jetbrains_mono_bold)
+        //resources.getFont(R.font.jetbrains_mono_bold)
+        Typeface.createFromAsset(assets, "fonts/JetBrainsMono-Bold.ttf")
       )
     }
   }

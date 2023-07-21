@@ -23,6 +23,20 @@ dependencies {
 }
 
 compose.desktop {
+  sourceSets.getByName("main") {
+    val allNeededDirectories = mutableListOf<String>()
+
+    allNeededDirectories.addAll(resources.srcDirs.map { it.toString() })
+
+    allNeededDirectories += project
+      .layout
+      .projectDirectory
+      .dir("../fltimer_resources")
+      .toString()
+
+    resources.setSrcDirs(allNeededDirectories)
+  }
+
   application {
     mainClass = "MainKt"
 

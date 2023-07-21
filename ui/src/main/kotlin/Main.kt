@@ -112,7 +112,7 @@ private fun defineMyFontFamilies() {
   MyFontFamilies.defineRegular {
     FontFamily(
       Font(
-        resource = "JetBrainsMono-Regular.ttf"
+        resource = "fonts/JetBrainsMono-Regular.ttf"
       )
     )
   }
@@ -120,7 +120,7 @@ private fun defineMyFontFamilies() {
   MyFontFamilies.defineBold {
     FontFamily(
       Font(
-        resource = "JetBrainsMono-Bold.ttf"
+        resource = "fonts/JetBrainsMono-Bold.ttf"
       )
     )
   }
@@ -128,7 +128,7 @@ private fun defineMyFontFamilies() {
   MyFontFamilies.defineItalic {
     FontFamily(
       Font(
-        resource = "JetBrainsMono-Italic.ttf"
+        resource = "fonts/JetBrainsMono-Italic.ttf"
       )
     )
   }

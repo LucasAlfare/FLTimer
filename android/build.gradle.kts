@@ -11,7 +11,7 @@ dependencies {
   val flBinary =
     findProperty("lucasalfare.flbinary.version") ?: ""
 
-  implementation("androidx.activity:activity-compose:1.7.1")
+  implementation("androidx.activity:activity-compose:1.7.2")
   implementation("androidx.appcompat:appcompat:1.6.1")
   implementation("androidx.core:core-ktx:1.10.1")
   implementation("androidx.compose.animation:animation:1.4.3")
@@ -34,6 +34,21 @@ android {
     versionCode = 1
     versionName = "1.0"
   }
+
+  sourceSets.getByName("main") {
+    val allNeededDirectories = mutableListOf<String>()
+
+    allNeededDirectories.addAll(assets.srcDirs.map { it.toString() })
+
+    allNeededDirectories += project
+      .layout
+      .projectDirectory
+      .dir("../fltimer_resources")
+      .toString()
+
+    assets.setSrcDirs(allNeededDirectories)
+  }
+
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
