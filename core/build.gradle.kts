@@ -13,7 +13,7 @@ dependencies {
     findProperty("lucasalfare.flbinary.version") ?: ""
 
   implementation(compose.runtime)
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
   implementation("com.github.LucasAlfare:FLListening:$flListeningVersion")
   implementation("com.github.LucasAlfare:FLBinary:$flBinaryVersion")
 }
