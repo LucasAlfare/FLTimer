@@ -1,6 +1,9 @@
 # sensitive local properties from the development machine/computer
 local.properties
 
+# ignore the actual database file in the project
+.fltd
+
 *.iml
 out/
 build/
