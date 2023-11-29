@@ -2,7 +2,7 @@
 local.properties
 
 # ignore the actual database file in the project
-.fltd
+*.fltd
 
 *.iml
 out/
