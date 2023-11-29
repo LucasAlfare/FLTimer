@@ -39,7 +39,7 @@ fun main() = application {
   defineMyFontFamilies()
 
   Window(
-    state = WindowState(position = WindowPosition(Alignment.CenterEnd)),
+    state = WindowState(position = WindowPosition(Alignment.Center)),
     onCloseRequest = {
       writeFLTimerStateToFile {
         Files.deleteIfExists(Path(APPLICATION_DATABASE_FILE_NAME))
@@ -85,7 +85,7 @@ fun main() = application {
       false
     }
   ) {
-    // TODO: slower computers may not properly init the managers assynchrnously
+    // TODO: slower computers may not properly init the managers asynchronously?
     LaunchedEffect(Unit) {
       CoroutineScope(Job()).launch {
         setupManagers(
