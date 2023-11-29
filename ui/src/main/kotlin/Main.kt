@@ -34,7 +34,7 @@ import java.nio.file.Files
 import kotlin.io.path.Path
 
 
-@OptIn(ExperimentalComposeUiApi::class, ExperimentalUnsignedTypes::class)
+@OptIn(ExperimentalUnsignedTypes::class)
 fun main() = application {
   readAndDefineFLTimerStateFromFile { File(APPLICATION_DATABASE_FILE_NAME) }
   defineMyFontFamilies()
