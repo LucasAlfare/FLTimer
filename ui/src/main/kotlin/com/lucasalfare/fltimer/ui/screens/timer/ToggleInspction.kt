@@ -4,7 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Checkbox
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,7 +13,6 @@ import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.configuration.Config
 import com.lucasalfare.fltimer.core.model.FLTimerState
 import com.lucasalfare.fltimer.ui.raw.FLTimerText
-import com.lucasalfare.fltimer.ui.theme.FLTimerTheme
 import com.lucasalfare.fltimer.ui.uiManager
 
 @Composable
