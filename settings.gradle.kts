@@ -23,6 +23,7 @@ pluginManagement {
 }
 
 include(":core")
-include(":console")
-include(":android")
 include(":ui")
+include(":console")
+include(":desktop")
+include(":android")
