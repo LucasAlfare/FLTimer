@@ -55,8 +55,7 @@ fun main() = application {
             if (canTimerToggle.value) {
               uiManager.notifyListeners(
                 event = FLTimerEvent.TimerToggleDown,
-                data = getCurrentTime(),
-                origin = "[MainClass]"
+                data = getCurrentTime()
               )
             }
 
@@ -67,8 +66,7 @@ fun main() = application {
             if (canTimerToggle.value) {
               uiManager.notifyListeners(
                 event = FLTimerEvent.TimerToggleUp,
-                data = getCurrentTime(),
-                origin = "[MainClass]"
+                data = getCurrentTime()
               )
             }
 
@@ -76,10 +74,7 @@ fun main() = application {
           }
         }
       } else if (it.key == Key.Escape) {
-        uiManager.notifyListeners(
-          event = FLTimerEvent.TimerCancel,
-          origin = "[MainClass]"
-        )
+        uiManager.notifyListeners(event = FLTimerEvent.TimerCancel)
       }
 
       false

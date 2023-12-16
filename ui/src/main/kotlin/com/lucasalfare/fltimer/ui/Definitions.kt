@@ -1,7 +1,7 @@
 package com.lucasalfare.fltimer.ui
 
 import androidx.compose.runtime.mutableStateOf
-import com.lucasalfare.fllistener.CallbacksManager
+import com.lucasalfare.fllistening.EventManageable
 
 val uiManager = CallbacksManager()
 
@@ -26,5 +26,29 @@ class FLTimerUiState {
     val canTimerToggle = mutableStateOf(true)
 
     val inCreatingSessionMode = mutableStateOf(false)
+  }
+}
+
+class CallbacksManager : EventManageable() {
+
+  private val callbacks = mutableListOf<(Any, Any?) -> Unit>()
+
+  override suspend fun initialize() {
+    initialized = true
+  }
+
+  override fun onEvent(event: Any, data: Any?) {
+    callbacks.forEach { callback ->
+      callback(event, data)
+    }
+  }
+
+  fun addCallback(callback: (Any, Any?) -> Unit): (Any, Any?) -> Unit {
+    if (!callbacks.contains(callback)) callbacks.add(callback)
+    return callback
+  }
+
+  fun removeCallback(callback: (Any, Any?) -> Unit) {
+    callbacks.remove(callback)
   }
 }
