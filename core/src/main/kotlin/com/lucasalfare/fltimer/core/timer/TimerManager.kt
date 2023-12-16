@@ -61,8 +61,6 @@ class TimerManager : EventManageable() {
         useInspection = FLTimerState.configurations[Config.UseInspection]!! as Boolean
         networkingModeOn = FLTimerState.configurations[Config.NetworkingModeOn]!! as Boolean
         configsInitiated = true
-
-        println("useInspection=$useInspection")
       }
 
       FLTimerEvent.NetworkingAllUsersFinished -> {
