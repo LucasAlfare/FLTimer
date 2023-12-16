@@ -1,6 +1,6 @@
 package com.lucasalfare.fltimer.core.timer.fsm
 
-import com.lucasalfare.fllistener.EventManageable
+import com.lucasalfare.fllistening.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
 
 /**

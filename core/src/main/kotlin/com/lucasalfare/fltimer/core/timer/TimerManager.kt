@@ -1,6 +1,6 @@
 package com.lucasalfare.fltimer.core.timer
 
-import com.lucasalfare.fllistener.EventManageable
+import com.lucasalfare.fllistening.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.configuration.Config
 import com.lucasalfare.fltimer.core.model.FLTimerState
@@ -23,17 +23,13 @@ class TimerManager : EventManageable() {
    */
   private var networkingCanStart = true
 
-  override fun onInitiated() {
-    println("[TimerManager] Instance initiated.")
-  }
-
-  override fun onNotInitiated() {
+  override suspend fun initialize() {
     useInspection = (FLTimerState.configurations[Config.UseInspection] as Boolean)
     networkingModeOn = (FLTimerState.configurations[Config.NetworkingModeOn] as Boolean)
-    this.initiated = true
+    initialized = true
   }
 
-  override fun onEvent(event: Any, data: Any?, origin: Any?) {
+  override fun onEvent(event: Any, data: Any?) {
     when (event) {
       FLTimerEvent.TimerToggleDown, FLTimerEvent.TimerToggleUp -> {
         val nextState: TimerState? = currentState.handleInput(

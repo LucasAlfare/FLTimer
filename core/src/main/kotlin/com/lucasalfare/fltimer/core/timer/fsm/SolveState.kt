@@ -1,12 +1,12 @@
 package com.lucasalfare.fltimer.core.timer.fsm
 
-import com.lucasalfare.fllistener.EventManageable
-import kotlinx.coroutines.Job
+import com.lucasalfare.fllistening.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.getCurrentTime
 import com.lucasalfare.fltimer.core.model.FLTimerState
 import com.lucasalfare.fltimer.core.timer.asyncRoutine
 import com.lucasalfare.fltimer.core.toTimestamp
+import kotlinx.coroutines.Job
 
 class SolveState : TimerState {
 
@@ -26,18 +26,14 @@ class SolveState : TimerState {
     val props = data as Array<*>
     val toggleTime = props[0] as Long
 
-    eventManageable.notifyListeners(
-      event = FLTimerEvent.TimerStarted,
-      origin = this
-    )
+    eventManageable.notifyListeners(event = FLTimerEvent.TimerStarted)
 
     start = toggleTime
     repeater = asyncRoutine {
       elapsed = getCurrentTime() - start
       eventManageable.notifyListeners(
         event = FLTimerEvent.TimerUpdate,
-        data = elapsed,
-        origin = this
+        data = elapsed
       )
 
       FLTimerState.currentDisplayValue.value = elapsed.toTimestamp()

@@ -1,6 +1,6 @@
 package com.lucasalfare.fltimer.core.timer.fsm
 
-import com.lucasalfare.fllistener.EventManageable
+import com.lucasalfare.fllistening.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.model.FLTimerState
 import com.lucasalfare.fltimer.core.toTimestamp
@@ -24,14 +24,12 @@ class FinishState(private val start: Long) : TimerState {
     val realElapsed = toggleTime - start
     eventManageable.notifyListeners(
       event = FLTimerEvent.TimerUpdate,
-      data = realElapsed,
-      origin = this
+      data = realElapsed
     )
 
     eventManageable.notifyListeners(
       event = FLTimerEvent.TimerFinished,
-      data = realElapsed,
-      origin = this
+      data = realElapsed
     )
 
     callback()

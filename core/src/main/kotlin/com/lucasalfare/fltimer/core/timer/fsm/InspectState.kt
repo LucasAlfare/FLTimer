@@ -1,6 +1,6 @@
 package com.lucasalfare.fltimer.core.timer.fsm
 
-import com.lucasalfare.fllistener.EventManageable
+import com.lucasalfare.fllistening.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.model.FLTimerState
 import com.lucasalfare.fltimer.core.model.Penalty
@@ -32,8 +32,7 @@ class InspectState : TimerState {
 
       eventManageable.notifyListeners(
         event = FLTimerEvent.TimerInspectionUpdate,
-        data = arrayOf(countdown, currentPenalty),
-        origin = this
+        data = arrayOf(countdown, currentPenalty)
       )
 
       FLTimerState.currentDisplayValue.value = "$countdown"

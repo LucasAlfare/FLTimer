@@ -1,6 +1,6 @@
 package com.lucasalfare.fltimer.core.timer.fsm
 
-import com.lucasalfare.fllistener.EventManageable
+import com.lucasalfare.fllistening.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
 
 class ReadyState : TimerState {
@@ -24,7 +24,7 @@ class ReadyState : TimerState {
   }
 
   override fun update(eventManageable: EventManageable, data: Any?) {
-    eventManageable.notifyListeners(event = FLTimerEvent.TimerReady, origin = this)
+    eventManageable.notifyListeners(event = FLTimerEvent.TimerReady)
   }
 
   override fun suspendState() {
