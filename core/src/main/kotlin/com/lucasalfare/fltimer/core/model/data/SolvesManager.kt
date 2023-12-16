@@ -1,6 +1,6 @@
 package com.lucasalfare.fltimer.core.model.data
 
-import com.lucasalfare.fllistener.EventManageable
+import com.lucasalfare.fllistening.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.model.FLTimerState
 import com.lucasalfare.fltimer.core.model.Penalty
@@ -14,15 +14,11 @@ class SolvesManager : EventManageable() {
   private var tmpScramble = ""
   private var tmpPenalty = Penalty.Ok
 
-  override fun onInitiated() {
-    println("[SolvesManager] Instance initiated.")
+  override suspend fun initialize() {
+    initialized = true
   }
 
-  override fun onNotInitiated() {
-    this.initiated = true
-  }
-
-  override fun onEvent(event: Any, data: Any?, origin: Any?) {
+  override fun onEvent(event: Any, data: Any?) {
     if (event == FLTimerEvent.TimerFinished) {
       tmpTime = data as Long
 
