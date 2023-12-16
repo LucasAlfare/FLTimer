@@ -1,8 +1,5 @@
 package com.lucasalfare.fltimer.core
 
-import java.text.SimpleDateFormat
-import java.util.*
-
 /**
  * Returns appropriated current time.
  */
