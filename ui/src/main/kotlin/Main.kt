@@ -10,7 +10,7 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
-import com.lucasalfare.fllistener.setupManagers
+import com.lucasalfare.fllistening.setupManagers
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.configuration.ConfigurationsManager
 import com.lucasalfare.fltimer.core.getCurrentTime
