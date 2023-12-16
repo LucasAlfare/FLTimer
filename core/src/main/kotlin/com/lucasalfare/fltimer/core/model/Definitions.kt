@@ -2,7 +2,7 @@ package com.lucasalfare.fltimer.core.model
 
 import androidx.compose.runtime.*
 import com.lucasalfare.fltimer.core.configuration.Config
-import com.lucasalfare.fltimer.core.model.session.Session
+import com.lucasalfare.fltimer.core.scramble.Category
 import com.lucasalfare.fltimer.core.toTimestamp
 import java.util.*
 
@@ -54,6 +54,15 @@ class Solve(
     Penalty.Dnf -> "DNF"
     else -> time.toTimestamp()
   }
+}
+
+class Session(
+  name: String = "",
+  category: Category = Category.RubiksCube
+) {
+  var name by mutableStateOf(name)
+  var category by mutableStateOf(category)
+  val solves = mutableStateListOf<Solve>()
 }
 
 
