@@ -1,20 +1,16 @@
 package com.lucasalfare.fltimer.core.model.session
 
-import com.lucasalfare.fllistener.EventManageable
+import com.lucasalfare.fllistening.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.model.FLTimerState
 
 class SessionsManager : EventManageable() {
 
-  override fun onInitiated() {
+  override suspend fun initialize() {
 
   }
 
-  override fun onNotInitiated() {
-
-  }
-
-  override fun onEvent(event: Any, data: Any?, origin: Any?) {
+  override fun onEvent(event: Any, data: Any?) {
     if (event == FLTimerEvent.SessionCreate) {
       val newSession = data as String
       FLTimerState.sessions += Session(name = newSession)
