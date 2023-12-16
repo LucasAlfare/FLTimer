@@ -1,6 +1,6 @@
 package com.lucasalfare.fltimer.core.scramble
 
-import com.lucasalfare.fllistener.EventManageable
+import com.lucasalfare.fllistening.EventManageable
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.model.FLTimerState
 import com.lucasalfare.fltimer.core.scramble.scramblers.getFreeRubiksCubeScramble
@@ -14,29 +14,23 @@ class ScrambleManager : EventManageable() {
     genScramble()
   }
 
-  override fun onInitiated() {
-    println("[ScrambleManager] Instance initiated.")
-  }
-
-  override fun onNotInitiated() {
+  override suspend fun initialize() {
     notifyListeners(
       event = FLTimerEvent.ScrambleGenerated,
-      data = arrayOf(lastScramble, currentScramble),
-      origin = this
+      data = arrayOf(lastScramble, currentScramble)
     )
 
     FLTimerState.currentScramble.value = this.currentScramble
 
-    initiated = true
+    initialized = true
   }
 
-  override fun onEvent(event: Any, data: Any?, origin: Any?) {
+  override fun onEvent(event: Any, data: Any?) {
     when (event) {
       FLTimerEvent.RequestScrambleGenerated -> {
         notifyListeners(
           event = FLTimerEvent.ScrambleGenerated,
-          data = arrayOf(lastScramble, currentScramble),
-          origin = this
+          data = arrayOf(lastScramble, currentScramble)
         )
       }
 
@@ -47,8 +41,7 @@ class ScrambleManager : EventManageable() {
       FLTimerEvent.TimerReady -> { //only propagates the scrambles when timer says READY
         notifyListeners(
           event = FLTimerEvent.ScrambleGenerated,
-          data = arrayOf(lastScramble, currentScramble),
-          origin = this
+          data = arrayOf(lastScramble, currentScramble)
         )
 
         FLTimerState.currentScramble.value = this.currentScramble
