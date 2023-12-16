@@ -11,31 +11,24 @@ import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import com.lucasalfare.fltimer.core.FLTimerEvent
 import com.lucasalfare.fltimer.core.getCurrentTime
-import com.lucasalfare.fltimer.core.model.data.persistence.APPLICATION_DATABASE_FILE_NAME
-import com.lucasalfare.fltimer.core.model.data.persistence.readAndDefineFLTimerStateFromFile
-import com.lucasalfare.fltimer.core.model.data.persistence.writeFLTimerStateToFile
 import com.lucasalfare.fltimer.ui.FLTimerUiState.Companion.canTimerToggle
 import com.lucasalfare.fltimer.ui.FLTimerUiState.Companion.timerPressingDown
 import com.lucasalfare.fltimer.ui.theme.MyFontFamilies
 import com.lucasalfare.fltimer.ui.uiManager
-import java.io.File
-import java.nio.file.Files
-import kotlin.io.path.Path
 
 
-@OptIn(ExperimentalUnsignedTypes::class)
 fun main() = application {
-  readAndDefineFLTimerStateFromFile { File(APPLICATION_DATABASE_FILE_NAME) }
+//  readAndDefineFLTimerStateFromFile { File(APPLICATION_DATABASE_FILE_NAME) }
   defineMyFontFamilies()
 
   Window(
     state = WindowState(position = WindowPosition(Alignment.Center)),
     onCloseRequest = {
-      writeFLTimerStateToFile {
-        Files.deleteIfExists(Path(APPLICATION_DATABASE_FILE_NAME))
-        val targetFile = File(APPLICATION_DATABASE_FILE_NAME)
-        targetFile.writeBytes(it.getData().toByteArray())
-      }
+//      writeFLTimerStateToFile {
+//        Files.deleteIfExists(Path(APPLICATION_DATABASE_FILE_NAME))
+//        val targetFile = File(APPLICATION_DATABASE_FILE_NAME)
+//        targetFile.writeBytes(it.getData().toByteArray())
+//      }
       exitApplication()
     },
     onKeyEvent = {
