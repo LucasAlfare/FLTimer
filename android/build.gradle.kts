@@ -5,8 +5,6 @@ plugins {
 }
 
 dependencies {
-  val flListeningVersion =
-    findProperty("lucasalfare.fllistening.version") ?: ""
 
   val flBinary =
     findProperty("lucasalfare.flbinary.version") ?: ""
@@ -17,7 +15,7 @@ dependencies {
   implementation("androidx.compose.animation:animation:1.4.3")
   implementation("androidx.compose.material:material:1.4.3")
 
-  implementation("com.github.LucasAlfare:FLListening:$flListeningVersion")
+  implementation("com.github.LucasAlfare:FLListening:v2.0")
   implementation("com.github.LucasAlfare:FLBinary:$flBinary")
 
   implementation(project(":core"))
