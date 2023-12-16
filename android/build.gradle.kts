@@ -33,6 +33,9 @@ android {
     versionName = "1.0"
   }
 
+  /*
+  This sets a folder in the project root directory to be used as resources root.
+   */
   sourceSets.getByName("main") {
     val allNeededDirectories = mutableListOf<String>()
 
