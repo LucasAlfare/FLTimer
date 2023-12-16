@@ -9,9 +9,6 @@ plugins {
 }
 
 dependencies {
-  val flListeningVersion =
-    findProperty("lucasalfare.fllistening.version") ?: ""
-
   val flBinary =
     findProperty("lucasalfare.flbinary.version") ?: ""
 
@@ -19,7 +16,7 @@ dependencies {
   implementation(project(":ui"))
   implementation(compose.desktop.currentOs)
 
-  implementation("com.github.LucasAlfare:FLListening:$flListeningVersion")
+  implementation("com.github.LucasAlfare:FLListening:v2.0")
   implementation("com.github.LucasAlfare:FLBinary:$flBinary")
 }
 
