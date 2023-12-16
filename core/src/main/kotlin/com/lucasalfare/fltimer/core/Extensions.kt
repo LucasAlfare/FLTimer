@@ -25,7 +25,3 @@ fun Long.toTimestamp(): String {
 
   return "$seconds.$milliseconds"
 }
-
-fun IntArray.toByteArray() = ByteArray(this.size) { get(it).toByte() }
-
-fun ByteArray.toIntArray() = IntArray(this.size) { get(it).toInt() }
