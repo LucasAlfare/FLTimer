@@ -23,6 +23,7 @@ pluginManagement {
 }
 
 include(":core")
+include(":data")
 include(":ui")
 include(":console")
 include(":desktop")
