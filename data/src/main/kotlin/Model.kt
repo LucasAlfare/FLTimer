@@ -1,10 +1,13 @@
-// Entidades de domínio
+enum class Penalty {
+  ok, plus_two, dnf
+}
+
 data class Solve(
   val id: Int,
   val time: Long,
   val scramble: String,
-  val comment: String?,
-  val penalty: String
+  val penalty: Penalty,
+  val comment: String
 )
 
 data class Session(

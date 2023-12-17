@@ -1,52 +1,112 @@
 package crud
 
+import Penalty
 import Session
-import SessionTable
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.transactions.transaction
+import Solve
+import sqlExecute
+import sqlExecuteQuery
 
-// CRUD para Session
+fun initSessionsTable() {
+  sqlExecute(
+    """
+    CREATE TABLE IF NOT EXISTS Sessions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        CONSTRAINT unique_id UNIQUE (id)
+    );
+    """.trimIndent()
+  )
+}
+
 fun createSession(name: String) {
-  transaction {
-    SessionTable.insertAndGetId {
-      it[SessionTable.name] = name
-    }
-  }
+  sqlExecute(
+    """
+    INSERT INTO Sessions (name) VALUES ('$name');
+    """.trimIndent()
+  )
 }
 
-fun getSessions(): List<Session> {
-  return transaction {
-    SessionTable.selectAll().map {
-      Session(
-        it[SessionTable.id].value,
-        it[SessionTable.name]
+fun getSessionById(sessionId: Int): Session? {
+  val resultSet = sqlExecuteQuery(
+    """
+    "SELECT * FROM Sessions WHERE id = $sessionId"
+    """.trimIndent()
+  )
+
+  if (resultSet != null) {
+    val search: Session
+    while (resultSet.next()) {
+      search = Session(
+        id = resultSet.getInt("id"),
+        name = resultSet.getString("name")
+      )
+      resultSet.close()
+      return search
+    }
+    resultSet.close()
+  }
+
+  return null
+}
+
+fun getAllSessionNames(): List<String> {
+  val sessionNames = mutableListOf<String>()
+
+  sqlExecuteQuery("SELECT name FROM Sessions")?.use { resultSet ->
+    while (resultSet.next()) {
+      sessionNames.add(resultSet.getString("name"))
+    }
+    resultSet.close()
+  }
+
+  return sessionNames
+}
+
+fun getAllSolvesBySessionName(sessionName: String): MutableList<Solve>? {
+  val resultSet = sqlExecuteQuery(
+    """
+    SELECT Solves.*
+    FROM Solves
+    JOIN Sessions ON Solves.session_id = Sessions.id
+    WHERE Sessions.name = '$sessionName';
+    """.trimIndent()
+  )
+
+  if (resultSet != null) {
+    val solvesList = mutableListOf<Solve>()
+    while (resultSet.next()) {
+      solvesList += Solve(
+        id = resultSet.getInt("id"),
+        time = resultSet.getLong("time"),
+        scramble = resultSet.getString("scramble"),
+        penalty = Penalty.valueOf(resultSet.getString("penalty")),
+        comment = resultSet.getString("comment")
       )
     }
+    resultSet.close()
+    return solvesList
   }
+  return null
 }
 
-fun getSessionById(id: Int): Session? {
-  return transaction {
-    SessionTable.select { SessionTable.id eq id }.singleOrNull()?.let {
-      Session(
-        it[SessionTable.id].value,
-        it[SessionTable.name]
-      )
-    }
-  }
+fun updateSession(sessionId: Int, updatedName: String) {
+  sqlExecute(
+    """
+    UPDATE Sessions SET name = '$updatedName' WHERE id = $sessionId;
+    """.trimIndent()
+  )
 }
 
-fun updateSession(id: Int, novoNome: String) {
-  transaction {
-    SessionTable.update({ SessionTable.id eq id }) {
-      it[name] = novoNome
-    }
-  }
-}
+fun deleteSessionById(sessionId: Int) {
+  sqlExecute(
+    """
+    DELETE FROM Solves WHERE session_id = $sessionId;
+    """.trimIndent()
+  )
 
-fun deleteSession(id: Int) {
-  transaction {
-    SessionTable.deleteWhere { SessionTable.id eq id }
-  }
+  sqlExecute(
+    """
+    DELETE FROM Sessions WHERE id = $sessionId;
+    """.trimIndent()
+  )
 }

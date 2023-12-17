@@ -1,63 +1,91 @@
 package crud
 
+import Penalty
 import Solve
-import SolveTable
-import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.transactions.transaction
+import sqlExecute
+import sqlExecuteQuery
 
-fun createSolve(time: Long, scramble: String, comment: String?, penalty: String) {
-  transaction {
-    SolveTable.insertAndGetId {
-      it[SolveTable.time] = time
-      it[SolveTable.scramble] = scramble
-      it[SolveTable.comment] = comment
-      it[SolveTable.penalty] = penalty
-    }
-  }
+fun initSolvesTable() {
+  sqlExecute(
+    """
+    CREATE TABLE IF NOT EXISTS Solves (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      time INTEGER,
+      scramble TEXT,
+      penalty TEXT CHECK penalty IN ('ok', 'plus_two', 'dnf'),
+      comment TEXT,
+      session_id INT,
+      FOREIGN KEY (session_id) REFERENCES Sessions(id),
+      CONSTRAINT unique_id UNIQUE (id)
+    );
+    """.trimIndent()
+  )
 }
 
-fun getSolves(): List<Solve> {
-  return transaction {
-    SolveTable.selectAll().map {
-      Solve(
-        it[SolveTable.id].value,
-        it[SolveTable.time],
-        it[SolveTable.scramble],
-        it[SolveTable.comment],
-        it[SolveTable.penalty]
+fun createSolve(
+  time: Long,
+  scramble: String,
+  penalty: Penalty,
+  comment: String,
+  sessionId: Int
+) {
+  sqlExecute(
+    """
+    INSERT INTO Solves (time, scramble, penalty, comment, session_id) VALUES (
+      $time,
+      $scramble,
+      ${penalty.name},
+      $comment,
+      $sessionId
+    );
+    """.trimIndent()
+  )
+}
+
+fun getSolveById(solveId: Int): Solve? {
+  val resultSet = sqlExecuteQuery(
+    """
+    "SELECT * FROM Solves WHERE id = $solveId"
+    """.trimIndent()
+  )
+
+  if (resultSet != null) {
+    val search: Solve
+    while (resultSet.next()) {
+      search = Solve(
+        id = resultSet.getInt("id"),
+        time = resultSet.getLong("time"),
+        scramble = resultSet.getString("scramble"),
+        penalty = Penalty.valueOf(resultSet.getString("penalty")),
+        comment = resultSet.getString("comment")
       )
+      resultSet.close()
+      return search
     }
+    resultSet.close()
   }
+
+  return null
 }
 
-fun getSolveById(id: Int): Solve? {
-  return transaction {
-    SolveTable.select { SolveTable.id eq id }.singleOrNull()?.let {
-      Solve(
-        it[SolveTable.id].value,
-        it[SolveTable.time],
-        it[SolveTable.scramble],
-        it[SolveTable.comment],
-        it[SolveTable.penalty]
-      )
-    }
-  }
+fun updateSolve(solveId: Int, updatedSolve: Solve) {
+  sqlExecute(
+    """
+    UPDATE Solves 
+    SET 
+      time = ${updatedSolve.time},
+      scramble = '${updatedSolve.scramble}',
+      penalty = '${updatedSolve.penalty.name}',
+      comment = '${updatedSolve.comment}'
+    WHERE id = $solveId;
+    """.trimIndent()
+  )
 }
 
-fun updateSolve(id: Int, nextTime: Long, nextScramble: String, nextComment: String?, nextPenalty: String) {
-  transaction {
-    SolveTable.update({ SolveTable.id eq id }) {
-      it[time] = nextTime
-      it[scramble] = nextScramble
-      it[comment] = nextComment
-      it[penalty] = nextPenalty
-    }
-  }
-}
-
-fun removeSolve(id: Int) {
-  transaction {
-    SolveTable.deleteWhere { SolveTable.id eq id }
-  }
+fun deleteSolveById(solveId: Int) {
+  sqlExecuteQuery(
+    """
+    DELETE FROM Solves WHERE id = $solveId;
+    """.trimIndent()
+  )
 }
