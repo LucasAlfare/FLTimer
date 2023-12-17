@@ -2,48 +2,31 @@ package com.lucasalfare.fltimer.core.statistics
 
 import com.lucasalfare.fltimer.core.model.Penalty
 import com.lucasalfare.fltimer.core.model.Solve
-import java.util.*
 
 fun MutableList<Solve>.best(): StatisticResult {
-  if (size > 0) {
-    var result = Long.MAX_VALUE
-    var related: UUID? = null
-    this.forEach {
-      if (it.time < result) {
-        result = it.time
-        related = it.id
-      }
-    }
-
-    return StatisticResult(
+  return if (size > 0) {
+    val bestSolve = minByOrNull { it.time }
+    StatisticResult(
       name = "best",
-      result = result,
-      related = mutableListOf(this.first { it.id == related })
+      result = bestSolve?.time ?: Long.MAX_VALUE,
+      related = bestSolve?.let { mutableListOf(it) } ?: mutableListOf()
     )
+  } else {
+    StatisticResult.dnfResult
   }
-
-  return StatisticResult.dnfResult
 }
 
 fun MutableList<Solve>.worst(): StatisticResult {
-  if (size > 0) {
-    var result = Long.MIN_VALUE
-    var related: UUID? = null
-    this.forEach {
-      if (it.time > result) {
-        result = it.time
-        related = it.id
-      }
-    }
-
-    return StatisticResult(
+  return if (size > 0) {
+    val worstSolve = maxByOrNull { it.time }
+    StatisticResult(
       name = "worst",
-      result = result,
-      related = mutableListOf(this.first { it.id == related })
+      result = worstSolve?.time ?: Long.MIN_VALUE,
+      related = worstSolve?.let { mutableListOf(it) } ?: mutableListOf()
     )
+  } else {
+    StatisticResult.dnfResult
   }
-
-  return StatisticResult.dnfResult
 }
 
 fun MutableList<Solve>.mean(): StatisticResult {
@@ -79,51 +62,31 @@ fun MutableList<Solve>.globalAverage() = calculateAverage(
 )
 
 fun MutableList<Solve>.rollingAverage(avgSize: Int): StatisticResult {
-  if (size >= avgSize) {
-    val range = this.toTypedArray().slice((size - avgSize) until (size))
-    val data = mutableListOf<Solve>()
-    range.forEach { data += it }
-    return calculateAverage(averageName = "current ao$avgSize", data = data)
+  return if (size >= avgSize) {
+    val data = subList(size - avgSize, size)
+    calculateAverage(averageName = "current ao$avgSize", data = data)
+  } else {
+    StatisticResult.dnfResult
   }
-
-  return StatisticResult.dnfResult
 }
 
 fun MutableList<Solve>.bestAverageOf(avgSize: Int): StatisticResult {
-  if (size >= avgSize) {
-    val averages = collectAverages(averageName = "best ao$avgSize", data = this, size = avgSize)
-
-    var min = Long.MAX_VALUE
-    var search = StatisticResult.notCalculatedResult
-    averages.forEach {
-      if (it.result < min) {
-        min = it.result
-        search = it
-      }
-    }
-
-    return search
+  return if (size >= avgSize) {
+    val search = collectAverages(averageName = "best ao$avgSize", data = this, size = avgSize)
+      .minByOrNull { it.result } ?: StatisticResult.notCalculatedResult
+    search
+  } else {
+    StatisticResult.dnfResult
   }
-
-  return StatisticResult.dnfResult
 }
 
 fun MutableList<Solve>.worstAverageOf(avgSize: Int): StatisticResult {
-  if (size >= avgSize) {
+  return if (size >= avgSize) {
     val id = "worst ao$avgSize"
-    val averages = collectAverages(averageName = id, data = this, size = avgSize)
-
-    var max = Long.MIN_VALUE
-    var search = StatisticResult.notCalculatedResult
-    averages.forEach {
-      if (it.result > max) {
-        max = it.result
-        search = it
-      }
-    }
-
-    return search
+    val search = collectAverages(averageName = id, data = this, size = avgSize)
+      .maxByOrNull { it.result } ?: StatisticResult.notCalculatedResult
+    search
+  } else {
+    StatisticResult.dnfResult
   }
-
-  return StatisticResult.dnfResult
 }
