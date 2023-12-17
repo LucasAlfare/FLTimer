@@ -6,6 +6,10 @@ import Solve
 import sqlExecute
 import sqlExecuteQuery
 
+/**
+ * Initializes the 'Sessions' table in the database if it doesn't already exist.
+ * The table includes columns for session information such as ID and name.
+ */
 fun initSessionsTable() {
   sqlExecute(
     """
@@ -18,6 +22,11 @@ fun initSessionsTable() {
   )
 }
 
+/**
+ * Creates a new session record in the 'Sessions' table with the provided name.
+ *
+ * @param name The name of the new session.
+ */
 fun createSession(name: String) {
   sqlExecute(
     """
@@ -26,6 +35,12 @@ fun createSession(name: String) {
   )
 }
 
+/**
+ * Retrieves a session from the 'Sessions' table based on its ID.
+ *
+ * @param sessionId The ID of the session to retrieve.
+ * @return The Session object if found, or null if not found.
+ */
 fun getSessionById(sessionId: Int): Session? {
   val resultSet = sqlExecuteQuery(
     """
@@ -49,6 +64,11 @@ fun getSessionById(sessionId: Int): Session? {
   return null
 }
 
+/**
+ * Retrieves a list of all session names from the 'Sessions' table.
+ *
+ * @return A list of session names.
+ */
 fun getAllSessionNames(): List<String> {
   val sessionNames = mutableListOf<String>()
 
@@ -62,6 +82,12 @@ fun getAllSessionNames(): List<String> {
   return sessionNames
 }
 
+/**
+ * Retrieves a list of solves associated with a specific session name.
+ *
+ * @param sessionName The name of the session to retrieve solves for.
+ * @return A list of Solve objects for the specified session, or null if not found.
+ */
 fun getAllSolvesBySessionName(sessionName: String): MutableList<Solve>? {
   val resultSet = sqlExecuteQuery(
     """
@@ -89,6 +115,12 @@ fun getAllSolvesBySessionName(sessionName: String): MutableList<Solve>? {
   return null
 }
 
+/**
+ * Updates the name of a session in the 'Sessions' table based on its ID.
+ *
+ * @param sessionId The ID of the session to update.
+ * @param updatedName The updated name for the session.
+ */
 fun updateSession(sessionId: Int, updatedName: String) {
   sqlExecute(
     """
@@ -97,6 +129,11 @@ fun updateSession(sessionId: Int, updatedName: String) {
   )
 }
 
+/**
+ * Deletes a session and all associated solves from the 'Sessions' and 'Solves' tables based on its ID.
+ *
+ * @param sessionId The ID of the session to delete.
+ */
 fun deleteSessionById(sessionId: Int) {
   sqlExecute(
     """

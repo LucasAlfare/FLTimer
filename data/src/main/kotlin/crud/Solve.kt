@@ -5,6 +5,11 @@ import Solve
 import sqlExecute
 import sqlExecuteQuery
 
+/**
+ * Initializes the 'Solves' table in the database if it doesn't already exist.
+ * The table includes columns for solve information such as time, scramble, penalty, comment,
+ * and a foreign key referencing the 'Sessions' table.
+ */
 fun initSolvesTable() {
   sqlExecute(
     """
@@ -22,6 +27,15 @@ fun initSolvesTable() {
   )
 }
 
+/**
+ * Creates a new solve record in the 'Solves' table with the provided information.
+ *
+ * @param time The time taken for the solve in milliseconds.
+ * @param scramble The scramble notation for the solve.
+ * @param penalty The penalty for the solve (ok, plus_two, dnf).
+ * @param comment Additional comments or notes about the solve.
+ * @param sessionId The ID of the session to which the solve belongs.
+ */
 fun createSolve(
   time: Long,
   scramble: String,
@@ -42,6 +56,12 @@ fun createSolve(
   )
 }
 
+/**
+ * Retrieves a solve from the 'Solves' table based on its ID.
+ *
+ * @param solveId The ID of the solve to retrieve.
+ * @return The Solve object if found, or null if not found.
+ */
 fun getSolveById(solveId: Int): Solve? {
   val resultSet = sqlExecuteQuery(
     """
@@ -68,6 +88,12 @@ fun getSolveById(solveId: Int): Solve? {
   return null
 }
 
+/**
+ * Updates the information of a solve in the 'Solves' table based on its ID.
+ *
+ * @param solveId The ID of the solve to update.
+ * @param updatedSolve The updated Solve object containing new information.
+ */
 fun updateSolve(solveId: Int, updatedSolve: Solve) {
   sqlExecute(
     """
@@ -82,6 +108,11 @@ fun updateSolve(solveId: Int, updatedSolve: Solve) {
   )
 }
 
+/**
+ * Deletes a solve from the 'Solves' table based on its ID.
+ *
+ * @param solveId The ID of the solve to delete.
+ */
 fun deleteSolveById(solveId: Int) {
   sqlExecuteQuery(
     """
