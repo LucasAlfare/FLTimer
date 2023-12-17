@@ -10,7 +10,9 @@ import com.lucasalfare.fltimer.data.SolvesTable.time
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
+import java.sql.Connection
 
 
 /**
@@ -47,7 +49,8 @@ object SolvesTable : IntIdTable("SolvesTable") {
  * @param targetUrl The URL of the target database, including the database type and file path.
  */
 fun initDatabase(targetUrl: String) {
-  Database.connect(targetUrl)
+  Database.connect(targetUrl, driver = "org.sqlite.JDBC")
+  TransactionManager.manager.defaultIsolationLevel = Connection.TRANSACTION_READ_UNCOMMITTED
   transaction {
     // Creates missing tables and columns based on the defined schema in SessionsTable and SolvesTable.
     SchemaUtils.createMissingTablesAndColumns(SessionsTable, SolvesTable)
