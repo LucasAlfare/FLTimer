@@ -49,7 +49,7 @@ object SolvesTable : LongIdTable("SolvesTable") {
  * Initializes the database with the specified target URL.
  * @param targetUrl The URL of the target database, including the database type and file path.
  */
-fun initDatabase(targetUrl: String) {
+fun initDatabase(targetUrl: String = DATABASE_URL) {
   Database.connect(targetUrl, driver = "org.sqlite.JDBC")
   TransactionManager.manager.defaultIsolationLevel = Connection.TRANSACTION_READ_UNCOMMITTED
   transaction {
