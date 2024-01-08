@@ -1,6 +1,5 @@
 package com.lucasalfare.fltimer.data
 
-import Penalty
 import com.lucasalfare.fltimer.data.SessionsTable.name
 import com.lucasalfare.fltimer.data.SolvesTable.comment
 import com.lucasalfare.fltimer.data.SolvesTable.penalty

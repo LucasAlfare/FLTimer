@@ -1,7 +1,5 @@
 package com.lucasalfare.fltimer.data
 
-import Session
-import Solve
 import com.lucasalfare.fltimer.data.Solves.toSolve
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq

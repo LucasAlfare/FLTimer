@@ -1,3 +1,5 @@
+package com.lucasalfare.fltimer.data
+
 /**
  * Enum class representing different penalty types that can be applied to a solve.
  * - [Ok]: No penalty

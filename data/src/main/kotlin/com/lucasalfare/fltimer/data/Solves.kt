@@ -1,7 +1,5 @@
 package com.lucasalfare.fltimer.data
 
-import Penalty
-import Solve
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
