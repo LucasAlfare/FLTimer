@@ -9,4 +9,5 @@ plugins {
 dependencies {
   implementation(compose.runtime)
   implementation("com.github.LucasAlfare:FLListening:v2.0")
+  implementation(project(":data"))
 }
