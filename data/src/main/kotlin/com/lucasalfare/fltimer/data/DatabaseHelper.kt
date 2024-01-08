@@ -8,6 +8,7 @@ import com.lucasalfare.fltimer.data.SolvesTable.scramble
 import com.lucasalfare.fltimer.data.SolvesTable.sessionId
 import com.lucasalfare.fltimer.data.SolvesTable.time
 import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.TransactionManager
@@ -36,7 +37,7 @@ object SessionsTable : IntIdTable("SessionsTable") {
  * @property comment Column representing additional comments or notes about a solve.
  * @property sessionId Column representing the foreign key reference to the SessionsTable.
  */
-object SolvesTable : IntIdTable("SolvesTable") {
+object SolvesTable : LongIdTable("SolvesTable") {
   val time = long("time")
   val scramble = text("scramble")
   val penalty = enumeration("penalty", Penalty::class)

@@ -46,7 +46,7 @@ object Solves {
    * @param id The ID of the solve to retrieve.
    * @return The solve with the specified ID, or null if not found.
    */
-  fun getSolveById(id: Int): Solve? {
+  fun getSolveById(id: Long): Solve? {
     return transaction {
       SolvesTable
         .select { SolvesTable.id eq id }
@@ -73,7 +73,7 @@ object Solves {
    * @param newComment The new comment or notes for the solve.
    * @return The updated solve, or null if the update was unsuccessful.
    */
-  fun updateSolveComment(id: Int, newComment: String): Solve? {
+  fun updateSolveComment(id: Long, newComment: String): Solve? {
     return transaction {
       val updatedRows = SolvesTable
         .update({ SolvesTable.id eq id }) {
@@ -94,7 +94,7 @@ object Solves {
    * @param id The ID of the solve to delete.
    * @return True if the deletion was successful, false otherwise.
    */
-  fun deleteSolve(id: Int): Boolean {
+  fun deleteSolve(id: Long): Boolean {
     return transaction {
       SolvesTable
         .deleteWhere { SolvesTable.id eq id } > 0

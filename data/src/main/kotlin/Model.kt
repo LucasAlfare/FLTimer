@@ -17,7 +17,7 @@ enum class Penalty {
  * @property comment Additional comments or notes about the solve.
  */
 data class Solve(
-  val id: Int,
+  val id: Long,
   val time: Long,
   val scramble: String,
   val penalty: Penalty,
