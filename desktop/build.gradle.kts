@@ -9,15 +9,12 @@ plugins {
 }
 
 dependencies {
-  val flBinary =
-    findProperty("lucasalfare.flbinary.version") ?: ""
 
   implementation(project(":core"))
   implementation(project(":ui"))
   implementation(compose.desktop.currentOs)
 
   implementation("com.github.LucasAlfare:FLListening:v2.0")
-  implementation("com.github.LucasAlfare:FLBinary:$flBinary")
 }
 
 compose.desktop {
