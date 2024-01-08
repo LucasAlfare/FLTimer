@@ -40,15 +40,14 @@ internal fun calculateAverage(
   averageName: String,
   data: MutableList<Solve>
 ): StatisticResult {
-  val solves = data
   //always rounds the percentile up
-  val nSkips = ceil(FivePercent * solves.size).toInt()
+  val nSkips = ceil(FivePercent * data.size).toInt()
   val nNotCountingTimes = (nSkips * 2)
 
-  if (solves.size > nNotCountingTimes) {
+  if (data.size > nNotCountingTimes) {
     val skipped = mutableListOf<Solve>()
     //sorts by time because all min times will be at beginning and max at end
-    val sortedSolves = solves.sortedBy { it.time }
+    val sortedSolves = data.sortedBy { it.time }
 
     for (i in 0 until nSkips) {
       skipped += sortedSolves[i]
@@ -58,7 +57,7 @@ internal fun calculateAverage(
     var result = 0L
     val related = mutableListOf<Solve>()
 
-    solves.forEach { s ->
+    data.forEach { s ->
       if (!skipped.any { it.id == s.id }) {
         if (s.penalty == Penalty.Dnf) {
           return StatisticResult(name = averageName, result = Long.MAX_VALUE)
@@ -71,7 +70,7 @@ internal fun calculateAverage(
 
     return StatisticResult(
       name = averageName,
-      result = result / (solves.size - nNotCountingTimes),
+      result = result / (data.size - nNotCountingTimes),
       related = related,
       skipped = skipped
     )
