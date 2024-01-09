@@ -1,4 +1,10 @@
 package com.lucasalfare.fltimer
 
-class Main {
+import com.lucasalfare.fllistening.setupManagers
+
+suspend fun main() {
+  setupManagers(
+    TimerManager(),
+    ScreenManagerTest()
+  )
 }

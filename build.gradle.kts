@@ -8,9 +8,12 @@ plugins {
 
 repositories {
   mavenCentral()
+  maven("https://jitpack.io")
 }
 
 dependencies {
+  implementation("com.github.LucasAlfare:FLListening:2.0")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
   testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 
