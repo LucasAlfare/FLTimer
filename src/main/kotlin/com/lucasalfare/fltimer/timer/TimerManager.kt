@@ -1,6 +1,8 @@
-package com.lucasalfare.fltimer
+package com.lucasalfare.fltimer.timer
 
 import com.lucasalfare.fllistening.EventManageable
+import com.lucasalfare.fltimer.Event
+import com.lucasalfare.fltimer.getCurrentTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -28,8 +30,6 @@ class TimerManager : EventManageable() {
     }
 
     if (event == Event.TimerToggleDown) {
-      println("toggle DOWN received...")
-
       if (currentState == TimerState.Running) {
         endTime = data as Long
         if (endTime - startTime >= 250) {
@@ -39,8 +39,6 @@ class TimerManager : EventManageable() {
     }
 
     if (event == Event.TimerToggleUp) {
-      println("toggle UP received...")
-
       if (currentState == TimerState.ReadyForInspection) {
         if (getCurrentTime() - endTime >= 250) {
           startInspection()
