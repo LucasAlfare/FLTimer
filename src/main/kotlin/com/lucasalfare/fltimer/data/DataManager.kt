@@ -12,6 +12,7 @@ class DataManager : EventManageable() {
     if (event == Event.TimerFinish) {
       val solveTime = data as Long
       Solves.create(time = solveTime)
+      println(Solves.getAll())
     }
   }
 }

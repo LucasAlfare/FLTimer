@@ -6,5 +6,8 @@ enum class Event {
   TimerToggleUp,
   TimerFinish,
   TimerInspectionUpdate,
-  TimerSolveUpdate
+  TimerSolveUpdate,
+  TimerPreReady,
+  ScrambleGenerated,
+  RequestScrambleGenerated
 }

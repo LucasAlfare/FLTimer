@@ -25,6 +25,8 @@ object Solves {
     tmpSolves += nextSolve
   }
 
+  fun getAll() = tmpSolves
+
   fun getById(id: Long) = tmpSolves.find { it.id == id }
 
   fun update(

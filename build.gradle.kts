@@ -12,10 +12,18 @@ repositories {
 }
 
 dependencies {
+  // lib to help build decoupled code parts. those parts
+  // will not to communicate directly, only fire events
+  // which other will listen to.
   implementation("com.github.LucasAlfare:FLListening:2.0")
+
+  // dependency to listen key and/or mouse without GUI
+  // used when implementing fltimer in a console/terminal.
+  implementation("com.1stleg:jnativehook:2.0.2")
+
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
   implementation("com.github.ajalt.clikt:clikt:4.2.2")
-  implementation("com.1stleg:jnativehook:2.0.2")
+
   testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 

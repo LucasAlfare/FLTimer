@@ -72,6 +72,8 @@ class MyTerminal(
   }
 }
 
+// TODO: this must be deprecated and untouched until we find a way to detect
+// TODO: "terminal" window state changes, such as "minimize" and "un-minimize".
 class TerminalManager : EventManageable() {
 
   private lateinit var myTerminal: MyTerminal

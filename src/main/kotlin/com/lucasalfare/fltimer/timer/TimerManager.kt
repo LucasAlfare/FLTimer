@@ -8,6 +8,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+
+private const val LONG_PRESS_TIME = 250
+
 class TimerManager : EventManageable() {
 
   private var repeater: Job? = null
@@ -32,7 +35,7 @@ class TimerManager : EventManageable() {
     if (event == Event.TimerToggleDown) {
       if (currentState == TimerState.Running) {
         endTime = data as Long
-        if (endTime - startTime >= 250) {
+        if (endTime - startTime >= LONG_PRESS_TIME) {
           stopSolve()
         }
       }
@@ -42,15 +45,14 @@ class TimerManager : EventManageable() {
       if (currentState == TimerState.ReadyForInspection) {
         if (getCurrentTime() - endTime >= 250) {
           startInspection()
-          currentState = TimerState.Ready
         }
       } else if (currentState == TimerState.Ready) {
-        if (getCurrentTime() - endTime >= 250) {
+        if (getCurrentTime() - endTime >= LONG_PRESS_TIME) {
           startTime = data as Long
           startSolve()
-          currentState = TimerState.Running
         }
       } else if (currentState == TimerState.Finished) {
+        notifyListeners(Event.TimerPreReady)
         currentState = if (inspectionEnabled) TimerState.ReadyForInspection else TimerState.Ready
       }
     }
@@ -62,13 +64,11 @@ class TimerManager : EventManageable() {
       repeater = null
     }
 
+    currentState = TimerState.Ready
+
     var counter = 15
     repeater = asyncRoutine(delayTime = 1000L) {
-      if (counter >= 0) {
-        notifyListeners(event = Event.TimerInspectionUpdate, data = counter--)
-      } else {
-        // notify DNF penalty...
-      }
+      notifyListeners(event = Event.TimerInspectionUpdate, data = if (counter > 0) counter-- else 0)
     }
   }
 
@@ -77,6 +77,8 @@ class TimerManager : EventManageable() {
       repeater!!.cancel()
       repeater = null
     }
+
+    currentState = TimerState.Running
 
     repeater = asyncRoutine {
       notifyListeners(event = Event.TimerSolveUpdate, getCurrentTime() - startTime)
@@ -97,11 +99,11 @@ private enum class TimerState {
   Finished,
 }
 
-private val AuxCoroutineScope = CoroutineScope(Job())
+private val auxCoroutineScope = CoroutineScope(Job())
 fun asyncRoutine(
   delayTime: Long = 1L,
   callback: () -> Unit
-) = AuxCoroutineScope.launch {
+) = auxCoroutineScope.launch {
   while (true) {
     callback()
     delay(delayTime)
