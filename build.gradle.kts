@@ -24,6 +24,18 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
   implementation("com.github.ajalt.clikt:clikt:4.2.2")
 
+  // isso aqui serve apenas para gerar os logs da engine do servidor...
+  implementation("ch.qos.logback:logback-classic:1.4.12")
+
+  // Dependencies for database manipulation
+  implementation("org.jetbrains.exposed:exposed-core:0.45.0")
+  implementation("org.jetbrains.exposed:exposed-jdbc:0.45.0")
+  /*
+  Database.connect("jdbc:sqlite:/data/data.db", "org.sqlite.JDBC")
+  TransactionManager.manager.defaultIsolationLevel = Connection.TRANSACTION_SERIALIZABLE
+   */
+  implementation("org.xerial:sqlite-jdbc:3.44.1.0")
+
   testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 

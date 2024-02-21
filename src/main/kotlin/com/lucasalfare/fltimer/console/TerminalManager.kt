@@ -1,7 +1,7 @@
 package com.lucasalfare.fltimer.console
 
 import com.lucasalfare.fllistening.EventManageable
-import com.lucasalfare.fltimer.Event
+import com.lucasalfare.fltimer.TimerEvent
 import com.lucasalfare.fltimer.getCurrentTime
 import com.lucasalfare.fltimer.toTimestamp
 import org.jnativehook.GlobalScreen
@@ -81,10 +81,10 @@ class TerminalManager : EventManageable() {
   override suspend fun initialize() {
     myTerminal = MyTerminal(
       onEventUp = {
-        this.notifyListeners(Event.TimerToggleUp, getCurrentTime())
+        this.notifyListeners(TimerEvent.TimerToggleUp, getCurrentTime())
       },
       onEventDown = {
-        this.notifyListeners(Event.TimerToggleDown, getCurrentTime())
+        this.notifyListeners(TimerEvent.TimerToggleDown, getCurrentTime())
       }
     )
 
@@ -92,7 +92,7 @@ class TerminalManager : EventManageable() {
   }
 
   override fun onEvent(event: Any, data: Any?) {
-    if (event == Event.TimerSolveUpdate) {
+    if (event == TimerEvent.TimerSolveUpdate) {
       myTerminal.render((data as Long).toTimestamp())
     }
   }

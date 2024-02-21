@@ -1,7 +1,7 @@
 package com.lucasalfare.fltimer.timer
 
 import com.lucasalfare.fllistening.EventManageable
-import com.lucasalfare.fltimer.Event
+import com.lucasalfare.fltimer.TimerEvent
 import com.lucasalfare.fltimer.getCurrentTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -24,7 +24,7 @@ class TimerManager : EventManageable() {
   }
 
   override fun onEvent(event: Any, data: Any?) {
-    if (event == Event.TimerToggleInspection) {
+    if (event == TimerEvent.TimerToggleInspection) {
       inspectionEnabled = !inspectionEnabled
       currentState =
         if (inspectionEnabled)
@@ -32,7 +32,7 @@ class TimerManager : EventManageable() {
         else TimerState.Ready
     }
 
-    if (event == Event.TimerToggleDown) {
+    if (event == TimerEvent.TimerToggleDown) {
       if (currentState == TimerState.Running) {
         endTime = data as Long
         if (endTime - startTime >= LONG_PRESS_TIME) {
@@ -41,7 +41,7 @@ class TimerManager : EventManageable() {
       }
     }
 
-    if (event == Event.TimerToggleUp) {
+    if (event == TimerEvent.TimerToggleUp) {
       if (currentState == TimerState.ReadyForInspection) {
         if (getCurrentTime() - endTime >= 250) {
           startInspection()
@@ -52,7 +52,7 @@ class TimerManager : EventManageable() {
           startSolve()
         }
       } else if (currentState == TimerState.Finished) {
-        notifyListeners(Event.TimerPreReady)
+        notifyListeners(TimerEvent.TimerReady)
         currentState = if (inspectionEnabled) TimerState.ReadyForInspection else TimerState.Ready
       }
     }
@@ -68,7 +68,7 @@ class TimerManager : EventManageable() {
 
     var counter = 15
     repeater = asyncRoutine(delayTime = 1000L) {
-      notifyListeners(event = Event.TimerInspectionUpdate, data = if (counter > 0) counter-- else 0)
+      notifyListeners(event = TimerEvent.TimerInspectionUpdate, data = if (counter > 0) counter-- else 0)
     }
   }
 
@@ -81,13 +81,13 @@ class TimerManager : EventManageable() {
     currentState = TimerState.Running
 
     repeater = asyncRoutine {
-      notifyListeners(event = Event.TimerSolveUpdate, getCurrentTime() - startTime)
+      notifyListeners(event = TimerEvent.TimerSolveUpdate, getCurrentTime() - startTime)
     }
   }
 
   private fun stopSolve() {
     repeater!!.cancel()
-    notifyListeners(Event.TimerFinish, data = endTime - startTime)
+    notifyListeners(TimerEvent.TimerFinish, data = endTime - startTime)
     currentState = TimerState.Finished
   }
 }

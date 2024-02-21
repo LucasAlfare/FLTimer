@@ -1,13 +1,18 @@
 package com.lucasalfare.fltimer.model
 
+class Preferences {
+  companion object {
+    enum class UiTheme {
+      Light, Dark
+    }
+  }
+}
+
+enum class PuzzleCategory {
+  RubiksCube,
+  PocketCube
+}
+
 enum class Penalty {
   Ok, PlusTwo, Dnf
 }
-
-data class Solve(
-  val id: Long,
-  var time: Long = 0L,
-  var scramble: String = "",
-  var penalty: Penalty = Penalty.Ok,
-  var comment: String = ""
-)

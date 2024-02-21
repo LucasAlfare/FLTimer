@@ -1,13 +1,16 @@
 package com.lucasalfare.fltimer
 
-enum class Event {
+enum class TimerEvent {
   TimerToggleInspection,
+  TimerInspectionUpdate,
+
   TimerToggleDown,
   TimerToggleUp,
+
   TimerFinish,
-  TimerInspectionUpdate,
   TimerSolveUpdate,
-  TimerPreReady,
+  TimerReady,
+
   ScrambleGenerated,
   RequestScrambleGenerated
 }

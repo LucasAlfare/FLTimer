@@ -1,7 +1,7 @@
 package com.lucasalfare.fltimer.scramble
 
 import com.lucasalfare.fllistening.EventManageable
-import com.lucasalfare.fltimer.Event
+import com.lucasalfare.fltimer.TimerEvent
 import com.lucasalfare.fltimer.scramble.scramblers.getFreeRubiksCubeScramble
 
 class ScrambleManager : EventManageable() {
@@ -11,7 +11,7 @@ class ScrambleManager : EventManageable() {
 
   override suspend fun initialize() {
     notifyListeners(
-      event = Event.ScrambleGenerated,
+      event = TimerEvent.ScrambleGenerated,
       data = arrayOf(lastScramble, currentScramble)
     )
 
@@ -26,20 +26,20 @@ class ScrambleManager : EventManageable() {
 
   override fun onEvent(event: Any, data: Any?) {
     when (event) {
-      Event.RequestScrambleGenerated -> {
+      TimerEvent.RequestScrambleGenerated -> {
         notifyListeners(
-          event = Event.ScrambleGenerated,
+          event = TimerEvent.ScrambleGenerated,
           data = arrayOf(lastScramble, currentScramble)
         )
       }
 
-      Event.TimerFinish -> {
+      TimerEvent.TimerFinish -> {
         genScramble()
       }
 
-      Event.TimerPreReady -> { //only propagates the scrambles when timer says READY
+      TimerEvent.TimerReady -> { //only propagates the scrambles when timer says READY
         notifyListeners(
-          event = Event.ScrambleGenerated,
+          event = TimerEvent.ScrambleGenerated,
           data = arrayOf(lastScramble, currentScramble)
         )
 
