@@ -3,11 +3,11 @@ package com.lucasalfare.fltimer.data
 import com.lucasalfare.fltimer.model.Penalty
 import com.lucasalfare.fltimer.model.Preferences
 import com.lucasalfare.fltimer.model.PuzzleCategory
-import org.jetbrains.exposed.dao.id.IntIdTable
+import org.jetbrains.exposed.dao.id.LongIdTable
 
 private const val DEFAULT_SESSION_NAME = "Default"
 
-object PreferencesTable : IntIdTable("Preferences") {
+object PreferencesTable : LongIdTable("Preferences") {
 
   var useInspection = bool("use_inspection")
     .default(false)
@@ -17,7 +17,7 @@ object PreferencesTable : IntIdTable("Preferences") {
     .default(Preferences.Companion.UiTheme.Dark)
 }
 
-object SessionsTable : IntIdTable("Sessions") {
+object SessionsTable : LongIdTable("Sessions") {
 
   var name = text("name")
     .uniqueIndex()
@@ -26,7 +26,7 @@ object SessionsTable : IntIdTable("Sessions") {
     .default(PuzzleCategory.RubiksCube)
 }
 
-object SolvesTables : IntIdTable("solves") {
+object SolvesTables : LongIdTable("solves") {
 
   var time = long("time")
     .default(0L)
