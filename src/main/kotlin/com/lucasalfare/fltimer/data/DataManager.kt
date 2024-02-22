@@ -2,9 +2,20 @@ package com.lucasalfare.fltimer.data
 
 import com.lucasalfare.fllistening.EventManageable
 import com.lucasalfare.fltimer.TimerEvent
+import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 
 class DataManager : EventManageable() {
   override suspend fun initialize() {
+    Database.connect("jdbc:sqlite:/data/data.db", "org.sqlite.JDBC")
+
+    newSuspendedTransaction {
+      SchemaUtils.createMissingTablesAndColumns(
+        SessionsTable, SolvesTable
+      )
+    }
+
     initialized = true
   }
 

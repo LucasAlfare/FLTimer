@@ -26,7 +26,7 @@ object SessionsTable : LongIdTable("Sessions") {
     .default(PuzzleCategory.RubiksCube)
 }
 
-object SolvesTables : LongIdTable("solves") {
+object SolvesTable : LongIdTable("solves") {
 
   var time = long("time")
     .default(0L)
