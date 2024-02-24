@@ -5,7 +5,7 @@ import com.lucasalfare.fltimer.model.Preferences
 import com.lucasalfare.fltimer.model.PuzzleCategory
 import org.jetbrains.exposed.dao.id.LongIdTable
 
-private const val DEFAULT_SESSION_NAME = "Default"
+const val DEFAULT_SESSION_NAME = "Default"
 
 object PreferencesTable : LongIdTable("Preferences") {
 

@@ -6,11 +6,11 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 
+lateinit var currentDatasource: Database
+
 class DataManager : EventManageable() {
   override suspend fun initialize() {
-    Database.connect("jdbc:sqlite:/data/data.db", "org.sqlite.JDBC")
-
-    newSuspendedTransaction {
+    newSuspendedTransaction(db = Database.connect(Datasource.getDatasource())) {
       SchemaUtils.createMissingTablesAndColumns(
         SessionsTable, SolvesTable
       )

@@ -15,7 +15,7 @@ object Solves {
     comment: String = "",
     targetSession: String
   ) {
-    transaction {
+    transaction((Database.connect(Datasource.getDatasource()))) {
       SolvesTable.insert {
         it[SolvesTable.time] = time
         it[SolvesTable.scramble] = scramble
@@ -27,21 +27,21 @@ object Solves {
   }
 
   fun getBySessionName(sessionName: String): List<Solve> {
-    return transaction {
+    return transaction((Database.connect(Datasource.getDatasource()))) {
       SolvesTable.select { SolvesTable.sessionName eq sessionName }
         .map { rowToSolve(it) }
     }
   }
 
   fun getByPenalty(penalty: Penalty): List<Solve> {
-    return transaction {
+    return transaction((Database.connect(Datasource.getDatasource()))) {
       SolvesTable.select { SolvesTable.penalty eq penalty }
         .map { rowToSolve(it) }
     }
   }
 
   fun getByComment(comment: String): List<Solve> {
-    return transaction {
+    return transaction((Database.connect(Datasource.getDatasource()))) {
       SolvesTable.select { SolvesTable.comment eq comment }
         .map { rowToSolve(it) }
     }
@@ -56,7 +56,7 @@ object Solves {
     penalty: Penalty? = null,
     comment: String? = null
   ) {
-    transaction {
+    transaction((Database.connect(Datasource.getDatasource()))) {
       SolvesTable.update({ SolvesTable.id eq targetSolveId }) {
         time?.let { updatingValue -> it[SolvesTable.time] = updatingValue }
         scramble?.let { updatingValue -> it[SolvesTable.scramble] = updatingValue }
@@ -67,13 +67,13 @@ object Solves {
   }
 
   fun deleteById(id: Long) {
-    transaction {
+    transaction((Database.connect(Datasource.getDatasource()))) {
       SolvesTable.deleteWhere { SolvesTable.id eq id }
     }
   }
 
   fun deleteByPenalty(penalty: Penalty) {
-    transaction {
+    transaction((Database.connect(Datasource.getDatasource()))) {
       SolvesTable.deleteWhere { SolvesTable.penalty eq penalty }
     }
   }

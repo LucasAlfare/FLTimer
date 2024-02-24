@@ -35,6 +35,7 @@ dependencies {
   TransactionManager.manager.defaultIsolationLevel = Connection.TRANSACTION_SERIALIZABLE
    */
   implementation("org.xerial:sqlite-jdbc:3.44.1.0")
+  implementation("com.zaxxer:HikariCP:5.1.0")
 
   testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
