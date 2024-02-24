@@ -6,8 +6,6 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 
-lateinit var currentDatasource: Database
-
 class DataManager : EventManageable() {
   override suspend fun initialize() {
     newSuspendedTransaction(db = Database.connect(Datasource.getDatasource())) {
@@ -24,7 +22,7 @@ class DataManager : EventManageable() {
    *
    * - Inspection finish;
    * - Timer finish;
-   * - SolvesDataModify;
+   * - SolvesDataModify (CRUD operation of the tables);
    * - Scramble generated;
    * - Preference update;
    */
