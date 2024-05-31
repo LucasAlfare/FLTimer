@@ -2,7 +2,7 @@ group = "com.lucasalfare.fltimer"
 version = "1.0"
 
 plugins {
-  kotlin("jvm") version "1.9.21"
+  kotlin("jvm") version "2.0.0"
   application
 }
 
@@ -28,13 +28,13 @@ dependencies {
   implementation("ch.qos.logback:logback-classic:1.4.12")
 
   // Dependencies for database manipulation
-  implementation("org.jetbrains.exposed:exposed-core:0.45.0")
-  implementation("org.jetbrains.exposed:exposed-jdbc:0.45.0")
+  implementation("org.jetbrains.exposed:exposed-core:0.48.0")
+  implementation("org.jetbrains.exposed:exposed-jdbc:0.48.0")
   /*
   Database.connect("jdbc:sqlite:/data/data.db", "org.sqlite.JDBC")
   TransactionManager.manager.defaultIsolationLevel = Connection.TRANSACTION_SERIALIZABLE
    */
-  implementation("org.xerial:sqlite-jdbc:3.44.1.0")
+  implementation("org.xerial:sqlite-jdbc:3.45.2.0")
   implementation("com.zaxxer:HikariCP:5.1.0")
 
   testImplementation("org.jetbrains.kotlin:kotlin-test")
@@ -61,5 +61,5 @@ tasks.withType<Jar> {
  * Task used to re-generate wrappers, if needed.
  */
 tasks.withType<Wrapper> {
-  gradleVersion = "7.6.1"
+  gradleVersion = "8.5"
 }

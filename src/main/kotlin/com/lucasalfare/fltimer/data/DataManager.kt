@@ -2,13 +2,12 @@ package com.lucasalfare.fltimer.data
 
 import com.lucasalfare.fllistening.EventManageable
 import com.lucasalfare.fltimer.TimerEvent
-import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 
 class DataManager : EventManageable() {
   override suspend fun initialize() {
-    newSuspendedTransaction(db = Database.connect(Datasource.getDatasource())) {
+    newSuspendedTransaction(db = Datasource.DB) {
       SchemaUtils.createMissingTablesAndColumns(
         SessionsTable, SolvesTable
       )
@@ -28,6 +27,7 @@ class DataManager : EventManageable() {
    */
   override fun onEvent(event: Any, data: Any?) {
     if (event == TimerEvent.TimerFinish) {
+      // here we assume that scramble and penalty was previously received; if not, define then as defaults.
       val solveTime = data as Long
     }
   }

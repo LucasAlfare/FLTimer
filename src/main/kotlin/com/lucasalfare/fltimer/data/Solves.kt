@@ -15,7 +15,7 @@ object Solves {
     comment: String = "",
     targetSession: String
   ) {
-    transaction((Database.connect(Datasource.getDatasource()))) {
+    transaction(Datasource.DB) {
       SolvesTable.insert {
         it[SolvesTable.time] = time
         it[SolvesTable.scramble] = scramble
@@ -27,21 +27,21 @@ object Solves {
   }
 
   fun getBySessionName(sessionName: String): List<Solve> {
-    return transaction((Database.connect(Datasource.getDatasource()))) {
+    return transaction(Datasource.DB) {
       SolvesTable.select { SolvesTable.sessionName eq sessionName }
         .map { rowToSolve(it) }
     }
   }
 
   fun getByPenalty(penalty: Penalty): List<Solve> {
-    return transaction((Database.connect(Datasource.getDatasource()))) {
+    return transaction(Datasource.DB) {
       SolvesTable.select { SolvesTable.penalty eq penalty }
         .map { rowToSolve(it) }
     }
   }
 
   fun getByComment(comment: String): List<Solve> {
-    return transaction((Database.connect(Datasource.getDatasource()))) {
+    return transaction(Datasource.DB) {
       SolvesTable.select { SolvesTable.comment eq comment }
         .map { rowToSolve(it) }
     }
@@ -56,7 +56,7 @@ object Solves {
     penalty: Penalty? = null,
     comment: String? = null
   ) {
-    transaction((Database.connect(Datasource.getDatasource()))) {
+    transaction(Datasource.DB) {
       SolvesTable.update({ SolvesTable.id eq targetSolveId }) {
         time?.let { updatingValue -> it[SolvesTable.time] = updatingValue }
         scramble?.let { updatingValue -> it[SolvesTable.scramble] = updatingValue }
@@ -67,13 +67,13 @@ object Solves {
   }
 
   fun deleteById(id: Long) {
-    transaction((Database.connect(Datasource.getDatasource()))) {
+    transaction(Datasource.DB) {
       SolvesTable.deleteWhere { SolvesTable.id eq id }
     }
   }
 
   fun deleteByPenalty(penalty: Penalty) {
-    transaction((Database.connect(Datasource.getDatasource()))) {
+    transaction(Datasource.DB) {
       SolvesTable.deleteWhere { SolvesTable.penalty eq penalty }
     }
   }

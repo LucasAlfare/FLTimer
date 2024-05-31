@@ -13,7 +13,7 @@ object Sessions {
   }
 
   fun create(name: String, category: PuzzleCategory) {
-    transaction(Database.connect(Datasource.getDatasource())) {
+    transaction(Datasource.DB) {
       SessionsTable.insertIgnore {
         it[SessionsTable.name] = name
         it[SessionsTable.puzzleCategory] = category
@@ -21,7 +21,7 @@ object Sessions {
     }
   }
 
-  fun getAll() = transaction(Database.connect(Datasource.getDatasource())) {
+  fun getAll() = transaction(Datasource.DB) {
     SessionsTable.selectAll().map {
       Session(
         it[SessionsTable.id].value,
@@ -31,7 +31,7 @@ object Sessions {
     }
   }
 
-  fun getByName(name: String) = transaction((Database.connect(Datasource.getDatasource()))) {
+  fun getByName(name: String) = transaction((Datasource.DB)) {
     SessionsTable.select { SessionsTable.name eq name }.map {
       Session(
         it[SessionsTable.id].value,
@@ -42,14 +42,14 @@ object Sessions {
   }
 
   fun deleteByName(name: String) {
-    transaction((Database.connect(Datasource.getDatasource()))) {
+    transaction((Datasource.DB)) {
       SolvesTable.deleteWhere { SolvesTable.sessionName eq name }
       SessionsTable.deleteWhere { SessionsTable.name eq name }
     }
   }
 
   fun deleteAllSolvesOfSessionByName(targetSessionNameToClear: String) {
-    transaction((Database.connect(Datasource.getDatasource()))) {
+    transaction((Datasource.DB)) {
       SolvesTable.deleteWhere { SolvesTable.sessionName eq targetSessionNameToClear }
     }
   }
