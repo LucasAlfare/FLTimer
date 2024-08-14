@@ -60,7 +60,7 @@ private class MySwingScreen(
   private fun startStateObserverCoroutine() {
     CoroutineScope(Job()).launch {
       while (true) {
-        display.text = timerService.timer.appDataState.timerCurrentDisplayTime.toTimestamp()
+        display.text = timerService.timer.appDataState.timerCurrentCountingTime.toTimestamp()
       }
     }
   }

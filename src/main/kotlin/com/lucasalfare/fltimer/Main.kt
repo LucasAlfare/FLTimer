@@ -12,7 +12,7 @@ import com.lucasalfare.fltimer.c_infra.ui.swing.MySwingScreenLauncher
 
 object DummyState : AppDataState {
   private var _timerState: TimerState = TimerState.Ready
-  private var _timerElapsedTime: Long = 0L
+  private var _timerCurrentCountingTime: Long = 0L
   private var _startInspectionMoment: Long = 0L
   private var _stopInspectionMoment: Long = 0L
   private var _startMoment: Long = 0L
@@ -27,10 +27,10 @@ object DummyState : AppDataState {
       _timerState = value
     }
 
-  override var timerCurrentDisplayTime: Long
-    get() = _timerElapsedTime
+  override var timerCurrentCountingTime: Long
+    get() = _timerCurrentCountingTime
     set(value) {
-      _timerElapsedTime = value
+      _timerCurrentCountingTime = value
     }
 
   override var startInspectionMoment: Long

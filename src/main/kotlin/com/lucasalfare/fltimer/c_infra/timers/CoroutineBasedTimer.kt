@@ -9,7 +9,10 @@ import kotlinx.coroutines.launch
 
 class CoroutineBasedTimer(override var appDataState: AppDataState) : Timer {
 
+  // holds a reference to the Job that are repeating things
   private var repeater: Job? = null
+
+  // a fixed scope to be used in the above repeater
   private val auxScope = CoroutineScope(Job())
 
   override suspend fun startInspection() {
@@ -24,7 +27,7 @@ class CoroutineBasedTimer(override var appDataState: AppDataState) : Timer {
     println("${this.javaClass.simpleName} timer is started.")
 
     repeater = asyncRoutine {
-      appDataState.timerCurrentDisplayTime =
+      appDataState.timerCurrentCountingTime =
         System.currentTimeMillis() - appDataState.startMoment
     }
   }
@@ -32,7 +35,7 @@ class CoroutineBasedTimer(override var appDataState: AppDataState) : Timer {
   override suspend fun stopTimer() {
     println("${this.javaClass.simpleName} timer is stoped.")
 
-    appDataState.timerCurrentDisplayTime =
+    appDataState.timerCurrentCountingTime =
       appDataState.stopMoment - appDataState.startMoment
 
     repeater!!.cancel()
