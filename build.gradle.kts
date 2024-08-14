@@ -1,5 +1,9 @@
+@file:Suppress("PropertyName")
+
 group = "com.lucasalfare.fltimer"
 version = "1.0"
+
+val exposed_version: String by project
 
 plugins {
   kotlin("jvm") version "2.0.0"
@@ -12,31 +16,21 @@ repositories {
 }
 
 dependencies {
-  // lib to help build decoupled code parts. those parts
-  // will not to communicate directly, only fire events
-  // which other will listen to.
-  implementation("com.github.LucasAlfare:FLListening:2.0")
-
   // dependency to listen key and/or mouse without GUI
   // used when implementing fltimer in a console/terminal.
   implementation("com.1stleg:jnativehook:2.0.2")
 
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-  implementation("com.github.ajalt.clikt:clikt:4.2.2")
-
-  // isso aqui serve apenas para gerar os logs da engine do servidor...
-  implementation("ch.qos.logback:logback-classic:1.4.12")
-
-  // Dependencies for database manipulation
-  implementation("org.jetbrains.exposed:exposed-core:0.48.0")
-  implementation("org.jetbrains.exposed:exposed-jdbc:0.48.0")
   /*
+  -> Dependencies for database manipulation
   Database.connect("jdbc:sqlite:/data/data.db", "org.sqlite.JDBC")
   TransactionManager.manager.defaultIsolationLevel = Connection.TRANSACTION_SERIALIZABLE
    */
-  implementation("org.xerial:sqlite-jdbc:3.45.2.0")
-  implementation("com.zaxxer:HikariCP:5.1.0")
+  implementation("org.xerial:sqlite-jdbc:3.46.0.1")
+  implementation("org.jetbrains.exposed:exposed-core:$exposed_version")
+  implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
 
+//  implementation("ch.qos.logback:logback-classic")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
   testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 
@@ -50,7 +44,7 @@ kotlin {
 
 tasks.withType<Jar> {
   manifest {
-    attributes["Main-Class"] = "com.lucasalfare.fltimer.MainKt"
+    attributes["Main-Class"] = application.mainClass
   }
 
   duplicatesStrategy = DuplicatesStrategy.EXCLUDE
