@@ -12,6 +12,7 @@ class SolvesService(
   override suspend fun onEvent(event: String, data: Any?) {
     if (event == "timer-finish") {
       createSolve()
+      appState.allSolves = getAllSolves()
     }
   }
 
