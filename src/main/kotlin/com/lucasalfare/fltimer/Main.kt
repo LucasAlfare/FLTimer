@@ -97,14 +97,10 @@ class DummyTimer(override var appDataState: AppDataState) : Timer {
 fun main() {
   val currentUsedAppState = DummyState
   val currentTimer = CoroutineBasedTimer(currentUsedAppState)
-
   val solvesService = SolvesService(DummySolvesRepository, currentUsedAppState)
-  val timerService = TimerService(currentTimer) {
-    solvesService.createSolve()
-    solvesService.getAllSolves().forEach { println(it) }
-  }
-
+  val timerService = TimerService(currentTimer)
   val screen = MySwingScreenLauncher(timerService)
 
+  timerService.addListener(solvesService)
   screen.launch()
 }

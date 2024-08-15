@@ -1,14 +1,22 @@
 package com.lucasalfare.fltimer.b_usecase
 
 import com.lucasalfare.fltimer.a_domain.AppDataState
+import com.lucasalfare.fltimer.a_domain.Listener
 import com.lucasalfare.fltimer.a_domain.repository.SolvesRepository
 
 class SolvesService(
   private var solvesRepository: SolvesRepository,
   private var appState: AppDataState
-) {
+) : Listener {
+
+  override suspend fun onEvent(event: String, data: Any?) {
+    if (event == "timer-finish") {
+      createSolve()
+    }
+  }
+
   // we create solves based on what we have in the state
-  suspend fun createSolve() {
+  private suspend fun createSolve() {
     solvesRepository.create(
       time = appState.stopMoment - appState.startMoment,
       scramble = appState.scramble,
@@ -17,5 +25,5 @@ class SolvesService(
     )
   }
 
-  suspend fun getAllSolves() = solvesRepository.getAll()
+  private suspend fun getAllSolves() = solvesRepository.getAll()
 }

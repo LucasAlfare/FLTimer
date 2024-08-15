@@ -1,12 +1,12 @@
 package com.lucasalfare.fltimer.b_usecase
 
+import com.lucasalfare.fltimer.a_domain.Listenable
 import com.lucasalfare.fltimer.a_domain.Timer
 import com.lucasalfare.fltimer.a_domain.TimerState
 
 class TimerService(
-  var timer: Timer,
-  var onTimerFinish: suspend () -> Unit = {}
-) {
+  var timer: Timer
+) : Listenable() {
 
   suspend fun onToggleDown(moment: Long = System.currentTimeMillis()) {
     when (timer.appDataState.timerState) {
@@ -33,8 +33,8 @@ class TimerService(
       }
 
       TimerState.Finished -> {
-        onTimerFinish()
         timer.appDataState.timerState = TimerState.Ready
+        notifyListeners("timer-finish")
       }
 
       else -> {}
