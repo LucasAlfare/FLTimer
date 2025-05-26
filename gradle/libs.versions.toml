@@ -1,0 +1,19 @@
+[versions]
+kotlin = "2.1.20"
+exposed = "0.61.0"
+h2 = "2.3.232"
+sqlite = "3.49.1.0"
+logback = "1.5.17"
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+[libraries]
+exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+
+h2 = { module = "com.h2database:h2", version.ref = "h2" }
+sqlite = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite" }
+
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
